@@ -23,7 +23,7 @@
 | --- | --- |
 | 단계 | 구현 중 |
 | 마지막 갱신 | 2026-08-25 |
-| 구현 진행률 | 0 / 13 ("구현 순서" 참고) |
+| 구현 진행률 | 1 / 13 ("구현 순서" 참고) |
 
 ## 설계
 
@@ -181,7 +181,8 @@ AI가 먼저 답을 내놓으면 계획서는 완성되지만 목적은 달성�
 
 ## 구현 순서
 
-- [ ] **1. 저장소 및 플러그인 골격** — git 초기화, `.claude-plugin/plugin.json`, `README.md`, `CLAUDE.md`(커밋 규칙과 계획서 경로 규칙), `.gitignore`를 만든다. 완료 판정: `plugin.json`이 유효한 JSON이고 `name`이 kebab-case다.
+- [x] **1. 저장소 및 플러그인 골격** — git 초기화, `.claude-plugin/plugin.json`, `README.md`, `CLAUDE.md`(커밋 규칙과 계획서 경로 규칙), `.gitignore`를 만든다. 완료 판정: `plugin.json`이 유효한 JSON이고 `name`이 kebab-case다.
+  - 기록: 빈 폴더에서 시작했으므로 git 저장소를 새로 만들고, 커밋 규칙과 계획서 경로를 `CLAUDE.md`에 명시해 이후 스킬이 참조할 수 있게 했다.
 - [ ] **2. 계획서 규격과 양식 작성** — `shared/`에 `plan-format.md`, `plan-template.md`, `check_plan_format.py`를 만든다. 완료 판정: 이 계획서 자체를 검사 스크립트에 넣어 통과한다.
 - [ ] **3. `create-plan` 골격 생성** — frontmatter(name, description 초안)와 섹션 목차만 넣는다. 완료 판정: 플러그인 로드 시 스킬 목록에 이름이 보인다.
 - [ ] **4. 섹션 기준 문서 작성** — `references/sections.md`에 섹션별 작성 기준, 통과 조건, 분량 기준, 기각한 대안을 남기는 방식을 적는다.
