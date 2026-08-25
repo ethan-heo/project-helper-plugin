@@ -1,0 +1,9 @@
+{
+  "name": "project-helper",
+  "version": "0.1.0",
+  "description": "기술적 문제의 해법을 사용자가 직접 설계하도록 돕고, 그 계획서대로 구현하고 검증하는 세 스킬",
+  "author": {
+    "name": "ethan"
+  },
+  "keywords": ["planning", "implementation", "verification"]
+}
