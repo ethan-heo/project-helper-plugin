@@ -4,7 +4,7 @@
 
 **목표** — 세 스킬의 이름을 한 세트로 묶어 서로 관련된 것임이 이름만 봐도 드러나게 한다.
 
-**배경** — `create-plan`, `implement`, `verify`는 각각은 말이 되지만 셋이 한 흐름이라는 것이 이름에 드러나지 않는다. `implement`와 `verify`는 특히 일반적이어서 다른 플러그인의 스킬과 헷갈릴 여지도 있다.
+**배경** — `plan-create`, `plan-implement`, `plan-verify`는 각각은 말이 되지만 셋이 한 흐름이라는 것이 이름에 드러나지 않는다. `plan-implement`와 `plan-verify`는 특히 일반적이어서 다른 플러그인의 스킬과 헷갈릴 여지도 있다.
 
 **변경점** — 스킬 이름을 `plan-create`, `plan-implement`, `plan-verify`로 바꾼다. 플러그인 이름 `project-helper`는 그대로 두므로 호출은 `project-helper:plan-create` 형태가 된다.
 
@@ -24,7 +24,7 @@
 
 대신 스킬 이름 쪽에 `plan-` 접두사를 둔다. 주소는 `project-helper:plan-create`로 길어지지만, 플러그인이 무엇을 담을지에 대한 여지가 남고 스킬 목록에서 셋이 붙어 보인다.
 
-검토했으나 기각: 스킬 이름을 `create`, `implement`, `verify`로 줄이는 방안 — 이름만 보면 무엇을 create하는지 알 수 없다. 접두사가 플러그인 쪽에 있을 때만 성립하는 이름이다.
+검토했으나 기각: 스킬 이름을 `create`, `plan-implement`, `plan-verify`로 줄이는 방안 — 이름만 보면 무엇을 create하는지 알 수 없다. 접두사가 플러그인 쪽에 있을 때만 성립하는 이름이다.
 
 ### 이름에 콜론을 넣을 수 없다
 
@@ -34,9 +34,9 @@
 
 | 대상 | 내용 |
 | --- | --- |
-| 디렉터리 | `skills/create-plan` → `skills/plan-create` 등 세 개 |
+| 디렉터리 | `skills/plan-create` → `skills/plan-create` 등 세 개 |
 | frontmatter | `name` 필드 세 개 |
-| 스킬 본문·참조 문서 | 서로를 가리키는 표기와 `/implement` 같은 호출 표기 |
+| 스킬 본문·참조 문서 | 서로를 가리키는 표기와 `/plan-implement` 같은 호출 표기 |
 | 계획서 일곱 편 | 스킬 이름이 나오는 모든 곳. 슬라이스 파일 이름도 맞춘다 |
 | `README.md`, `CLAUDE.md` | 스킬 목록과 규약 |
 | `evals/trigger-eval.json` | `expect` 값 |
@@ -47,7 +47,7 @@
 
 - [x] **1. 디렉터리와 frontmatter 변경** — 스킬 디렉터리 셋을 옮기고 `name` 필드를 맞춘다. 완료 판정: `name`이 디렉터리 이름과 같고 셋 다 `plan-` 으로 시작한다.
   - 기록: 본문 제목(`# create-plan`)도 함께 바꿨다. frontmatter만 고치면 스킬을 열었을 때 옛 이름이 먼저 보인다. 스킬끼리 서로를 부르는 표기와 참조 경로도 같은 커밋에서 맞췄다.
-- [ ] **2. 문서 전체의 표기 갱신** — 스킬 본문, 참조 문서, 계획서, `README.md`, `CLAUDE.md`, 평가셋에서 옛 이름을 없앤다. 완료 판정: 저장소에 `create-plan`이라는 스킬 이름이 남아 있지 않고, 끊긴 참조가 없다.
+- [ ] **2. 문서 전체의 표기 갱신** — 스킬 본문, 참조 문서, 계획서, `README.md`, `CLAUDE.md`, 평가셋에서 옛 이름을 없앤다. 완료 판정: 저장소에 `plan-create`라는 스킬 이름이 남아 있지 않고, 끊긴 참조가 없다.
 
 ## 테스트
 
@@ -55,7 +55,7 @@
 
 - 세 스킬의 `name`이 각각의 디렉터리 이름과 일치한다.
 - `SKILL.md`가 가리키는 `references/`·`assets/` 경로가 모두 존재한다.
-- 옛 이름(`create-plan`, `/implement`, `/verify`)이 문서에 남아 있지 않다.
+- 옛 이름(`plan-create`, `/plan-implement`, `/plan-verify`)이 문서에 남아 있지 않다.
 
 ### 통합 시나리오
 
