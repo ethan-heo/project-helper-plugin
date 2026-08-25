@@ -1,0 +1,26 @@
+{
+  "plugin": "project-helper",
+  "note": "발동해야 할 요청과 발동하면 안 되는 근접 요청. 측정하려면 플러그인을 설치한 세션에서 각 질의를 여러 번 던져 어느 스킬이 켜지는지 센다.",
+  "cases": [
+    {"query": "결제 실패했을 때 재시도하는 로직을 넣고 싶은데, 지금 구조에서 어디를 건드려야 할지 같이 정리해보자", "expect": "create-plan"},
+    {"query": "세션 만료 처리를 좀 손봐야 하는데 어떻게 접근해야 할까요", "expect": "create-plan"},
+    {"query": "이 기능 구현 계획서 하나 쓰자", "expect": "create-plan"},
+    {"query": "알림 시스템을 큐 기반으로 바꾸려는데 설계부터 같이 봐줘", "expect": "create-plan"},
+    {"query": "리팩터링 범위가 좀 큰데 순서를 어떻게 잡아야 할지 모르겠어", "expect": "create-plan"},
+    {"query": "docs/plans/2026-08-25-auth.md 대로 진행해줘", "expect": "implement"},
+    {"query": "계획서 확정됐으니까 구현 시작하자", "expect": "implement"},
+    {"query": "/implement", "expect": "implement"},
+    {"query": "어제 하던 계획 이어서 해줘", "expect": "implement"},
+    {"query": "구현 다 끝났으니까 검증해줘", "expect": "verify"},
+    {"query": "계획서 마무리하고 닫자", "expect": "verify"},
+    {"query": "/verify", "expect": "verify"},
+    {"query": "이거 구현해줘 (계획서 없음)", "expect": "create-plan", "why": "계획서가 없으면 implement가 아니라 계획부터"},
+    {"query": "테스트 좀 돌려봐", "expect": null, "why": "verify와 어휘가 겹치지만 계획서 검증이 아님"},
+    {"query": "다음 스프린트 계획 좀 잡아줘", "expect": null, "why": "코드 변경이 아닌 일정 계획"},
+    {"query": "이번 주 작업 계획 정리해줘", "expect": null, "why": "업무 계획"},
+    {"query": "이 함수 이름 오타 좀 고쳐줘", "expect": null, "why": "단순 수정. 계획서가 필요 없다"},
+    {"query": "이 PR 리뷰해줘", "expect": null, "why": "코드 리뷰"},
+    {"query": "README에 설치 방법 한 줄 추가해줘", "expect": null, "why": "한 단계로 끝나는 작업"},
+    {"query": "이 버그 왜 나는지 좀 봐줘", "expect": null, "why": "원인 조사. 구현 계획 단계가 아님"}
+  ]
+}
