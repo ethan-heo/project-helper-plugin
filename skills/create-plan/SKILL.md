@@ -22,7 +22,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 1. 요구사항을 확인한다. 무엇을 원하는지 불분명하면 여기서 한 번 좁힌다.
 2. 대상 저장소를 조사한다. 관련 파일, 기존 처리 방식, 제약을 찾아 둔다. 이 단계에서 해법을 만들지는 않는다.
 3. 프로젝트 지시사항(`CLAUDE.md`, `AGENTS.md` 등)에서 계획서 경로와 커밋 규칙을 찾는다. 경로 규칙이 없으면 `docs/plans/YYYY-MM-DD-<주제>.md`를 쓰고, 커밋 규칙이 없으면 사용자에게 확인한다.
-4. `${CLAUDE_PLUGIN_ROOT}/shared/plan-template.md`를 복사해 문서를 만든다.
+4. `assets/plan-template.md`를 복사해 문서를 만든다.
 
 ### 1~6. 섹션 채우기
 
@@ -45,7 +45,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 
 ### 7. 확정
 
-1. `${CLAUDE_PLUGIN_ROOT}/shared/plan-format.md`와 대조해 표기가 규격에 맞는지 본다. 특히 진행률의 전체 수와 구현 항목 수가 같은지 확인한다.
+1. `references/plan-format.md`와 대조해 표기가 규격에 맞는지 본다. 특히 진행률의 전체 수와 구현 항목 수가 같은지 확인한다.
 2. 미해결 검토 표시(`<!-- 사용자 검토 필요 -->`)가 남아 있으면 그 자리를 사용자와 정리한다. 하나라도 남아 있으면 확정할 수 없다.
 3. **인계 점검을 한다.** 구현 단계는 이 문서만 보고 진행하므로, 대화에서만 오간 결정이 남아 있으면 그 시점에 사라진다. 항목마다 "이것만 읽고 무엇을 어디에 할지 정해지는가"를 묻고, 정해지지 않으면 근거를 설계에서 찾는다. 설계에도 없으면 사용자에게 확인해 문서로 옮긴다. 기준은 `references/sections.md`의 "인계 점검"에 있다.
 4. 구현 진행률의 전체 수를 구현 항목 수로 맞춘다.
@@ -67,5 +67,5 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | --- | --- |
 | `references/facilitation.md` | 시작할 때 한 번. 질문·개입·반박·축약 요청 처리 |
 | `references/sections.md` | 각 섹션을 채우기 직전, 그리고 확정 전 인계 점검 때 |
-| `${CLAUDE_PLUGIN_ROOT}/shared/plan-format.md` | 상태 표나 구현 항목 표기가 헷갈릴 때 |
-| `${CLAUDE_PLUGIN_ROOT}/shared/plan-template.md` | 준비 단계에서 복사 |
+| `references/plan-format.md` | 문서를 처음 만들 때, 상태 표나 구현 항목 표기가 헷갈릴 때 |
+| `assets/plan-template.md` | 준비 단계에서 복사 |
