@@ -16,6 +16,30 @@
 
 계획을 세울 때 AI는 뒤로 물러서서 질문만 하고, 구현할 때는 앞에 나서서 코드를 쓴다. 정반대의 자세를 한 지시서에 담으면 어느 쪽도 선명해지지 않는다. 상태 전환도 `/plan-implement`와 `/plan-verify` 호출이라는 행위로 고정되므로 AI가 임의로 진행 상태를 바꿀 수 없다.
 
+## 구조
+
+저장소 루트가 마켓플레이스이고, 플러그인은 그 안에 있다.
+
+```
+.claude-plugin/marketplace.json     마켓플레이스 매니페스트
+plugins/project-helper/             플러그인
+├── .claude-plugin/plugin.json
+└── skills/{plan-create, plan-implement, plan-verify}/
+```
+
+로컬에서 쓰려면 저장소 경로를 마켓플레이스로 등록한 뒤 플러그인을 설치한다.
+
+```
+/plugin marketplace add <저장소 경로>
+/plugin install project-helper@project-helpers
+```
+
+터미널에서 등록 없이 바로 띄우려면 플러그인 디렉터리를 가리킨다.
+
+```
+claude --plugin-dir <저장소 경로>/plugins/project-helper
+```
+
 ## 진행 상황
 
 구축 계획서는 `docs/plans/2026-08-25-plan-skills.md`에 있다.

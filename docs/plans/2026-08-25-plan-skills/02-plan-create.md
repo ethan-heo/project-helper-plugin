@@ -6,7 +6,7 @@
 
 **배경** — AI가 계획서를 혼자 쓰면 문서는 빨리 나오지만 사용자에게 판단이 남지 않는다. 구현이 끝난 뒤 코드가 왜 그 모양인지 설명할 수 없고, 고칠 수도 검토할 수도 없다.
 
-**변경점** — `skills/plan-create/`에 본문과 참조 문서 셋, 빈 양식 하나를 두었다. 진행 중에 규격 검사 스크립트와 공용 디렉터리를 만들었다가 둘 다 걷어냈다.
+**변경점** — `plugins/project-helper/skills/plan-create/`에 본문과 참조 문서 셋, 빈 양식 하나를 두었다. 진행 중에 규격 검사 스크립트와 공용 디렉터리를 만들었다가 둘 다 걷어냈다.
 
 ## 상태
 
@@ -43,7 +43,7 @@
 ### 파일 구성
 
 ```
-skills/plan-create/
+plugins/project-helper/skills/plan-create/
 ├── SKILL.md                      역할, 절차, 경계
 ├── assets/plan-template.md       빈 양식
 └── references/

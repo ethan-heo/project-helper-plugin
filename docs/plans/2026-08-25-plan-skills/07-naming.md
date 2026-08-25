@@ -34,7 +34,7 @@
 
 | 대상 | 내용 |
 | --- | --- |
-| 디렉터리 | `skills/plan-create` → `skills/plan-create` 등 세 개 |
+| 디렉터리 | `skills/create-plan` → `skills/plan-create` 등 세 개 |
 | frontmatter | `name` 필드 세 개 |
 | 스킬 본문·참조 문서 | 서로를 가리키는 표기와 `/plan-implement` 같은 호출 표기 |
 | 계획서 일곱 편 | 스킬 이름이 나오는 모든 곳. 슬라이스 파일 이름도 맞춘다 |
