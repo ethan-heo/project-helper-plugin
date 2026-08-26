@@ -42,4 +42,4 @@ claude --plugin-dir <저장소 경로>/plugins/project-helper
 
 ## 진행 상황
 
-구축 계획서는 `docs/plans/2026-08-25-plan-skills/`에 있다. 최상위 `README.md`에서 도메인 다섯을 훑고, 각 도메인 폴더로 내려가면 기능별 계획서가 있다.
+구축 계획서는 `docs/plans/2026-08-25-plan-skills/`에 있다. 최상위 `README.md`에서 도메인 다섯을 훑고, 도메인 폴더 아래 기능 폴더로 내려가면 그 기능의 계획서가 있다.
