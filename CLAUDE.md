@@ -2,7 +2,7 @@
 
 ## 저장소 성격
 
-`project-helper` 플러그인 저장소다. 계획서를 함께 쓰고(`plan-create`), 그 계획서대로 구현하고(`impl-plan`), 결과를 검증하는(`plan-verify`) 세 스킬을 담는다.
+`project-helper` 플러그인 저장소다. 계획서를 함께 쓰고(`plan-create`), 그 계획서대로 구현하고(`impl-plan`), 결과를 검증하는(`verify-plan`) 세 스킬을 담는다.
 
 ## 커밋 규칙
 
@@ -13,7 +13,7 @@ Conventional Commits를 따른다.
 ```
 
 - `type`: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
-- `scope`: 스킬 이름(`plan-create`, `impl-plan`, `plan-verify`). 저장소 전반이면 생략한다.
+- `scope`: 스킬 이름(`plan-create`, `impl-plan`, `verify-plan`). 저장소 전반이면 생략한다.
 - 설명은 한국어 명사형으로 끝낸다. 예: `feat(plan-create): 섹션 기준 참조 문서 추가`
 
 한 커밋은 되돌릴 수 있는 최소 단위다. 계획서의 구현 항목 하나가 커밋 하나에 대응한다.

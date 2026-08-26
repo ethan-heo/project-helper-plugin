@@ -40,15 +40,15 @@
     },
     {
       "query": "구현 다 끝났으니까 검증해줘",
-      "expect": "plan-verify"
+      "expect": "verify-plan"
     },
     {
       "query": "계획서 마무리하고 닫자",
-      "expect": "plan-verify"
+      "expect": "verify-plan"
     },
     {
-      "query": "/plan-verify",
-      "expect": "plan-verify"
+      "query": "/verify-plan",
+      "expect": "verify-plan"
     },
     {
       "query": "이거 구현해줘 (계획서 없음)",
