@@ -55,7 +55,7 @@ REL-INTEG-003(리허설)과 REL-INTEG-007(소급 검증)는 사용자가 있어�
   - 기록: `expect` 값과 `/implement` 같은 호출 문구를 새 이름으로 고쳤다. description 자체는 이름이 아니라 요청 문구로 발동을 가르므로 손댈 곳이 없었다. 발동률 측정은 플러그인을 설치한 세션에서만 가능해 여기서는 대조까지만 했다.
 - [ ] **REL-INTEG-003** 실제 과제 리허설 — 요구사항 하나를 접수부터 '완료'까지 통과시킨다. 완료 판정: 최상위 문서의 e2e 합격 기준을 만족한다.
 - [x] **REL-INTEG-004** 패키징 — 플러그인을 `.plugin` 파일로 묶어 사용자에게 전달한다. 완료 판정: 스킬 셋과 매니페스트만 담기고 계획서·평가셋은 빠진다.
-  - 기록: 14개 파일 28KB. 이름 변경 뒤 다시 묶었고 `marketplace.json`도 함께 들어갔다. `docs/`와 `evals/`는 저장소의 작업 기록이지 플러그인 내용이 아니라 제외했다.
+  - 기록: 14개 파일 28KB. 이름 변경 뒤 다시 묶었고 `marketplace.json`도 함께 들어갔다. `docs/`와 `evals/`는 저장소의 작업 기록이지 플러그인 내용이 아니라 제외했다. 이름을 `create-plan`·`impl-plan`·`verify-plan`으로 바꾸고 세 층 구조를 반영한 뒤 또 한 번 묶었다. 10개 파일 27.8KB이고 버전은 0.2.0으로 올렸다. 스킬 이름이 바뀌면 부르던 쪽이 깨지므로 패치가 아니라 마이너를 올렸다. `marketplace.json`은 넣지 않았다. 저장소 루트가 마켓플레이스이고 `.plugin`은 플러그인 하나만 담는 것이라 층이 다르다. `zip` 명령은 임시 파일을 지우려다 막혀서 python `zipfile`로 만들었다. 이 마운트에서는 파일을 지울 수 없다.
 - [x] **REL-INTEG-005** 로컬 개발용 마켓플레이스 매니페스트 추가 — `.claude-plugin/marketplace.json`을 만들어 로컬 경로를 마켓플레이스로 등록할 수 있게 한다. 완료 판정: 유효한 JSON이고 `name`·`owner`·`plugins`가 있다.
   - 기록: VS Code 확장에는 `--plugin-dir`에 해당하는 설정이 없고 `/plugins`의 Marketplaces 탭이 로컬 경로를 받는다. 그래서 VS Code에서 쓰려면 이 파일이 있어야 한다. 터미널만 쓸 때는 필요 없어서 처음에 뺐던 것을 되돌렸다. 마켓플레이스 이름은 `project-helpers`다. 플러그인 이름 `project-helper`와 한 글자 차이라 헷갈릴 여지는 있지만, 사용자가 정한 이름이고 실제로 둘을 나란히 쓰는 자리는 `project-helper@project-helpers` 하나뿐이다.
 - [x] **REL-INTEG-006** 마켓플레이스 구조를 문서 형태로 맞춤 — 플러그인을 `plugins/project-helper/`로 옮기고 저장소 루트는 마켓플레이스만 담게 한다. 완료 판정: `marketplace.json`의 `source`가 실제 플러그인 디렉터리를 가리키고 그 안에 `plugin.json`과 `skills/`가 있다.
