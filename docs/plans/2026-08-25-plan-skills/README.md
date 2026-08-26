@@ -37,12 +37,12 @@
 | 도메인 | 뜻 | 쓰는 곳 |
 | --- | --- | --- |
 | `REPO` | 저장소와 플러그인 구조 | REPO-SETUP-001 |
-| `SKILL` | 스킬 본문과 참조 문서 | SKILL-CREATE-001, SKILL-IMPL-002, SKILL-VERIFY-003, SKILL-NAMING-004 |
-| `FMT` | 계획서 규격과 양식 | FMT-SPLIT-001, FMT-STRUCT-002 |
+| `SKILL` | 스킬 본문과 참조 문서 | SKILL-CREATE-001, SKILL-IMPL-001, SKILL-VERIFY-001, SKILL-NAMING-001 |
+| `FMT` | 계획서 규격과 양식 | FMT-SPLIT-001, FMT-STRUCT-001 |
 | `FLOW` | 스킬 사이의 흐름 — 브랜치, 선행, 상태 전환 | FLOW-BRANCH-001 |
 | `REL` | 패키징과 배포 | REL-INTEG-001 |
 
-**번호는 도메인 안에서 센다.** `SKILL`이 001~004까지 있고 `FMT`가 001~002까지 있는 식이다. 문서 순서와 번호가 어긋나 보이지만, 번호는 순서가 아니라 그 도메인 안에서 몇 번째인가를 뜻한다.
+**번호는 도메인-기능 조합 안에서 센다.** 여기서는 조합마다 항목이 하나씩이라 전부 001이다. 같은 조합을 두 번 건드리는 항목이 생기면 그때 002가 붙는다. 번호는 순서가 아니라 그 조합 안에서 몇 번째인가를 뜻한다.
 
 슬라이스 문서 안의 항목도 같은 규칙을 쓰되 도메인은 더 좁게 잡는다. 새 코드를 만들면 이 표에 한 줄을 더한다.
 
@@ -113,11 +113,11 @@
 - [ ] **REPO-SETUP-001** 기반 — 저장소와 플러그인 골격. → `01-foundation.md`
 - [ ] **SKILL-CREATE-001** `plan-create` 스킬 — 계획서를 함께 쓰는 스킬 본체. 선행: REPO-SETUP-001 → `02-plan-create.md`
 - [ ] **FMT-SPLIT-001** 계획 분할 기능 — `plan-create`가 큰 계획을 슬라이스로 나누도록 확장. 선행: SKILL-CREATE-001 → `03-plan-splitting.md`
-- [ ] **SKILL-IMPL-002** `plan-implement` 스킬 — 계획서대로 구현하고 항목마다 커밋. 선행: SKILL-CREATE-001 → `04-plan-implement.md`
-- [ ] **SKILL-VERIFY-003** `plan-verify` 스킬 — 검증하고 슬라이스를 닫는다. 선행: FMT-SPLIT-001, SKILL-IMPL-002 → `05-plan-verify.md`
-- [ ] **FLOW-BRANCH-001** 브랜치 전략과 선행 확인 — 계획 진행을 브랜치로 격리하고 슬라이스 사이의 순서를 확인한다. 선행: SKILL-IMPL-002, SKILL-VERIFY-003 → `06-branching.md`
-- [ ] **SKILL-NAMING-004** 이름 정리 — 세 스킬 이름을 한 세트로 묶는다. 선행: SKILL-CREATE-001, SKILL-IMPL-002, SKILL-VERIFY-003 → `07-naming.md`
-- [ ] **FMT-STRUCT-002** 계획서 형식 구조화 — 설계·테스트를 표로 바꾸고 구현 항목에 ID를 붙인다. 선행: SKILL-CREATE-001, FMT-SPLIT-001 → `08-spec-format.md`
+- [ ] **SKILL-IMPL-001** `plan-implement` 스킬 — 계획서대로 구현하고 항목마다 커밋. 선행: SKILL-CREATE-001 → `04-plan-implement.md`
+- [ ] **SKILL-VERIFY-001** `plan-verify` 스킬 — 검증하고 슬라이스를 닫는다. 선행: FMT-SPLIT-001, SKILL-IMPL-001 → `05-plan-verify.md`
+- [ ] **FLOW-BRANCH-001** 브랜치 전략과 선행 확인 — 계획 진행을 브랜치로 격리하고 슬라이스 사이의 순서를 확인한다. 선행: SKILL-IMPL-001, SKILL-VERIFY-001 → `06-branching.md`
+- [ ] **SKILL-NAMING-001** 이름 정리 — 세 스킬 이름을 한 세트로 묶는다. 선행: SKILL-CREATE-001, SKILL-IMPL-001, SKILL-VERIFY-001 → `07-naming.md`
+- [ ] **FMT-STRUCT-001** 계획서 형식 구조화 — 설계·테스트를 표로 바꾸고 구현 항목에 ID를 붙인다. 선행: SKILL-CREATE-001, FMT-SPLIT-001 → `08-spec-format.md`
 - [ ] **REL-INTEG-001** 통합과 리허설 — 플러그인 패키징, 트리거 측정, 실제 과제 한 바퀴. 선행: 앞의 모두 → `09-integration.md`
 
 ## 테스트
