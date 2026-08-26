@@ -39,18 +39,6 @@
       "expect": "impl-plan"
     },
     {
-      "query": "구현 다 끝났으니까 검증해줘",
-      "expect": "verify-plan"
-    },
-    {
-      "query": "계획서 마무리하고 닫자",
-      "expect": "verify-plan"
-    },
-    {
-      "query": "/verify-plan",
-      "expect": "verify-plan"
-    },
-    {
       "query": "이거 구현해줘 (계획서 없음)",
       "expect": "create-plan",
       "why": "계획서가 없으면 implement가 아니라 계획부터"
