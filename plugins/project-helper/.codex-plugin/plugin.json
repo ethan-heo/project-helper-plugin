@@ -1,0 +1,30 @@
+{
+  "name": "project-helper",
+  "version": "0.2.0",
+  "description": "기술적 문제의 해법을 사용자가 직접 설계하도록 돕고, 그 계획서대로 구현하고 검증하는 세 스킬",
+  "author": {
+    "name": "ethan"
+  },
+  "keywords": [
+    "planning",
+    "implementation",
+    "verification"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Project Helper",
+    "shortDescription": "계획 수립부터 구현과 검증까지 돕는 개발 스킬",
+    "longDescription": "기술적 문제의 해법을 사용자가 직접 설계하도록 돕고, 확정한 계획에 따라 구현하고 검증합니다.",
+    "developerName": "ethan",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "이 문제의 구현 계획을 함께 세워줘",
+      "확정한 계획대로 구현해줘",
+      "구현 결과를 검증해줘"
+    ]
+  }
+}

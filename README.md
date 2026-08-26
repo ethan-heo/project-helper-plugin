@@ -1,5 +1,7 @@
 # project-helper
 
+Claude Code와 Codex에서 함께 사용할 수 있는 플러그인이다.
+
 기술적 문제의 해법을 **사용자가 직접 설계하도록** 돕는 플러그인이다. AI가 답을 대신 내놓지 않고, 경험 많은 엔지니어 검토자의 자리에서 질문하고 반박하고 기록한다.
 
 ## 스킬
@@ -16,18 +18,21 @@
 
 계획을 세울 때 AI는 뒤로 물러서서 질문만 하고, 구현할 때는 앞에 나서서 코드를 쓴다. 정반대의 자세를 한 지시서에 담으면 어느 쪽도 선명해지지 않는다. 상태 전환도 `/impl-plan`과 `/verify-plan` 호출이라는 행위로 고정되므로 AI가 임의로 진행 상태를 바꿀 수 없다.
 
-## 구조
+## 설치
 
 저장소 루트가 마켓플레이스이고, 플러그인은 그 안에 있다.
 
 ```
-.claude-plugin/marketplace.json     마켓플레이스 매니페스트
+.claude-plugin/marketplace.json     Claude Code 마켓플레이스 매니페스트
 plugins/project-helper/             플러그인
-├── .claude-plugin/plugin.json
+├── .claude-plugin/plugin.json       Claude Code용 매니페스트
+├── .codex-plugin/plugin.json        Codex용 매니페스트
 └── skills/{create-plan, impl-plan, verify-plan}/
 ```
 
-로컬에서 쓰려면 저장소 경로를 마켓플레이스로 등록한 뒤 플러그인을 설치한다.
+### Claude Code
+
+저장소를 마켓플레이스로 등록한 뒤 플러그인을 설치한다.
 
 ```
 /plugin marketplace add <저장소 경로>
@@ -39,6 +44,18 @@ plugins/project-helper/             플러그인
 ```
 claude --plugin-dir <저장소 경로>/plugins/project-helper
 ```
+
+### Codex
+
+Codex 앱의 플러그인 화면에서 로컬 플러그인 설치를 선택하고 다음 디렉터리를 지정한다.
+
+```
+<저장소 경로>/plugins/project-helper
+```
+
+Codex는 해당 디렉터리의 `.codex-plugin/plugin.json`과 `skills/`를 읽어 설치한다. 설치 후 새 Codex 대화에서 `create-plan`, `impl-plan`, `verify-plan` 스킬을 사용할 수 있다.
+
+플러그인을 수정한 뒤에는 Codex의 플러그인 화면에서 해당 플러그인을 다시 설치하거나 새로고침한다.
 
 ## 진행 상황
 
