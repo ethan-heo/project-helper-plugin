@@ -3,3 +3,4 @@ _to_delete/
 __pycache__/
 *.pyc
 dist/
+docs/plans/
