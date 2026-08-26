@@ -1,4 +1,4 @@
-# 슬라이스 4: plan-implement 스킬
+# plan-implement 스킬
 
 ## 요약
 
