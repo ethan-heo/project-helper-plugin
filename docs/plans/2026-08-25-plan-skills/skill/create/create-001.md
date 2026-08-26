@@ -1,4 +1,4 @@
-# plan-create 스킬
+# create-plan 스킬
 
 ## 요약
 
@@ -6,7 +6,7 @@
 
 **배경** — AI가 계획서를 혼자 쓰면 문서는 빨리 나오지만 사용자에게 판단이 남지 않는다. 구현이 끝난 뒤 코드가 왜 그 모양인지 설명할 수 없고, 고칠 수도 검토할 수도 없다.
 
-**변경점** — `plugins/project-helper/skills/plan-create/`에 본문과 참조 문서 셋, 빈 양식 하나를 두었다. 진행 중에 규격 검사 스크립트와 공용 디렉터리를 만들었다가 둘 다 걷어냈다.
+**변경점** — `plugins/project-helper/skills/create-plan/`에 본문과 참조 문서 셋, 빈 양식 하나를 두었다. 진행 중에 규격 검사 스크립트와 공용 디렉터리를 만들었다가 둘 다 걷어냈다.
 
 ## 상태
 
@@ -43,7 +43,7 @@
 ### 파일 구성
 
 ```
-plugins/project-helper/skills/plan-create/
+plugins/project-helper/skills/create-plan/
 ├── SKILL.md                      역할, 절차, 경계
 ├── assets/plan-template.md       빈 양식
 └── references/
@@ -75,7 +75,7 @@ plugins/project-helper/skills/plan-create/
 - [x] **SKILL-CREATE-007** 규격 검사 스크립트 제거 — 완료 판정: 플러그인 어디에도 스크립트를 실행하라는 지시가 없다.
   - 기록: 형식 판별에 스크립트가 필요 없다고 판단했다. 기계적으로 어긋나는 지점은 진행률과 체크 수 하나뿐이라, 체크와 진행률 갱신을 한 동작으로 묶는 것으로 대신한다.
 - [x] **SKILL-CREATE-008** 공용 디렉터리 해체 — 완료 판정: 어떤 스킬도 자기 폴더 바깥을 참조하지 않는다.
-  - 기록: 빈 양식과 표기 규격을 `plan-create` 안으로 옮겼다. `${CLAUDE_PLUGIN_ROOT}`가 SKILL.md 본문에서 해석되는지 확인해야 하던 미검증 항목도 함께 사라졌다.
+  - 기록: 빈 양식과 표기 규격을 `create-plan` 안으로 옮겼다. `${CLAUDE_PLUGIN_ROOT}`가 SKILL.md 본문에서 해석되는지 확인해야 하던 미검증 항목도 함께 사라졌다.
 
 ## 테스트
 

@@ -6,11 +6,11 @@
 
 | 스킬 | 하는 일 | 계획서 상태 |
 | --- | --- | --- |
-| `plan-create` | 요구사항을 받아 사용자와 함께 구현 계획서를 쓴다 | → 계획 확정 |
+| `create-plan` | 요구사항을 받아 사용자와 함께 구현 계획서를 쓴다 | → 계획 확정 |
 | `impl-plan` | 계획서의 구현 순서를 하나씩 실행하고 항목마다 커밋한다 | 계획 확정 → 구현 중 → 구현 완료 |
 | `verify-plan` | 테스트 시나리오와 변경점을 사용자와 확인한다 | 구현 완료 → 완료 |
 
-세 스킬은 계획서 한 편을 주고받되 서로의 파일을 참조하지 않는다. 형식의 정본은 문서를 쓰는 `plan-create`가 갖고(`references/plan-format.md`), `impl-plan`과 `verify-plan`은 받는 문서가 만족해야 할 전제만 자기 본문에 적어 둔다. 스킬 하나만 떼어 가도 동작한다.
+세 스킬은 계획서 한 편을 주고받되 서로의 파일을 참조하지 않는다. 형식의 정본은 문서를 쓰는 `create-plan`이 갖고(`references/plan-format.md`), `impl-plan`과 `verify-plan`은 받는 문서가 만족해야 할 전제만 자기 본문에 적어 둔다. 스킬 하나만 떼어 가도 동작한다.
 
 ## 왜 나눴나
 
@@ -24,7 +24,7 @@
 .claude-plugin/marketplace.json     마켓플레이스 매니페스트
 plugins/project-helper/             플러그인
 ├── .claude-plugin/plugin.json
-└── skills/{plan-create, impl-plan, verify-plan}/
+└── skills/{create-plan, impl-plan, verify-plan}/
 ```
 
 로컬에서 쓰려면 저장소 경로를 마켓플레이스로 등록한 뒤 플러그인을 설치한다.

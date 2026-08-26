@@ -6,7 +6,7 @@
 
 **배경** — `create-plan`, `implement`, `verify`는 각각은 말이 되지만 셋이 한 흐름이라는 것이 이름에 드러나지 않는다. `implement`와 `verify`는 특히 일반적이어서 다른 플러그인의 스킬과 헷갈릴 여지도 있다.
 
-**변경점** — 스킬 이름을 `plan-create`, `plan-implement`, `plan-verify`로 바꾼다. 플러그인 이름 `project-helper`는 그대로 두므로 호출은 `project-helper:plan-create` 형태가 된다.
+**변경점** — 스킬 이름을 `plan-create`, `plan-implement`, `plan-verify`로 바꾼다. 플러그인 이름 `project-helper`는 그대로 두므로 호출은 `project-helper:create-plan` 형태가 된다.
 
 ## 상태
 
@@ -14,7 +14,7 @@
 | --- | --- |
 | 단계 | 구현 완료 |
 | 마지막 갱신 | 2026-08-26 |
-| 구현 진행률 | 4 / 4 |
+| 구현 진행률 | 5 / 5 |
 
 ## 설계
 
@@ -25,6 +25,14 @@
 대신 스킬 이름 쪽에 `plan-` 접두사를 둔다. 주소는 `project-helper:plan-create`로 길어지지만, 플러그인이 무엇을 담을지에 대한 여지가 남고 스킬 목록에서 셋이 붙어 보인다.
 
 검토했으나 기각: 플러그인 이름을 `plan`으로 바꾸고 스킬 이름을 `create`, `implement`, `verify`로 줄이는 방안 — 이름만 보면 무엇을 create하는지 알 수 없다. 접두사가 플러그인 쪽에 있을 때만 성립하는 이름이다.
+
+### 접두사에서 접미사로
+
+위 판단을 뒤집었다. 세 이름을 `create-plan`, `impl-plan`, `verify-plan`으로 바꿨다.
+
+한 세트로 묶는다는 목적은 그대로다. 묶는 자리만 앞에서 뒤로 옮겼다. 잃는 것이 하나 있다. `plan-` 접두사는 스킬 목록을 이름순으로 늘어놓았을 때 셋이 붙어 보였는데, 접미사로 옮기면 사이에 다른 스킬이 낄 수 있다. 대신 이름의 첫 낱말이 곧 동작이 되어 무엇을 하는 스킬인지가 앞에서 읽히고, 같은 명사로 끝나는 것이 한 세트라는 표시가 된다.
+
+`SKILL-NAMING-001`의 완료 판정("셋 다 `plan-`으로 시작한다")은 이 시점부터 맞지 않는다. 지금 조건은 "셋 다 `-plan`으로 끝난다"다.
 
 ### 이름에 콜론을 넣을 수 없다
 
@@ -52,7 +60,9 @@
 - [x] **SKILL-NAMING-003** `plan-implement`를 `impl-plan`으로 — 디렉터리, frontmatter, 저장소 전체의 표기를 바꾼다. 완료 판정: `name`이 디렉터리 이름과 같고, 옛 이름이 스킬을 가리키는 자리에 남아 있지 않다.
   - 기록: 위에서 정한 `plan-` 접두사 규칙이 셋 중 하나에서 깨졌다. `SKILL-NAMING-001`의 완료 판정("셋 다 `plan-`으로 시작한다")도 이제 맞지 않는다. 조사는 서른다섯 곳을 고쳤다. `plan-implement`는 받침 없이 끝나고 `impl-plan`은 ㄴ으로 끝나서 가→이, 와→과, 는→은, 를→을, 로→으로가 전부 바뀐다. `SKILL-NAMING-002`에서 같은 일을 겪었으므로 이번에는 조사가 붙은 것부터 먼저 치환하고 남은 것을 일괄로 바꿨다. 이 문서의 변경점과 "바뀌는 범위" 표는 그때 무엇을 했는지의 기록이라 옛 이름을 그대로 뒀다.
 - [x] **SKILL-NAMING-004** `plan-verify`를 `verify-plan`으로 — 디렉터리, frontmatter, 저장소 전체의 표기를 바꾼다. 완료 판정: `name`이 디렉터리 이름과 같고, 옛 이름이 스킬을 가리키는 자리에 남아 있지 않다.
-  - 기록: 조사 서른여덟 곳을 고쳤다. `verify-plan`도 ㄴ으로 끝나 `impl-plan`과 같은 규칙이 걸린다. 이름이 `<동사>-plan` 쪽으로 둘이 옮겨 가면서 `plan-` 접두사를 쓰는 스킬은 `plan-create` 하나만 남았다. 지금은 두 규칙이 섞여 있는 상태다.
+  - 기록: 조사 서른여덟 곳을 고쳤다. `verify-plan`도 ㄴ으로 끝나 `impl-plan`과 같은 규칙이 걸린다. 이 시점에는 `plan-` 접두사를 쓰는 스킬이 하나만 남아 두 규칙이 섞여 있었다.
+- [x] **SKILL-NAMING-005** `plan-create`를 `create-plan`으로 — 셋을 `<동작>-plan` 한 세트로 맞춘다. 완료 판정: 세 이름이 모두 `-plan`으로 끝나고 `name`이 디렉터리 이름과 같다.
+  - 기록: 이 스킬의 원래 이름이 `create-plan`이었다. `SKILL-NAMING-001`이 `plan-create`로 바꿨던 것을 되돌린 셈이라, 이 문서 안에서 `create-plan`이 옛 이름을 가리키는 자리와 지금 이름을 가리키는 자리가 섞이게 됐다. 단위 검증의 옛 이름 목록에서 `create-plan`을 빼고 `plan-create`를 넣었다. 배경과 "바뀌는 범위" 표, 접두사를 고른 근거, 두 항목의 기록은 그때의 이야기라 그대로 뒀다. 조사는 열아홉 곳을 고쳤다.
 
 ## 테스트
 
@@ -60,10 +70,11 @@
 
 - 세 스킬의 `name`이 각각의 디렉터리 이름과 일치한다.
 - `SKILL.md`가 가리키는 `references/`·`assets/` 경로가 모두 존재한다.
-- 옛 이름(`create-plan`, `/implement`, `/verify`, `plan-implement`, `plan-verify`)이 스킬을 가리키는 자리에 남아 있지 않다.
+- 옛 이름(`/implement`, `/verify`, `plan-create`, `plan-implement`, `plan-verify`)이 스킬을 가리키는 자리에 남아 있지 않다.
+- 세 스킬의 이름이 모두 `-plan`으로 끝난다.
 
 ### 통합 시나리오
 
-- **S1 노출** — 플러그인을 로드했을 때 `plan-create`, `impl-plan`, `verify-plan` 셋이 보이는가.
-- **S2 인계 표기** — 각 스킬이 다음 스킬을 안내할 때 새 이름으로 부르는가. `plan-create`가 끝나며 `/impl-plan`을 안내하는가.
+- **S1 노출** — 플러그인을 로드했을 때 `create-plan`, `impl-plan`, `verify-plan` 셋이 보이는가.
+- **S2 인계 표기** — 각 스킬이 다음 스킬을 안내할 때 새 이름으로 부르는가. `create-plan`이 끝나며 `/impl-plan`을 안내하는가.
 - **S3 트리거** — 이름이 길어진 뒤에도 발동률이 유지되는가. `REL-INTEG`의 측정에서 함께 본다.
