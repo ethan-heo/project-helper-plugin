@@ -45,7 +45,8 @@ Codex 플러그인은 설치할 때 로컬 소스를 캐시에 복사한다. 캐
 
 ```bash
 codex plugin remove project-helper@personal
+rm -rf ~/.codex/plugins/cache/personal/project-helper
 codex plugin add project-helper@personal
 ```
 
-재설치 전에 캐시버스터를 갱신해야 변경된 플러그인을 확실히 인식한다. 개발 중에는 플러그인 업데이트 도구를 사용하고, 마켓플레이스 설정 파일은 직접 수정하지 않는다.
+플러그인을 삭제할 때는 해당 플러그인의 캐시 디렉터리도 함께 삭제한다. 전체 캐시 디렉터리는 삭제하지 않는다. 재설치 전에 캐시버스터를 갱신해야 변경된 플러그인을 확실히 인식한다. 개발 중에는 플러그인 업데이트 도구를 사용하고, 마켓플레이스 설정 파일은 직접 수정하지 않는다.
