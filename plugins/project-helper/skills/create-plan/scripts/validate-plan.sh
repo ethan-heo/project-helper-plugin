@@ -6,10 +6,10 @@ errors=0
 fail() { printf '오류: %s\n' "$1" >&2; errors=$((errors + 1)); }
 
 [[ -f "$plan_root/README.md" ]] || fail '최상위 README.md가 없습니다.'
-mapfile -t domains < <(find "$plan_root" -mindepth 1 -maxdepth 1 -type d)
-(( ${#domains[@]} > 0 )) || fail '도메인 디렉터리가 없습니다.'
+domains="$(find "$plan_root" -mindepth 1 -maxdepth 1 -type d)"
+[[ -n "$domains" ]] || fail '도메인 디렉터리가 없습니다.'
 
-for domain in "${domains[@]}"; do
+for domain in $domains; do
   [[ -f "$domain/README.md" ]] || fail "$domain/README.md가 없습니다."
   while IFS= read -r plan; do
     [[ "$plan" == */README.md ]] && continue
