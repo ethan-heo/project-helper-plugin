@@ -31,7 +31,7 @@ AI가 계획서를 혼자 완성하면 사용자는 코드가 왜 그렇게 바�
 
 AI는 관련 파일과 기존 처리 방식과 제약을 조사한다. 조사 결과를 제시하되, 해법과 선택은 사용자에게 맡긴다.
 
-시작하기 전에 `references/collaboration/roles.md`와 `references/collaboration/questioning.md`를 읽고, 나머지 참조 파일은 아래 표의 절을 실행하기 직전에 읽는다.
+시작하기 전에 [`roles.md`](references/collaboration/roles.md)와 [`questioning.md`](references/collaboration/questioning.md)를 읽고, 나머지 참조 파일은 아래 표의 절을 실행하기 직전에 읽는다.
 
 ## 진행 절차
 
@@ -66,7 +66,7 @@ AI는 관련 파일과 기존 처리 방식과 제약을 조사한다. 조사 �
 
 **사용자의 답을 문서에 반영하고 결과를 보여 준 뒤 다음 섹션으로 넘어간다.**
 
-**설계 섹션을 작성하기 전에 `references/design.md`를 읽고 해당하는 설계 유형만 제안한다.**
+**설계 섹션을 작성하기 전에 [`design.md`](references/design.md)를 읽고 해당하는 설계 유형만 제안한다.**
 
 | 설계 승인 상태 | 할 일 |
 | --- | --- |
@@ -132,10 +132,10 @@ AI는 관련 파일과 기존 처리 방식과 제약을 조사한다. 조사 �
 
 | 실행 단계 | 참조 파일 | 읽는 목적 |
 | --- | --- |
-| 준비 | `references/planning/scope.md`, `references/documents/format.md` | 범위와 계획서 형식 확인 |
-| 질문·대안 | `references/collaboration/questioning.md`, `references/collaboration/roles.md` | 사용자와 판단을 좁힘 |
-| 설계 | `references/sections/design.md`, `references/design.md` | 설계 유형과 근거 작성 |
-| 경계·이전 | `references/planning/boundaries.md`, `references/documents/hierarchy.md`, `references/documents/migration.md` | 문서 구조 결정·이전 |
-| 섹션 작성 | `references/sections/summary.md`, `references/sections/design.md`, `references/sections/implementation.md`, `references/sections/testing.md`, `references/writing/structure.md`, `references/writing/markdown.md`, `references/writing/examples.md` | 섹션과 Markdown 작성 |
-| 승인·확정 | `references/collaboration/approval.md`, `references/documents/format.md` | 승인과 형식 검증 |
+| 준비 | [`scope.md`](references/planning/scope.md), [`format.md`](references/documents/format.md) | 범위와 계획서 형식 확인 |
+| 질문·대안 | [`questioning.md`](references/collaboration/questioning.md), [`roles.md`](references/collaboration/roles.md) | 사용자와 판단을 좁힘 |
+| 설계 | [`design.md`](references/sections/design.md), [`design.md`](references/design.md) | 설계 유형과 근거 작성 |
+| 경계·이전 | [`boundaries.md`](references/planning/boundaries.md), [`hierarchy.md`](references/documents/hierarchy.md), [`migration.md`](references/documents/migration.md) | 문서 구조 결정·이전 |
+| 섹션 작성 | [`summary.md`](references/sections/summary.md), [`design.md`](references/sections/design.md), [`implementation.md`](references/sections/implementation.md), [`testing.md`](references/sections/testing.md), [`structure.md`](references/writing/structure.md), [`markdown.md`](references/writing/markdown.md), [`examples.md`](references/writing/examples.md) | 섹션과 Markdown 작성 |
+| 승인·확정 | [`approval.md`](references/collaboration/approval.md), [`format.md`](references/documents/format.md) | 승인과 형식 검증 |
 | 계획서 생성 | `assets/plan-template.md`, `assets/index-template.md` | 템플릿 적용 |

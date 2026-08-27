@@ -29,7 +29,7 @@ description: 이미 작성된 구현 계획서가 있고 상태가 '계획 확�
 
 계획의 전제가 틀렸다면 구현을 멈춘다. 계획서를 고치지 않고 `create-plan`으로 돌려보낸다.
 
-판단이 필요한 자리마다 `references/execution.md`의 해당 절을 읽는다. 어느 절을 언제 읽는지는 맨 아래 표에 있다. 이 참조 문서는 실행 근거와 예외 처리를 제공하며, 구현 범위를 넓히는 별도 지시서가 아니다.
+판단이 필요한 자리마다 [`execution.md`](references/execution.md)의 해당 절을 읽는다. 어느 절을 언제 읽는지는 맨 아래 표에 있다. 이 참조 문서는 실행 근거와 예외 처리를 제공하며, 구현 범위를 넓히는 별도 지시서가 아니다.
 
 ## 절차
 
@@ -154,7 +154,7 @@ description: 이미 작성된 구현 계획서가 있고 상태가 '계획 확�
 
 | 실행 단계 | 참조 파일 | 읽는 목적 |
 | --- | --- |
-| 재개·준비 | `references/preparation.md` | 작업 상태와 전제 확인 |
-| 항목 실행 | `references/execution.md` | 구현·검증·기록 |
-| 선행·형식 검증 | `references/validation.md` | 진행 가능 여부 확인 |
-| 실패·중단 | `references/failure.md` | 예외 처리 |
+| 재개·준비 | [`preparation.md`](references/preparation.md) | 작업 상태와 전제 확인 |
+| 항목 실행 | [`execution.md`](references/execution.md) | 구현·검증·기록 |
+| 선행·형식 검증 | [`validation.md`](references/validation.md) | 진행 가능 여부 확인 |
+| 실패·중단 | [`failure.md`](references/failure.md) | 예외 처리 |
