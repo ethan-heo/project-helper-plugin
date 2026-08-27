@@ -114,7 +114,7 @@ AI는 관련 파일과 기존 처리 방식과 제약을 조사한다. 조사 �
 | --- | --- |
 | 준비 | `planning/scope.md`, `documents/format.md` | 범위와 계획서 형식 확인 |
 | 질문·대안 | `collaboration/questioning.md`, `collaboration/roles.md` | 사용자와 판단을 좁힘 |
-| 설계 | `sections/design.md`, `design/structure.md`, `design/decision.md`, `design/state-flow.md`, `design/data.md`, `design/integration.md`, `design/quality.md` | 설계 유형과 근거 작성 |
+| 설계 | `sections/design.md`, `design/design.md` | 설계 유형과 근거 작성 |
 | 경계·이전 | `planning/boundaries.md`, `documents/hierarchy.md`, `documents/migration.md` | 문서 구조 결정·이전 |
 | 섹션 작성 | `sections/summary.md`, `sections/design.md`, `sections/implementation.md`, `sections/testing.md`, `writing/structure.md`, `writing/markdown.md`, `writing/examples.md` | 섹션과 Markdown 작성 |
 | 승인·확정 | `collaboration/approval.md`, `documents/format.md` | 승인과 형식 검증 |

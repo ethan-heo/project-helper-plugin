@@ -144,7 +144,7 @@ description: 이미 작성된 구현 계획서가 있고 상태가 '계획 확�
 
 | 실행 단계 | 참조 파일 | 읽는 목적 |
 | --- | --- |
-| 재개·준비 | `preparation/resume.md`, `preparation/prerequisites.md`, `preparation/branch.md` | 작업 상태와 전제 확인 |
-| 항목 실행 | `execution/item.md`, `execution/commit.md`, `execution/progress.md` | 구현·검증·기록 |
-| 선행·형식 검증 | `validation/plan-format.md`, `validation/dependency.md`, `validation/test.md` | 진행 가능 여부 확인 |
-| 실패·중단 | `failure/ambiguity.md`, `failure/plan-defect.md`, `failure/interruption.md` | 예외 처리 |
+| 재개·준비 | `preparation/preparation.md` | 작업 상태와 전제 확인 |
+| 항목 실행 | `execution/execution.md` | 구현·검증·기록 |
+| 선행·형식 검증 | `validation/validation.md` | 진행 가능 여부 확인 |
+| 실패·중단 | `failure/failure.md` | 예외 처리 |
