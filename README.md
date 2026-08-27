@@ -72,4 +72,4 @@ Codex는 해당 디렉터리의 `.codex-plugin/plugin.json`과 `skills/`를 읽�
 
 ## 진행 상황
 
-구축 계획서는 `docs/plans/2026-08-25-plan-skills/`에 있다. 최상위 `README.md`에서 도메인 다섯을 훑고, 도메인 폴더 아래 기능 폴더로 내려가면 그 기능의 계획서가 있다.
+구축 계획서는 `docs/plans/2026-08-25-plan-skills/`에 있다. 최상위 `README.md`에서 도메인을 훑고, 도메인 폴더 아래의 기능 계획서 파일로 내려가면 해당 기능의 계획을 확인할 수 있다.
