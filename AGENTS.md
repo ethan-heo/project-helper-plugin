@@ -26,6 +26,8 @@ Conventional Commits를 따른다.
 
 문서와 커밋 메시지는 한국어로 쓴다. 코드 식별자와 파일명은 영문 kebab-case를 쓴다.
 
+문서 작성과 검토에는 [`docs/document-writing-guide.md`](docs/document-writing-guide.md)를 참조한다.
+
 ## 스킬 파일 규약
 
 ### 문서 권한과 참조 순서
