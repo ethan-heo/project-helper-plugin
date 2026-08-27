@@ -41,6 +41,8 @@ Conventional Commits를 따른다.
 
 문서 작성과 검토에는 [`docs/document-writing-guide.md`](docs/document-writing-guide.md)를 참조한다.
 
+프롬프트를 작성하거나 리팩터링할 때는 [`docs/prompt-writing-guide.md`](docs/prompt-writing-guide.md)를 참조한다.
+
 ## Codex 플러그인 개발·재설치
 
 Codex 플러그인은 설치할 때 로컬 소스를 캐시에 복사한다. 캐시를 끄거나 파일 변경을 자동 반영하는 공식 개발 모드는 없으므로, 소스 파일을 수정한 뒤에는 플러그인을 재설치하고 새 대화에서 확인한다.

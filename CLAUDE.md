@@ -40,3 +40,5 @@ Conventional Commits를 따른다.
 - `SKILL.md` 본문은 200줄 안팎으로 유지하고, 세부 판정 기준은 `references/`로 뺀다.
 
 문서 작성과 검토에는 [`docs/document-writing-guide.md`](docs/document-writing-guide.md)를 참조한다.
+
+프롬프트를 작성하거나 리팩터링할 때는 [`docs/prompt-writing-guide.md`](docs/prompt-writing-guide.md)를 참조한다.
