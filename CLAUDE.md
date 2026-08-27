@@ -22,23 +22,7 @@ Conventional Commits를 따른다.
 
 `main`에 병합할 때는 별도 요청이 없으면 fast-forward를 우선한다. `main`에 별도 커밋이 있어 fast-forward가 불가능하면 일반 병합을 사용하고, 작업 브랜치의 병합 경계를 남겨야 할 때만 `--no-ff`를 사용한다.
 
-## 계획서 경로
+## 참조 문서 관리
 
-생성되는 계획서는 `docs/plans/`에 둔다. 규모와 무관하게 `YYYY-MM-DD-<주제>/<도메인>/<기능>.md` 형태의 세 층 구조를 쓰고, 최상위와 도메인에는 각각 `README.md`를 둔다. 대화 중에 쓰는 초안 한 편은 구조로 옮긴 뒤 지운다.
-
-## 스킬 파일 규약
-
-### 문서 권한과 참조 순서
-
-저장소 전체 규칙은 `AGENTS.md`가 정본으로 삼고, 스킬 실행 절차는 각 스킬 폴더의 `SKILL.md`가 정본으로 삼는다. `SKILL.md`가 지정한 경우에만 `references/`를 읽으며, 참조 문서는 근거·예외·세부 판정을 제공하지만 본문에 없는 새 실행 범위를 만들지 않는다. `assets/`는 산출물 템플릿이고 `scripts/`는 검증·실행 도구이므로 지시사항의 정본으로 해석하지 않는다.
-
-규칙이 충돌하면 상위 문서의 범위를 따른다. 저장소 공통 규칙은 각 스킬의 절차보다 우선하고, 스킬 본문은 해당 스킬의 참조 문서보다 우선한다. 두 스킬은 계획서를 매개로 협력하되 서로의 `SKILL.md`나 참조 문서를 정본으로 참조하지 않는다.
-
-- 플러그인은 `plugins/project-helper/`에 있고 저장소 루트는 마켓플레이스다. 스킬은 `plugins/project-helper/skills/<이름>/SKILL.md`에 둔다.
-- 각 스킬은 자기 폴더 안만 참조한다. 다른 스킬이나 플러그인 루트를 가리키지 않는다. 스킬 하나만 떼어 가도 동작해야 한다.
-- 스킬 사이에 공유해야 할 규약이 있으면 파일을 공유하는 대신, 각 스킬이 자기가 만지는 부분을 전제로 선언한다.
-- `SKILL.md` 본문은 200줄 안팎으로 유지하고, 세부 판정 기준은 `references/`로 뺀다.
-
-문서 구조·배치·참조·갱신을 관리할 때는 [`docs/documentation-management-guide.md`](docs/documentation-management-guide.md)를 참조한다.
-
-문서와 프롬프트를 생성하거나 개선할 때는 [`docs/prompt-writing-guide.md`](docs/prompt-writing-guide.md)를 참조한다.
+- 문서 구조·배치·참조·갱신을 관리할 때는 [`docs/documentation-management-guide.md`](docs/documentation-management-guide.md)를 참조한다.
+- 문서와 프롬프트를 생성하거나 개선할 때는 [`docs/prompt-writing-guide.md`](docs/prompt-writing-guide.md)를 참조한다.
