@@ -30,7 +30,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | `assets/` | 계획서·색인 템플릿 | 파일을 만들 때 |
 | `scripts/` | 계획서 형식 검증 | 확정 직전 |
 
-참조 문서는 본문에 없는 실행 범위를 추가하지 않는다. 문서 작성 형식은 `docs/document-writing-guide.md`를 따르고, `impl-plan`은 필요한 형식 전제를 자체적으로 선언한다.
+참조 문서는 본문에 없는 실행 범위를 추가하지 않는다. 문서 관리 형식은 `docs/documentation-management-guide.md`를 따른다.
 
 시작하기 전에 [`roles.md`](references/collaboration/roles.md)와 [`questioning.md`](references/collaboration/questioning.md)를 읽는다. AI는 관련 파일과 제약을 조사해 제시하고, 해법과 선택은 사용자에게 맡긴다.
 

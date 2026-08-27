@@ -39,9 +39,9 @@ Conventional Commits를 따른다.
 - 스킬 사이에 공유해야 할 규약이 있으면 파일을 공유하는 대신, 각 스킬이 자기가 만지는 부분을 전제로 선언한다.
 - `SKILL.md` 본문은 200줄 안팎으로 유지하고, 세부 판정 기준은 `references/`로 뺀다.
 
-문서 작성과 검토에는 [`docs/document-writing-guide.md`](docs/document-writing-guide.md)를 참조한다.
+문서 구조·배치·참조·갱신을 관리할 때는 [`docs/documentation-management-guide.md`](docs/documentation-management-guide.md)를 참조한다.
 
-프롬프트를 작성하거나 리팩터링할 때는 [`docs/prompt-writing-guide.md`](docs/prompt-writing-guide.md)를 참조한다.
+문서와 프롬프트를 생성하거나 개선할 때는 [`docs/prompt-writing-guide.md`](docs/prompt-writing-guide.md)를 참조한다.
 
 ## Codex 플러그인 개발·재설치
 
