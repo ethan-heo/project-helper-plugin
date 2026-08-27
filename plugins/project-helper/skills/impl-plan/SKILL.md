@@ -140,14 +140,11 @@ description: 이미 작성된 구현 계획서가 있고 상태가 '계획 확�
 
 ## 참조 파일
 
-`references/execution.md`의 절을 필요한 시점에 읽는다.
+참조 문서는 실행 단계별로 필요한 파일만 읽는다.
 
-| 읽을 부분 | 읽는 시점 |
+| 실행 단계 | 참조 파일 | 읽는 목적 |
 | --- | --- |
-| 중단했다가 돌아왔을 때 | 0번. 체크 상태와 커밋 이력이 어긋나 보일 때 |
-| 받는 문서의 전제 / 항목 표기 / 모호한 항목 | 1번. 어긋난 것을 찾았거나 항목이 모호할 때 |
-| 선행 확인 | 2번. 선행이 닫히지 않았을 때 |
-| 커밋 메시지 규칙 찾기 | 3번. 프로젝트 지시사항에 규칙이 없을 때 |
-| 브랜치 | 4번. 브랜치를 처음 만들 때 |
-| 기록 줄 | 6번. 첫 항목을 시작하기 전에 한 번 |
-| 계획의 결함 | 7번. 전제가 흔들릴 때 |
+| 재개·준비 | `preparation/resume.md`, `preparation/prerequisites.md`, `preparation/branch.md` | 작업 상태와 전제 확인 |
+| 항목 실행 | `execution/item.md`, `execution/commit.md`, `execution/progress.md` | 구현·검증·기록 |
+| 선행·형식 검증 | `validation/plan-format.md`, `validation/dependency.md`, `validation/test.md` | 진행 가능 여부 확인 |
+| 실패·중단 | `failure/ambiguity.md`, `failure/plan-defect.md`, `failure/interruption.md` | 예외 처리 |
