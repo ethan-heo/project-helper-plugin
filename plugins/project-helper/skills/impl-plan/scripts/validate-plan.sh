@@ -2,8 +2,8 @@
 set -euo pipefail
 
 plan_file="${1:?사용법: validate-plan.sh <기능 계획서> }"
-plan_root="$(dirname "$(dirname "$(dirname "$plan_file")")")"
 domain_dir="$(dirname "$plan_file")"
+plan_root="$(dirname "$domain_dir")"
 errors=0
 fail() { printf '오류: %s\n' "$1" >&2; errors=$((errors + 1)); }
 
