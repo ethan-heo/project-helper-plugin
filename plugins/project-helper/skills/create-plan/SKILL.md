@@ -110,20 +110,12 @@ AI는 관련 파일과 기존 처리 방식과 제약을 조사한다. 조사 �
 
 ## 참조 파일
 
-| 읽을 부분 | 읽는 시점 |
+| 실행 단계 | 참조 파일 | 읽는 목적 |
 | --- | --- |
-| `facilitation.md` 역할 / 3단계 개입 / 검토자로서 반박하기 | 시작하기 전과 질문·대안 제시 직전 |
-| `technical-writing.md` 문장·문단·절·표 작성 기준 | 계획서의 각 섹션을 작성하기 직전 |
-| `design-cases.md` 설계 유형별 적용 조건과 출력 형식 | 3번 설계 섹션을 작성하기 직전 |
-| `scripts/validate-plan.sh` 계획서 정합성 검사 | 7번 확정 직전 |
-| `facilitation.md` 한 번에 던지는 양 | 질문을 여러 개 준비할 때 |
-| `facilitation.md` 축약 요청 처리 | 사용자가 빠른 진행을 요청할 때 |
-| `plan-format.md` 파일 위치 / 섹션 구성 / 상태 표 | 0번에서 초안을 만들기 직전 |
-| `sections.md`의 해당 섹션 절 | 해당 섹션을 채우기 직전 |
-| `plan-format.md` 구현 항목 / 설계 섹션의 표 / 테스트 섹션의 표 | 해당 섹션의 표기가 헷갈릴 때 |
-| `sections.md` 도메인과 기능 가르기 / 초안을 구조로 옮기기 | 4-1번에서 경계를 정하거나 옮기기 직전 |
-| `plan-format.md` 문서 구조 | 4-1번에서 구조로 옮기기 직전 |
-| `sections.md` 인계 점검 / `plan-format.md` 확인 | 7번에서 확정하기 직전 |
-| `plan-format.md` 미해결 검토 표시 / 형식이 섞이지 않게 한다 | 검토 표시를 남기거나 형식 변환을 합의할 때 |
-| `assets/plan-template.md` | 0번에서 초안을 만들 때와 4-1번에서 기능 계획서를 만들 때 |
-| `assets/index-template.md` | 4-1번에서 최상위·도메인 문서를 만들 때 |
+| 준비 | `planning/scope.md`, `documents/format.md` | 범위와 계획서 형식 확인 |
+| 질문·대안 | `collaboration/questioning.md`, `collaboration/roles.md` | 사용자와 판단을 좁힘 |
+| 설계 | `sections/design.md`, `design/` | 설계 유형과 근거 작성 |
+| 경계·이전 | `planning/boundaries.md`, `documents/hierarchy.md`, `documents/migration.md` | 문서 구조 결정·이전 |
+| 섹션 작성 | `sections/`, `writing/` | 섹션과 Markdown 작성 |
+| 승인·확정 | `collaboration/approval.md`, `documents/format.md` | 승인과 형식 검증 |
+| 계획서 생성 | `assets/plan-template.md`, `assets/index-template.md` | 템플릿 적용 |
