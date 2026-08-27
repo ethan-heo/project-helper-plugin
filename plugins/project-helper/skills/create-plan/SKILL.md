@@ -23,7 +23,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | `assets/` | 계획서·색인 템플릿 | 파일을 만들 때 |
 | `scripts/` | 계획서 형식 검증 | 확정 직전 |
 
-참조 문서는 본문에 없는 실행 범위를 추가하지 않는다. 공통 계획서 형식은 이 스킬의 참조 문서에 정의되어 있지만, `impl-plan`은 필요한 형식 전제만 자체적으로 선언해 이 문서를 실행 중 참조하지 않는다.
+참조 문서는 본문에 없는 실행 범위를 추가하지 않는다. 문서 작성 형식은 `docs/document-writing-guide.md`를 따르고, `impl-plan`은 필요한 형식 전제를 자체적으로 선언한다.
 
 ## 왜 이 스킬이 있는가
 
@@ -37,7 +37,7 @@ AI가 계획서를 혼자 완성하면 사용자는 코드가 왜 그렇게 바�
 
 AI는 관련 파일과 기존 처리 방식과 제약을 조사한다. 조사 결과를 제시하되, 해법과 선택은 사용자에게 맡긴다.
 
-시작하기 전에 `references/facilitation.md`의 "역할"과 "3단계 개입"을 읽는다. 질문과 대안 제시가 필요한 시점에는 같은 문서의 해당 절을 다시 읽는다. 나머지 참조 파일은 아래 참조 표에 적힌 절을 실행하기 직전에 읽는다.
+시작하기 전에 [`roles.md`](references/collaboration/roles.md)와 [`questioning.md`](references/collaboration/questioning.md)를 읽고, 나머지 참조 파일은 아래 표의 절을 실행하기 직전에 읽는다.
 
 ## 진행 절차
 
@@ -70,11 +70,22 @@ AI는 관련 파일과 기존 처리 방식과 제약을 조사한다. 조사 �
 | 5 | 테스트 | 모든 구현 항목이 최소 하나의 검증에 대응 |
 | 6 | 요약 확정 | 변경점을 채우고 설계·구현 순서와 대조 |
 
-사용자의 답을 문서에 반영한 뒤, 반영 결과를 보여 준다. 확인받지 못한 결정은 확정된 사실처럼 쓰지 않는다.
+**사용자의 답을 문서에 반영하고 결과를 보여 준 뒤 다음 섹션으로 넘어간다.**
 
-설계 섹션을 작성하기 전에 `references/design-cases.md`를 읽고 요구사항과 코드베이스에 해당하는 유형만 제안한다. 사용자가 범위를 승인하면 선택한 유형의 형식을 적용하고, 해당하지 않는 유형은 계획서에 넣지 않는다.
+확인받지 못한 결정은 확정된 사실처럼 쓰지 않는다.
 
-변경점은 설계와 구현 순서가 정해진 뒤 작성한다. 그 시점에 실제 변경 범위를 정확히 적을 수 있다.
+**설계 섹션을 작성하기 전에 [`design.md`](references/design.md)를 읽고 해당하는 설계 유형만 제안한다.**
+
+| 설계 승인 상태 | 할 일 |
+| --- | --- |
+| 사용자가 유형을 승인함 | 선택한 유형의 형식으로 작성한다 |
+| 사용자가 유형을 승인하지 않음 | 범위를 다시 좁힌다 |
+
+해당하지 않는 설계 유형은 계획서에 넣지 않는다.
+
+**설계와 구현 순서가 정해진 뒤 요약의 변경점을 작성한다.**
+
+실제 변경 범위가 확정된 뒤 작성해야 요약과 구현 순서가 어긋나지 않는다.
 
 ### 4-1. 도메인과 기능 가르기
 
@@ -85,11 +96,22 @@ AI는 관련 파일과 기존 처리 방식과 제약을 조사한다. 조사 �
 | 기능을 몇 개로 가를까 | 독립적으로 돌려 볼 수 있는 검증 지점마다 하나. 지점이 하나뿐이면 기능도 하나다 |
 | 도메인을 몇 개로 묶을까 | 성격이 갈리는 만큼. 한 갈래면 도메인도 하나다 |
 
-이 단계에서는 나눌지 여부를 묻지 않는다. 기능이 하나여도 최상위·도메인·기능 계획서 세 층을 만든다.
+**기능과 도메인의 경계를 먼저 검증할 대상을 기준으로 정한다.**
 
-경계는 먼저 검증할 대상을 기준으로 정한다. 어느 대상을 먼저 검증할지는 사용자가 결정한다.
+기능이 하나여도 최상위·도메인·기능 계획서 세 층을 만든다.
 
-구조로 옮길 때는 위층부터 작성한다. 최상위 문서에는 도메인 목록과 선행 관계를 남긴다. 도메인 문서에는 기능 목록을 남긴다. 기능 계획서에는 상태를 남긴다. 이동이 끝나면 초안 파일을 삭제한다.
+| 판단 대상 | 결정 주체 |
+| --- | --- |
+| 먼저 검증할 대상 | 사용자 |
+| 대상에 따른 기능·도메인 경계 | AI가 제안하고 사용자에게 확인 |
+
+**구조로 옮길 때는 최상위 문서부터 작성하고, 이동이 끝나면 초안 파일을 삭제한다.**
+
+| 문서 층위 | 남길 내용 |
+| --- | --- |
+| 최상위 | 도메인 목록과 선행 관계 |
+| 도메인 | 기능 목록 |
+| 기능 계획서 | 상태 |
 
 ### 7. 확정
 
@@ -117,20 +139,12 @@ AI는 관련 파일과 기존 처리 방식과 제약을 조사한다. 조사 �
 
 ## 참조 파일
 
-| 읽을 부분 | 읽는 시점 |
+| 실행 단계 | 참조 파일 | 읽는 목적 |
 | --- | --- |
-| `facilitation.md` 역할 / 3단계 개입 / 검토자로서 반박하기 | 시작하기 전과 질문·대안 제시 직전 |
-| `technical-writing.md` 문장·문단·절·표 작성 기준 | 계획서의 각 섹션을 작성하기 직전 |
-| `design-cases.md` 설계 유형별 적용 조건과 출력 형식 | 3번 설계 섹션을 작성하기 직전 |
-| `scripts/validate-plan.sh` 계획서 정합성 검사 | 7번 확정 직전 |
-| `facilitation.md` 한 번에 던지는 양 | 질문을 여러 개 준비할 때 |
-| `facilitation.md` 축약 요청 처리 | 사용자가 빠른 진행을 요청할 때 |
-| `plan-format.md` 파일 위치 / 섹션 구성 / 상태 표 | 0번에서 초안을 만들기 직전 |
-| `sections.md`의 해당 섹션 절 | 해당 섹션을 채우기 직전 |
-| `plan-format.md` 구현 항목 / 설계 섹션의 표 / 테스트 섹션의 표 | 해당 섹션의 표기가 헷갈릴 때 |
-| `sections.md` 도메인과 기능 가르기 / 초안을 구조로 옮기기 | 4-1번에서 경계를 정하거나 옮기기 직전 |
-| `plan-format.md` 문서 구조 | 4-1번에서 구조로 옮기기 직전 |
-| `sections.md` 인계 점검 / `plan-format.md` 확인 | 7번에서 확정하기 직전 |
-| `plan-format.md` 미해결 검토 표시 / 형식이 섞이지 않게 한다 | 검토 표시를 남기거나 형식 변환을 합의할 때 |
-| `assets/plan-template.md` | 0번에서 초안을 만들 때와 4-1번에서 기능 계획서를 만들 때 |
-| `assets/index-template.md` | 4-1번에서 최상위·도메인 문서를 만들 때 |
+| 준비 | [`scope.md`](references/planning/scope.md), [`format.md`](references/documents/format.md) | 범위와 계획서 형식 확인 |
+| 질문·대안 | [`questioning.md`](references/collaboration/questioning.md), [`roles.md`](references/collaboration/roles.md) | 사용자와 판단을 좁힘 |
+| 설계 | [`design.md`](references/sections/design.md), [`design.md`](references/design.md) | 설계 유형과 근거 작성 |
+| 경계·이전 | [`boundaries.md`](references/planning/boundaries.md), [`hierarchy.md`](references/documents/hierarchy.md), [`migration.md`](references/documents/migration.md) | 문서 구조 결정·이전 |
+| 섹션 작성 | [`summary.md`](references/sections/summary.md), [`design.md`](references/sections/design.md), [`implementation.md`](references/sections/implementation.md), [`testing.md`](references/sections/testing.md), [`structure.md`](references/writing/structure.md), [`markdown.md`](references/writing/markdown.md), [`examples.md`](references/writing/examples.md) | 섹션과 Markdown 작성 |
+| 승인·확정 | [`approval.md`](references/collaboration/approval.md), [`format.md`](references/documents/format.md) | 승인과 형식 검증 |
+| 계획서 생성 | `assets/plan-template.md`, `assets/index-template.md` | 템플릿 적용 |
