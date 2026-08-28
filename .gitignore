@@ -4,3 +4,4 @@ __pycache__/
 *.pyc
 dist/
 docs/plans/
+docs/prds/
