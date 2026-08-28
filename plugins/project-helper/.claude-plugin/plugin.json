@@ -1,7 +1,7 @@
 {
   "name": "project-helper",
-  "version": "0.2.0",
-  "description": "기술적 문제의 해법을 사용자가 직접 설계하도록 돕고, 그 계획서대로 구현하고 검증하는 세 스킬",
+  "version": "0.3.0",
+  "description": "제품의 목적과 요구사항을 PRD로 확정하고, 기술적 해법을 사용자가 직접 설계하도록 도우며, 그 계획서대로 구현하는 세 스킬",
   "author": {
     "name": "ethan"
   },
