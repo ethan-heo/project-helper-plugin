@@ -8,10 +8,12 @@ Claude Code와 Codex에서 함께 사용할 수 있는 플러그인이다.
 
 | 스킬 | 하는 일 | 계획서 상태 |
 | --- | --- | --- |
+| `create-prd` | 무엇을 왜 만드는지 질의응답으로 확정해 PRD로 남긴다 | 해당 없음 |
 | `create-plan` | 요구사항을 받아 사용자와 함께 구현 계획서를 쓴다 | 초안 작성 → 계획 완료 |
 | `impl-plan` | 계획서의 구현 순서를 하나씩 실행하고 항목마다 커밋한다 | 계획 완료 → 완료 |
+| `create-docs` | 구현이 끝난 계획서와 코드를 근거로 개발 문서를 만든다 | 완료 이후 |
 
-두 스킬은 계획서를 매개로 협력하지만 서로의 파일을 참조하지 않는다. 형식의 정본은 `create-plan`의 `references/plan-format.md`에 둔다.
+네 스킬은 PRD와 계획서를 매개로 이어지지만 서로의 파일을 참조하지 않는다. 형식의 정본은 `create-plan`의 `references/plan-format.md`에 둔다.
 
 문서의 권한은 저장소 규칙, 스킬 본문, 조건부 참조 자료, 실행 자료의 순서로 구분한다. `SKILL.md`가 각 스킬의 실행 정본이며, `references/`는 지정된 절차에서만 읽는 근거와 세부 기준이다. `assets/`는 템플릿, `scripts/`는 검증 도구이므로 독립적인 실행 지시사항으로 해석하지 않는다.
 
@@ -40,7 +42,7 @@ Claude Code와 Codex에서 함께 사용할 수 있는 플러그인이다.
 plugins/project-helper/             플러그인
 ├── .claude-plugin/plugin.json       Claude Code용 매니페스트
 ├── .codex-plugin/plugin.json        Codex용 매니페스트
-└── skills/{create-plan, impl-plan}/
+└── skills/{create-prd, create-plan, impl-plan, create-docs}/
 ```
 
 ### Claude Code
@@ -66,7 +68,7 @@ Codex 앱의 플러그인 화면에서 로컬 플러그인 설치를 선택하�
 <저장소 경로>/plugins/project-helper
 ```
 
-Codex는 해당 디렉터리의 `.codex-plugin/plugin.json`과 `skills/`를 읽어 설치한다. 설치 후 새 Codex 대화에서 `create-plan`, `impl-plan` 스킬을 사용할 수 있다.
+Codex는 해당 디렉터리의 `.codex-plugin/plugin.json`과 `skills/`를 읽어 설치한다. 설치 후 새 Codex 대화에서 네 스킬을 모두 사용할 수 있다.
 
 플러그인을 수정한 뒤에는 Codex의 플러그인 화면에서 해당 플러그인을 다시 설치하거나 새로고침한다.
 
