@@ -29,6 +29,8 @@
 
 산출물은 계획서 파일이다. 절차가 끝나면 아래 구조가 만들어지고 초안 파일은 삭제된다.
 
+문서 루트를 `docs/`로 판정한 프로젝트의 예시다.
+
 ```
 docs/plans/2026-08-31-payment-retry/
 ├── README.md
@@ -65,7 +67,7 @@ docs/plans/2026-08-31-payment-retry/
 
 | 위치 | 이름 | 타입 | 필수 | 설명 |
 | --- | --- | --- | --- | --- |
-| 인자 1 | 계획 디렉터리 | path | 예 | `docs/plans/YYYY-MM-DD-<주제>` |
+| 인자 1 | 계획 디렉터리 | path | 예 | `<루트>/plans/YYYY-MM-DD-<주제>` |
 
 ```bash
 bash plugins/project-helper/skills/create-plan/scripts/validate-plan.sh docs/plans/2026-08-31-payment-retry

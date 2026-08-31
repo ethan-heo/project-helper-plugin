@@ -20,7 +20,7 @@
 
 | 위치 | 이름 | 타입 | 필수 | 설명 |
 | --- | --- | --- | --- | --- |
-| 인자 1 | 계획 디렉터리 | path | 예 | `docs/plans/2026-08-31-plugin-distribution` |
+| 인자 1 | 계획 디렉터리 | path | 예 | `<루트>/plans/2026-08-31-plugin-distribution` |
 
 ```bash
 bash plugins/project-helper/skills/create-plan/scripts/validate-plan.sh docs/plans/2026-08-31-plugin-distribution
