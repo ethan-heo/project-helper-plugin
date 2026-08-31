@@ -2,5 +2,5 @@
 _to_delete/
 __pycache__/
 *.pyc
-docs/plans/
-docs/prds/
+plugins/project-helper/docs/plans/
+plugins/project-helper/docs/prds/
