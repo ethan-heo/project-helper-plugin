@@ -1,20 +1,21 @@
 {
   "name": "project-helper",
-  "version": "0.2.0+codex.20260830142657",
-  "description": "\uae30\uc220\uc801 \ubb38\uc81c\uc758 \ud574\ubc95\uc744 \uc0ac\uc6a9\uc790\uac00 \uc9c1\uc811 \uc124\uacc4\ud558\ub3c4\ub85d \ub3d5\uace0, \uadf8 \uacc4\ud68d\uc11c\ub300\ub85c \uad6c\ud604\ud558\uace0 \uac80\uc99d\ud558\ub294 \uc138 \uc2a4\ud0ac",
+  "version": "0.4.1",
+  "description": "제품의 목적과 요구사항을 PRD로 확정하고, 기술적 해법을 사용자가 직접 설계하도록 도우며, 그 계획서대로 구현하고, 구현 결과를 개발 문서로 남기는 네 스킬",
   "author": {
     "name": "ethan"
   },
   "keywords": [
     "planning",
     "implementation",
-    "verification"
+    "verification",
+    "documentation"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Project Helper",
-    "shortDescription": "\uacc4\ud68d \uc218\ub9bd\ubd80\ud130 \uad6c\ud604\uacfc \uac80\uc99d\uae4c\uc9c0 \ub3d5\ub294 \uac1c\ubc1c \uc2a4\ud0ac",
-    "longDescription": "\uae30\uc220\uc801 \ubb38\uc81c\uc758 \ud574\ubc95\uc744 \uc0ac\uc6a9\uc790\uac00 \uc9c1\uc811 \uc124\uacc4\ud558\ub3c4\ub85d \ub3d5\uace0, \ud655\uc815\ud55c \uacc4\ud68d\uc5d0 \ub530\ub77c \uad6c\ud604\ud558\uace0 \uac80\uc99d\ud569\ub2c8\ub2e4.",
+    "shortDescription": "요구사항 정의부터 계획 수립과 구현, 개발 문서 작성까지 돕는 개발 스킬",
+    "longDescription": "무엇을 왜 만드는지 PRD로 확정하고, 기술적 문제의 해법을 사용자가 직접 설계하도록 도우며, 확정한 계획에 따라 구현하고, 그 결과를 개발 문서로 남깁니다.",
     "developerName": "ethan",
     "category": "Developer Tools",
     "capabilities": [
@@ -22,9 +23,10 @@
       "Write"
     ],
     "defaultPrompt": [
-      "\uc774 \ubb38\uc81c\uc758 \uad6c\ud604 \uacc4\ud68d\uc744 \ud568\uaed8 \uc138\uc6cc\uc918",
-      "\ud655\uc815\ud55c \uacc4\ud68d\ub300\ub85c \uad6c\ud604\ud574\uc918",
-      "\uad6c\ud604 \uacb0\uacfc\ub97c \uac80\uc99d\ud574\uc918"
+      "무엇을 왜 만들지 PRD로 정리해줘",
+      "이 문제의 구현 계획을 함께 세워줘",
+      "확정한 계획대로 구현해줘",
+      "구현한 내용을 개발 문서로 정리해줘"
     ]
   }
 }
