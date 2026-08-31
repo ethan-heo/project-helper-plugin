@@ -35,10 +35,10 @@ Claude Code와 Codex에서 함께 사용할 수 있는 플러그인이다.
 
 ## 설치
 
-저장소 루트가 마켓플레이스이고, 플러그인은 그 안에 있다.
+저장소 루트가 마켓플레이스이고, 플러그인은 그 안에 있다. Claude Code와 Codex 모두 같은 매니페스트를 읽는다.
 
 ```
-.claude-plugin/marketplace.json     Claude Code 마켓플레이스 매니페스트
+.claude-plugin/marketplace.json     마켓플레이스 매니페스트
 plugins/project-helper/             플러그인
 ├── .claude-plugin/plugin.json       Claude Code용 매니페스트
 ├── .codex-plugin/plugin.json        Codex용 매니페스트
@@ -47,30 +47,36 @@ plugins/project-helper/             플러그인
 
 ### Claude Code
 
-저장소를 마켓플레이스로 등록한 뒤 플러그인을 설치한다.
-
 ```
-/plugin marketplace add <저장소 경로>
+/plugin marketplace add ethan-heo/project-helper-plugin
 /plugin install project-helper@project-helpers
 ```
 
-터미널에서 등록 없이 바로 띄우려면 플러그인 디렉터리를 가리킨다.
-
-```
-claude --plugin-dir <저장소 경로>/plugins/project-helper
-```
+설치 결과는 `claude plugin list`로 확인한다.
 
 ### Codex
 
-Codex 앱의 플러그인 화면에서 로컬 플러그인 설치를 선택하고 다음 디렉터리를 지정한다.
+```
+codex plugin marketplace add ethan-heo/project-helper-plugin
+codex plugin add project-helper@project-helpers
+```
+
+설치 결과는 `codex plugin list`로 확인한다. 새로 시작하는 대화에서 네 스킬을 모두 사용할 수 있다.
+
+### 갱신
+
+마켓플레이스를 갱신한 뒤 플러그인을 다시 설치한다.
 
 ```
-<저장소 경로>/plugins/project-helper
+claude plugin marketplace update project-helpers
+codex plugin marketplace upgrade
 ```
 
-Codex는 해당 디렉터리의 `.codex-plugin/plugin.json`과 `skills/`를 읽어 설치한다. 설치 후 새 Codex 대화에서 네 스킬을 모두 사용할 수 있다.
+갱신한 내용은 실행 중인 세션에 적용되지 않는다. 세션을 다시 시작해야 새 스킬 정의가 적용된다.
 
-플러그인을 수정한 뒤에는 Codex의 플러그인 화면에서 해당 플러그인을 다시 설치하거나 새로고침한다.
+### 저장소를 고쳐 쓰는 경우
+
+플러그인을 직접 수정하며 시험하려면 [`docs/local-install-guide.md`](docs/local-install-guide.md)의 절차를 따른다. 배포 규격은 [`docs/plugin-distribution-guide.md`](docs/plugin-distribution-guide.md)에 있다.
 
 ## 진행 상황
 
