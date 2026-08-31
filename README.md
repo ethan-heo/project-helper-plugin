@@ -76,7 +76,7 @@ codex plugin marketplace upgrade
 
 ### 저장소를 고쳐 쓰는 경우
 
-플러그인을 직접 수정하며 시험하려면 [`docs/local-install-guide.md`](docs/local-install-guide.md)의 절차를 따른다. 배포 규격은 [`docs/plugin-distribution-guide.md`](docs/plugin-distribution-guide.md)에 있다.
+플러그인을 직접 수정하며 시험하려면 [`docs/도메인_문서/배포와_설치(distribution)/03_API_명세.md`](docs/도메인_문서/배포와_설치%28distribution%29/03_API_명세.md)의 로컬 테스트 설치 절차를 따른다. 배포 규격과 확인 근거는 같은 도메인의 [`02_도메인_모델.md`](docs/도메인_문서/배포와_설치%28distribution%29/02_도메인_모델.md)와 [`04_도메인_특화_가이드.md`](docs/도메인_문서/배포와_설치%28distribution%29/04_도메인_특화_가이드.md)에 있다.
 
 ## 진행 상황
 

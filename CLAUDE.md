@@ -24,6 +24,6 @@ Conventional Commits를 따른다.
 
 ## 참조 문서 관리
 
-- 문서 구조·배치·참조·갱신을 관리할 때는 [`docs/documentation-management-guide.md`](docs/documentation-management-guide.md)를 참조한다.
-- 문서와 프롬프트를 생성하거나 개선할 때는 [`docs/prompt-writing-guide.md`](docs/prompt-writing-guide.md)를 참조한다.
-- 로컬에서 테스트용으로 설치하고 다시 설치할 때는 [`docs/local-install-guide.md`](docs/local-install-guide.md)를 참조한다.
+- 문서 구조·배치·참조·갱신을 관리할 때는 [`docs/공통_인프라_및_컨벤션/문서_작성_기준.md`](docs/공통_인프라_및_컨벤션/문서_작성_기준.md)를 참조한다.
+- 문서와 프롬프트를 생성하거나 개선할 때는 [`docs/공통_인프라_및_컨벤션/프롬프트_작성_가이드.md`](docs/공통_인프라_및_컨벤션/프롬프트_작성_가이드.md)를 참조한다.
+- 로컬에서 테스트용으로 설치하고 다시 설치할 때는 [`docs/도메인_문서/배포와_설치(distribution)/03_API_명세.md`](docs/도메인_문서/배포와_설치%28distribution%29/03_API_명세.md)의 로컬 테스트 설치 절을 참조한다.
