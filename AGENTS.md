@@ -26,17 +26,4 @@ Conventional Commits를 따른다.
 
 - 문서 구조·배치·참조·갱신을 관리할 때는 [`docs/documentation-management-guide.md`](docs/documentation-management-guide.md)를 참조한다.
 - 문서와 프롬프트를 생성하거나 개선할 때는 [`docs/prompt-writing-guide.md`](docs/prompt-writing-guide.md)를 참조한다.
-
-## Codex 플러그인 개발·재설치
-
-Codex 플러그인은 설치할 때 로컬 소스를 캐시에 복사한다. 캐시를 끄거나 파일 변경을 자동 반영하는 공식 개발 모드는 없으므로, 소스 파일을 수정한 뒤에는 플러그인을 재설치하고 새 대화에서 확인한다.
-
-개인 마켓플레이스가 별도 로컬 사본을 참조하는 경우 저장소의 플러그인 디렉터리를 해당 경로에 심링크로 연결할 수 있다. 심링크는 재설치할 때 최신 소스를 사용하게 할 뿐, 실행 중인 캐시를 갱신하지는 않는다.
-
-```bash
-codex plugin remove project-helper@personal
-rm -rf ~/.codex/plugins/cache/personal/project-helper
-codex plugin add project-helper@personal
-```
-
-플러그인을 삭제할 때는 해당 플러그인의 캐시 디렉터리도 함께 삭제한다. 전체 캐시 디렉터리는 삭제하지 않는다. 재설치 전에 캐시버스터를 갱신해야 변경된 플러그인을 확실히 인식한다. 개발 중에는 플러그인 업데이트 도구를 사용하고, 마켓플레이스 설정 파일은 직접 수정하지 않는다.
+- 로컬에서 테스트용으로 설치하고 다시 설치할 때는 [`docs/local-install-guide.md`](docs/local-install-guide.md)를 참조한다.
