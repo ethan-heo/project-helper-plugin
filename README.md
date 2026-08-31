@@ -76,8 +76,8 @@ codex plugin marketplace upgrade
 
 ### 저장소를 고쳐 쓰는 경우
 
-플러그인을 직접 수정하며 시험하려면 [`plugins/project-helper/docs/도메인_문서/배포와_설치(distribution)/03_API_명세.md`](plugins/project-helper/docs/도메인_문서/배포와_설치%28distribution%29/03_API_명세.md)의 로컬 테스트 설치 절차를 따른다. 배포 규격과 확인 근거는 같은 도메인의 [`02_도메인_모델.md`](plugins/project-helper/docs/도메인_문서/배포와_설치%28distribution%29/02_도메인_모델.md)와 [`04_도메인_특화_가이드.md`](plugins/project-helper/docs/도메인_문서/배포와_설치%28distribution%29/04_도메인_특화_가이드.md)에 있다.
+플러그인을 직접 수정하며 시험하려면 [`docs/project-helper/도메인_문서/배포와_설치(distribution)/03_API_명세.md`](docs/project-helper/도메인_문서/배포와_설치%28distribution%29/03_API_명세.md)의 로컬 테스트 설치 절차를 따른다. 배포 규격과 확인 근거는 같은 도메인의 [`02_도메인_모델.md`](docs/project-helper/도메인_문서/배포와_설치%28distribution%29/02_도메인_모델.md)와 [`04_도메인_특화_가이드.md`](docs/project-helper/도메인_문서/배포와_설치%28distribution%29/04_도메인_특화_가이드.md)에 있다.
 
 ## 진행 상황
 
-구축 계획서는 `plugins/project-helper/docs/plans/2026-08-25-plan-skills/`에 있다. 최상위 `README.md`에서 도메인을 훑고, 도메인 폴더 아래의 기능 계획서 파일로 내려가면 해당 기능의 계획을 확인할 수 있다.
+구축 계획서는 `docs/project-helper/plans/2026-08-25-plan-skills/`에 있다. 최상위 `README.md`에서 도메인을 훑고, 도메인 폴더 아래의 기능 계획서 파일로 내려가면 해당 기능의 계획을 확인할 수 있다.
