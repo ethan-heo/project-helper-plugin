@@ -63,9 +63,14 @@ else
   done <<< "$domains"
 fi
 
-while IFS= read -r file; do
-  check_unresolved "$file"
-done < <(find "$docs_root" -type f -name '*.md')
+check_unresolved "$docs_root/글로벌_아키텍처_가이드.md"
+
+for dir in "$common_dir" "$domain_root"; do
+  [[ -d "$dir" ]] || continue
+  while IFS= read -r file; do
+    check_unresolved "$file"
+  done < <(find "$dir" -type f -name '*.md')
+done
 
 (( errors == 0 )) || exit 1
 printf '개발 문서 검증 통과: %s\n' "$docs_root"
