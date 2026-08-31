@@ -16,7 +16,7 @@ child_dirs="$(find "$domain_dir" -mindepth 1 -maxdepth 1 -type d -print)"
 rg -q '^\| 단계 \| 계획 완료 \|' "$plan_file" || fail '계획 완료 상태가 아닙니다.'
 ! rg -q '<!-- 사용자 검토 필요 -->' "$plan_file" || fail '사용자 검토 표시가 남아 있습니다.'
 rg -q '^\| 구현 진행률 \| [0-9]+ / [0-9]+ \|' "$plan_file" || fail '구현 진행률 형식이 잘못되었습니다.'
-rg -q '^- \[[ x]\] \*\*[A-Z0-9]+-[A-Z0-9]+-[0-9]{3}\*\* ' "$plan_file" || fail '구현 항목 형식이 잘못되었습니다.'
+rg -q '^(- |[0-9]+\. )\[[ x]\] \*\*[A-Z0-9]+-[A-Z0-9]+-[0-9]{3}\*\* ' "$plan_file" || fail '구현 항목 형식이 잘못되었습니다.'
 
 (( errors == 0 )) || exit 1
 printf '구현 전 계획서 검증 통과: %s\n' "$plan_file"

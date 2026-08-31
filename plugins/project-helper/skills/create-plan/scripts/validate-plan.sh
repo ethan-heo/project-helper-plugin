@@ -16,7 +16,7 @@ for domain in $domains; do
     if rg -q '<!-- 사용자 검토 필요 -->' "$plan"; then fail "$plan에 사용자 검토 표시가 남아 있습니다."; fi
     rg -q '^\| 단계 \| (초안 작성|계획 완료|완료) \|' "$plan" || fail "$plan의 단계가 허용된 값이 아닙니다."
     rg -q '^\| 구현 진행률 \| [0-9]+ / [0-9]+ \|' "$plan" || fail "$plan의 구현 진행률 형식이 잘못되었습니다."
-    rg -q '^- \[[ x]\] \*\*[A-Z0-9]+-[A-Z0-9]+-[0-9]{3}\*\* ' "$plan" || fail "$plan에 올바른 구현 항목이 없습니다."
+    rg -q '^(- |[0-9]+\. )\[[ x]\] \*\*[A-Z0-9]+-[A-Z0-9]+-[0-9]{3}\*\* ' "$plan" || fail "$plan에 올바른 구현 항목이 없습니다."
   done < <(find "$domain" -maxdepth 1 -type f -name '*.md')
 done
 
