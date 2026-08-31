@@ -49,7 +49,7 @@ plugins/project-helper/             플러그인
 
 ```
 /plugin marketplace add ethan-heo/project-helper-plugin
-/plugin install project-helper@project-helpers
+/plugin install project-helper@helpers
 ```
 
 설치 결과는 `claude plugin list`로 확인한다.
@@ -58,7 +58,7 @@ plugins/project-helper/             플러그인
 
 ```
 codex plugin marketplace add ethan-heo/project-helper-plugin
-codex plugin add project-helper@project-helpers
+codex plugin add project-helper@helpers
 ```
 
 설치 결과는 `codex plugin list`로 확인한다. 새로 시작하는 대화에서 네 스킬을 모두 사용할 수 있다.
@@ -68,7 +68,7 @@ codex plugin add project-helper@project-helpers
 마켓플레이스를 갱신한 뒤 플러그인을 다시 설치한다.
 
 ```
-claude plugin marketplace update project-helpers
+claude plugin marketplace update helpers
 codex plugin marketplace upgrade
 ```
 

@@ -7,13 +7,13 @@
 | 메서드 | 경로 | 설명 | 인증 |
 | --- | --- | --- | --- |
 | `실행` | `claude plugin marketplace add <owner>/<repo>` | Claude Code에 마켓플레이스를 등록한다 | 저장소 접근 권한 |
-| `실행` | `claude plugin install project-helper@project-helpers` | 플러그인을 설치한다 | 불필요 |
-| `실행` | `claude plugin marketplace update project-helpers` | 마켓플레이스 소스를 갱신한다 | 불필요 |
-| `실행` | `claude plugin uninstall project-helper@project-helpers` | 설치본을 지운다 | 불필요 |
+| `실행` | `claude plugin install project-helper@helpers` | 플러그인을 설치한다 | 불필요 |
+| `실행` | `claude plugin marketplace update helpers` | 마켓플레이스 소스를 갱신한다 | 불필요 |
+| `실행` | `claude plugin uninstall project-helper@helpers` | 설치본을 지운다 | 불필요 |
 | `실행` | `claude plugin list` | 설치 결과와 버전을 확인한다 | 불필요 |
 | `실행` | `codex plugin marketplace add <owner>/<repo>` | Codex에 마켓플레이스를 등록한다 | 저장소 접근 권한 |
-| `실행` | `codex plugin add project-helper@project-helpers` | 플러그인을 설치한다 | 불필요 |
-| `실행` | `codex plugin remove project-helper@project-helpers` | 설치본을 지운다 | 불필요 |
+| `실행` | `codex plugin add project-helper@helpers` | 플러그인을 설치한다 | 불필요 |
+| `실행` | `codex plugin remove project-helper@helpers` | 설치본을 지운다 | 불필요 |
 | `실행` | `codex plugin marketplace upgrade` | 마켓플레이스를 갱신한다 | 불필요 |
 | `실행` | `codex plugin list` | 설치 결과와 마켓플레이스 루트를 확인한다 | 불필요 |
 
@@ -31,12 +31,12 @@
 
 ```
 /plugin marketplace add ethan-heo/project-helper-plugin
-/plugin install project-helper@project-helpers
+/plugin install project-helper@helpers
 ```
 
 ```
 codex plugin marketplace add ethan-heo/project-helper-plugin
-codex plugin add project-helper@project-helpers
+codex plugin add project-helper@helpers
 ```
 
 ### 응답
@@ -44,7 +44,7 @@ codex plugin add project-helper@project-helpers
 설치 결과는 목록 명령으로 확인한다. Codex의 마켓플레이스 등록은 `~/.codex/config.toml`에 남는다.
 
 ```toml
-[marketplaces.project-helpers]
+[marketplaces.helpers]
 source = "/Users/ethanheo/Desktop/2026/projects/project-helper-plugin"
 ```
 
@@ -82,17 +82,17 @@ source = "/Users/ethanheo/Desktop/2026/projects/project-helper-plugin"
 Claude Code에서는 세 명령을 순서대로 실행한다.
 
 ```
-claude plugin uninstall project-helper@project-helpers
-claude plugin marketplace update project-helpers
-claude plugin install project-helper@project-helpers
+claude plugin uninstall project-helper@helpers
+claude plugin marketplace update helpers
+claude plugin install project-helper@helpers
 ```
 
 Codex에서는 캐시 디렉터리를 함께 지운다.
 
 ```bash
-codex plugin remove project-helper@project-helpers
-rm -rf ~/.codex/plugins/cache/project-helpers/project-helper
-codex plugin add project-helper@project-helpers
+codex plugin remove project-helper@helpers
+rm -rf ~/.codex/plugins/cache/helpers/project-helper
+codex plugin add project-helper@helpers
 ```
 
 ### 응답
