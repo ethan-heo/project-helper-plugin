@@ -27,6 +27,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | --- | --- | --- |
 | `SKILL.md` | 실행 절차와 분기 | `create-plan` 전체 |
 | `references/` | 근거·예외·세부 판정 | 본문이 지정한 절차 |
+| `../_shared/` | 여러 스킬이 공유하는 판정 규칙 | 본문이 지정한 절차 |
 | `assets/` | 계획서·색인 템플릿 | 파일을 만들 때 |
 | `scripts/` | 계획서 형식 검증 | 확정 직전 |
 
@@ -45,7 +46,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | 1 | 요구사항을 확인한다. 무엇을 원하는지 불분명하면 여기서 한 번 좁힌다 |
 | 2 | [`existing-docs.md`](references/planning/existing-docs.md)를 읽고 프로젝트의 개발 문서를 찾아 읽는다. 문서가 없으면 그 사실을 사용자에게 알린다 |
 | 3 | 관련 파일, 기존 처리 방식, 제약을 찾아 둔다. 여기서 해법을 만들지는 않는다 |
-| 4 | 프로젝트 지시사항에서 계획서를 둘 경로를 찾고, 그 경로가 `.gitignore`에 등록되어 있는지 확인한다. 없으면 `docs/plans/`를 추가한다 |
+| 4 | [`docs-root.md`](../_shared/docs-root.md)를 읽고 문서 루트를 판정한 뒤, 계획서 경로 `<루트>/plans/`가 `.gitignore`에 등록되어 있는지 확인한다. 없으면 추가한다 |
 | 5 | `assets/plan-template.md`를 복사해 초안 `YYYY-MM-DD-<주제>.md` 하나를 만든다 |
 
 문서를 코드보다 먼저 읽는다. 도메인의 책임 경계와 기존 결정을 알아야 요구사항이 어디에 속하는지 판단할 수 있다. 다만 사실 판정의 기준은 코드이므로, 문서와 코드가 어긋나면 코드를 따르고 그 차이를 사용자에게 보고한다.
@@ -143,7 +144,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 
 | 실행 단계 | 참조 파일 | 읽는 목적 |
 | --- | --- |
-| 준비 | [`scope.md`](references/planning/scope.md), [`existing-docs.md`](references/planning/existing-docs.md), [`format.md`](references/documents/format.md) | 범위와 기존 문서, 계획서 형식 확인 |
+| 준비 | [`docs-root.md`](../_shared/docs-root.md), [`scope.md`](references/planning/scope.md), [`existing-docs.md`](references/planning/existing-docs.md), [`format.md`](references/documents/format.md) | 문서 루트 판정, 범위와 기존 문서, 계획서 형식 확인 |
 | 질문·대안 | [`questioning.md`](references/collaboration/questioning.md), [`roles.md`](references/collaboration/roles.md) | 사용자와 판단을 좁힘 |
 | 설계 | [`design.md`](references/sections/design.md), [`design.md`](references/design.md) | 설계 유형과 근거 작성 |
 | 경계·이전 | [`boundaries.md`](references/planning/boundaries.md), [`hierarchy.md`](references/documents/hierarchy.md), [`migration.md`](references/documents/migration.md) | 문서 구조 결정·이전 |
