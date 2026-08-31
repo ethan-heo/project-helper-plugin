@@ -26,6 +26,7 @@ description: 구현이 끝난 계획서와 PRD, 그리고 실제 코드를 근�
 | 문서 유형 | 역할 | 적용 범위 |
 | --- | --- | --- |
 | `SKILL.md` | 실행 절차와 분기 | `create-docs` 전체 |
+| `../_shared/docs-root.md` | 문서 루트 판정 규칙 | 준비와 배치 |
 | `references/structure.md` | 보관 경로, 세 층 배치, 도메인 대응 | 준비와 배치 |
 | `references/sections.md` | 문서별 필수 항목과 서술 규칙 | 문서를 채울 때 |
 | `assets/` | 개발 문서 양식 일곱 편 | 파일을 만들 때 |
@@ -120,7 +121,7 @@ description: 구현이 끝난 계획서와 PRD, 그리고 실제 코드를 근�
 
 | 실행 단계 | 참조 파일 | 읽는 목적 |
 | --- | --- | --- |
-| 배치 | [`structure.md`](references/structure.md) | 보관 경로와 세 층 배치 결정 |
+| 배치 | [`docs-root.md`](../_shared/docs-root.md), [`structure.md`](references/structure.md) | 문서 루트 판정, 세 층 배치 결정 |
 | 문서 작성 | [`sections.md`](references/sections.md) | 필수 항목과 서술 규칙 적용 |
 | 파일 생성 | `assets/` | 양식 적용 |
 | 확정 | `scripts/validate-docs.sh` | 형식 검증 |
