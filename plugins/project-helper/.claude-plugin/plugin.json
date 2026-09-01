@@ -1,7 +1,7 @@
 {
   "name": "project-helper",
-  "version": "0.5.0",
-  "description": "제품의 목적과 요구사항을 PRD로 확정하고, 기술적 해법을 사용자가 직접 설계하도록 도우며, 그 계획서대로 구현하고, 구현 결과를 개발 문서로 남기는 네 스킬",
+  "version": "0.6.0",
+  "description": "제품의 목적과 요구사항을 PRD로 확정하고, 기술적 해법을 사용자가 직접 설계하도록 도우며, 그 계획서대로 구현하고, 구현 결과를 개발 문서로 남기며, 그날의 작업을 글로 정리할 목차까지 짜 주는 다섯 스킬",
   "author": {
     "name": "ethan"
   },
@@ -9,6 +9,7 @@
     "planning",
     "implementation",
     "verification",
-    "documentation"
+    "documentation",
+    "writing"
   ]
 }

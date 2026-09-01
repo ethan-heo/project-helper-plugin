@@ -1,7 +1,7 @@
 {
   "name": "project-helper",
-  "version": "0.5.0",
-  "description": "제품의 목적과 요구사항을 PRD로 확정하고, 기술적 해법을 사용자가 직접 설계하도록 도우며, 그 계획서대로 구현하고, 구현 결과를 개발 문서로 남기는 네 스킬",
+  "version": "0.6.0",
+  "description": "제품의 목적과 요구사항을 PRD로 확정하고, 기술적 해법을 사용자가 직접 설계하도록 도우며, 그 계획서대로 구현하고, 구현 결과를 개발 문서로 남기며, 그날의 작업을 글로 정리할 목차까지 짜 주는 다섯 스킬",
   "author": {
     "name": "ethan"
   },
@@ -9,13 +9,14 @@
     "planning",
     "implementation",
     "verification",
-    "documentation"
+    "documentation",
+    "writing"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Project Helper",
-    "shortDescription": "요구사항 정의부터 계획 수립과 구현, 개발 문서 작성까지 돕는 개발 스킬",
-    "longDescription": "무엇을 왜 만드는지 PRD로 확정하고, 기술적 문제의 해법을 사용자가 직접 설계하도록 도우며, 확정한 계획에 따라 구현하고, 그 결과를 개발 문서로 남깁니다.",
+    "shortDescription": "요구사항 정의부터 계획 수립과 구현, 개발 문서와 작업 기록까지 돕는 개발 스킬",
+    "longDescription": "무엇을 왜 만드는지 PRD로 확정하고, 기술적 문제의 해법을 사용자가 직접 설계하도록 도우며, 확정한 계획에 따라 구현하고, 그 결과를 개발 문서로 남깁니다. 그날 작업한 내용을 글로 옮길 때 쓸 목차도 짜 줍니다.",
     "developerName": "ethan",
     "category": "Developer Tools",
     "capabilities": [
@@ -26,7 +27,8 @@
       "무엇을 왜 만들지 PRD로 정리해줘",
       "이 문제의 구현 계획을 함께 세워줘",
       "확정한 계획대로 구현해줘",
-      "구현한 내용을 개발 문서로 정리해줘"
+      "구현한 내용을 개발 문서로 정리해줘",
+      "오늘 작업한 내용을 글로 쓸 목차를 짜줘"
     ]
   }
 }
