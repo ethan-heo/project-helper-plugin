@@ -9,7 +9,11 @@ fail() { printf '오류: %s\n' "$1" >&2; errors=$((errors + 1)); }
 
 prd_dir="$(dirname "$prd")"
 base="$(basename "$prd" .md)"
-sub_dir="$prd_dir/$base"
+if [[ "$base" == "README" ]]; then
+  sub_dir="$prd_dir"
+else
+  sub_dir="$prd_dir/$base"
+fi
 shared_validator="$(dirname "$0")/../../_shared/prd/validate-prd.sh"
 
 req_rows="$(sed -n '/^## 요구사항$/,/^## /p' "$prd" | grep -E '^\| R[0-9-]+ \|' || true)"
@@ -36,7 +40,13 @@ while IFS= read -r row; do
   assignments="$assignments$id $target"$'\n'
 done <<< "$req_rows"
 
-[[ -d "$sub_dir" ]] || fail "하위 디렉터리 $sub_dir 가 없습니다. 아직 분해 전 상태입니다."
+if [[ "$base" == "README" ]]; then
+  [[ -n "$(find "$sub_dir" -maxdepth 1 -name '*.md' ! -name 'README.md' -print -quit)" ]] \
+    || fail "$sub_dir 에 하위 PRD가 없습니다. 아직 분해 전 상태입니다."
+else
+  fail "상위 PRD가 $prd_dir/$base/README.md 로 옮겨져 있지 않습니다."
+  [[ -d "$sub_dir" ]] || fail "하위 디렉터리 $sub_dir 가 없습니다. 아직 분해 전 상태입니다."
+fi
 
 while IFS= read -r line; do
   [[ -n "$line" ]] || continue
