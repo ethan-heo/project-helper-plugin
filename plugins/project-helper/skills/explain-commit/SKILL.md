@@ -65,7 +65,7 @@ description: 이미 커밋된 변경을 이해하기 위해, 커밋 이력을 �
 
 **[`document.md`](references/document.md)의 절 구성으로 쓰고, [`writing.md`](references/writing.md)의 서술 규칙과 파일명 규칙을 적용한다.**
 
-`assets/commit-doc-template.md`를 복사해 여섯 절을 채운다. 문서를 만든 뒤 `scripts/validate-commit-doc.sh`로 형식을 검사한다.
+`assets/commit-doc-template.md`를 복사해 일곱 절을 채운다. 문서를 만든 뒤 `scripts/validate-commit-doc.sh`로 형식을 검사한다.
 
 ### 5. 결과를 보고한다
 
