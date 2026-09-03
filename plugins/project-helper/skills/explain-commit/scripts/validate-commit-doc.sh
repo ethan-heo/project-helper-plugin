@@ -36,6 +36,26 @@ check_doc() {
     prev="$line"
   done
 
+  local comp intent flow
+  comp="$(grep -n -F -x '## 구성 요소' "$doc" | head -1 | cut -d: -f1 || true)"
+  if [[ -z "$comp" ]]; then
+    printf '경고: %s — 구성 요소 절이 없습니다. 규칙 개정 이전에 만든 문서입니다.\n' "$name" >&2
+    warned_docs="$warned_docs $name"
+  else
+    intent="$(grep -n -F -x '## 변경 의도' "$doc" | head -1 | cut -d: -f1 || true)"
+    flow="$(grep -n -F -x '## 실행 흐름' "$doc" | head -1 | cut -d: -f1 || true)"
+    if [[ -z "$intent" || -z "$flow" ]] || (( comp < intent || comp > flow )); then
+      printf '오류: %s — 구성 요소 절이 변경 의도와 실행 흐름 사이에 있지 않습니다.\n' "$name" >&2
+      errors=$((errors + 1))
+    fi
+    local components
+    components="$(sed -n '/^## 구성 요소$/,/^## 실행 흐름$/p' "$doc" || true)"
+    if ! printf '%s' "$components" | grep -q '^| '; then
+      printf '오류: %s — 구성 요소 절에 표가 없습니다.\n' "$name" >&2
+      errors=$((errors + 1))
+    fi
+  fi
+
   local deps
   deps="$(sed -n '/^## 의존 관계$/,/^## 용어와 배경$/p' "$doc" || true)"
   if ! printf '%s' "$deps" | grep -q '^```mermaid'; then
@@ -93,7 +113,7 @@ if [[ -n "$failed_docs" ]]; then
 fi
 
 if [[ -n "$warned_docs" ]]; then
-  printf '학습 문서 검증 통과 (확인 필요 표시 있음):%s\n' "$warned_docs"
+  printf '학습 문서 검증 통과 (경고 있음):%s\n' "$warned_docs"
 else
   printf '학습 문서 검증 통과: %s\n' "$target"
 fi
