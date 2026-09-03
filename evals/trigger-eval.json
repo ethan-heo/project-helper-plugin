@@ -79,35 +79,9 @@
       "why": "원인 조사. 구현 계획 단계가 아님"
     },
     {
-      "query": "오늘 작업한 내용을 블로그에 쓰려는데 초안부터 잡아줘",
-      "expect": "write-blog-draft"
-    },
-    {
-      "query": "어제 정리한 계획서들 가지고 개발 일지 하나 쓰게 도와줘",
-      "expect": "write-blog-draft"
-    },
-    {
-      "query": "8월 30일에 작업한 내용 글로 정리해줘",
-      "expect": "write-blog-draft"
-    },
-    {
-      "query": "이번에 만든 기능을 블로그 글로 써보려는데 초안 좀 만들어줘",
-      "expect": "write-blog-draft"
-    },
-    {
-      "query": "오늘 구현한 내용을 개발 문서로 정리해줘",
-      "expect": "create-docs",
-      "why": "write-blog-draft와 어휘가 겹치지만 산출물이 개발 문서다"
-    },
-    {
       "query": "오늘 정한 요구사항을 PRD로 남겨줘",
       "expect": "create-prd",
-      "why": "write-blog-draft와 어휘가 겹치지만 요구사항 확정이다"
-    },
-    {
-      "query": "블로그에 올릴 글 맞춤법 좀 봐줘",
-      "expect": null,
-      "why": "작업 기록이 아닌 글 교정"
+      "why": "요구사항을 확정하는 요청이다"
     }
   ]
 }
