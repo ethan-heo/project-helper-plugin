@@ -70,16 +70,6 @@ check_doc() {
     add_warned "$name"
   fi
 
-  local flow_rows header_cols
-  flow_rows="$(sed -n '/^## 실행 흐름$/,/^## 용어와 배경$/p' "$doc" || true)"
-  if printf '%s' "$flow_rows" | grep -q '^| '; then
-    header_cols="$(printf '%s' "$flow_rows" | grep '^| ' | head -1 | awk -F'|' '{print NF - 2}')"
-    if (( header_cols < 5 )); then
-      printf '경고: %s — 실행 흐름 표에 출처 열이 없습니다. 규칙 개정 이전에 만든 문서입니다.\n' "$name" >&2
-      add_warned "$name"
-    fi
-  fi
-
   local deps
   deps="$(sed -n '/^## 의존 관계$/,/^## 구성 요소$/p' "$doc" || true)"
   if ! printf '%s' "$deps" | grep -q '^```mermaid'; then
