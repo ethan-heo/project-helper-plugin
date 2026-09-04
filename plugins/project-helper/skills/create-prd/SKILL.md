@@ -29,6 +29,7 @@ description: 제품이나 프로젝트를 새로 시작할 때, 목적·목표·
 | `../_shared/docs-root.md` | 문서 루트 판정 규칙 | 준비 단계의 보관 경로 결정 |
 | `references/questioning.md` | 카테고리별 질문 설계와 충분성 판정 | 카테고리 순회 |
 | `../_shared/prd/writing.md` | 간결성 서술 규칙과 점검 목록 | 절을 쓸 때와 확정 직전 |
+| `../_shared/writing-style.md` | 산출물의 문체와 표기 | 절을 쓸 때 |
 | `../_shared/prd/prd-template.md` | PRD 문서 양식 | 초안을 만들 때 |
 | `../_shared/prd/validate-prd.sh` | 필수 절과 항목 형식 검증 | 확정 직전 |
 

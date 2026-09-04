@@ -32,6 +32,7 @@ description: 확정된 PRD의 범위가 커서 요구사항 서술이 모호할 
 | `references/detailing.md` | 절의 승계와 질의 구분, 요구사항을 좁히는 질문 | 하위 생성 |
 | `../_shared/prd/prd-template.md` | PRD 문서 양식 | 하위 문서를 만들 때 |
 | `../_shared/prd/writing.md` | 간결성 서술 규칙과 점검 목록 | 절을 쓸 때와 확정 직전 |
+| `../_shared/writing-style.md` | 산출물의 문체와 표기 | 절을 쓸 때 |
 | `../_shared/prd/validate-prd.sh` | 문서 한 편의 필수 절과 항목 형식 검증 | 하위 문서마다 |
 | `scripts/validate-sub-prd.sh` | 배정과 계층의 검증 | 확정 직전 |
 
