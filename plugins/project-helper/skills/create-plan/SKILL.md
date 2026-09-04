@@ -28,6 +28,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | `SKILL.md` | 실행 절차와 분기 | `create-plan` 전체 |
 | `references/` | 근거·예외·세부 판정 | 본문이 지정한 절차 |
 | `../_shared/` | 여러 스킬이 공유하는 판정 규칙 | 본문이 지정한 절차 |
+| `../_shared/writing-style.md` | 산출물의 문체와 표기 | 계획서를 쓸 때 |
 | `assets/` | 계획서·색인 템플릿 | 파일을 만들 때 |
 | `scripts/` | 계획서 형식 검증 | 확정 직전 |
 
@@ -70,6 +71,8 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | 6 | 요약 확정 | 변경점을 채우고 설계·구현 순서와 대조 |
 
 **각 섹션을 하나씩 확정한 뒤 내용을 문서에 반영하고 다음 섹션으로 넘어간다.**
+
+계획서의 문체와 표기는 [`writing-style.md`](../_shared/writing-style.md)를 따른다. 표 셀과 목록 항목의 길이, 용어를 푸는 방식이 그 문서에 있다.
 
 카테고리마다 먼저 열린 질문을 제시한다. 답변만으로 구현자가 바로 작성하기 어렵다면 선택지와 선택에 따른 차이를 제시한다. 선택지 밖의 답변을 받으면 그 답변을 새 기준으로 삼아 필요한 질문을 이어간다. 구현자가 추가 질문 없이 작성할 수 있게 되면 카테고리 내용을 기록하고 다음 카테고리로 이동한다.
 
@@ -145,6 +148,6 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | 질문·대안 | [`questioning.md`](references/collaboration/questioning.md), [`roles.md`](references/collaboration/roles.md) | 사용자와 판단을 좁힘 |
 | 설계 | [`design.md`](references/sections/design.md), [`design.md`](references/design.md) | 설계 유형과 근거 작성 |
 | 경계·이전 | [`boundaries.md`](references/planning/boundaries.md), [`hierarchy.md`](references/documents/hierarchy.md), [`migration.md`](references/documents/migration.md) | 문서 구조 결정·이전 |
-| 섹션 작성 | [`summary.md`](references/sections/summary.md), [`design.md`](references/sections/design.md), [`implementation.md`](references/sections/implementation.md), [`testing.md`](references/sections/testing.md), [`structure.md`](references/writing/structure.md), [`markdown.md`](references/writing/markdown.md), [`examples.md`](references/writing/examples.md) | 섹션과 Markdown 작성 |
+| 섹션 작성 | [`summary.md`](references/sections/summary.md), [`design.md`](references/sections/design.md), [`implementation.md`](references/sections/implementation.md), [`testing.md`](references/sections/testing.md), [`structure.md`](references/writing/structure.md), [`markdown.md`](references/writing/markdown.md), [`examples.md`](references/writing/examples.md), [`writing-style.md`](../_shared/writing-style.md) | 섹션과 Markdown 작성, 문체와 표기 |
 | 승인·확정 | [`approval.md`](references/collaboration/approval.md), [`format.md`](references/documents/format.md) | 승인과 형식 검증 |
 | 계획서 생성 | `assets/plan-template.md`, `assets/index-template.md` | 템플릿 적용 |
