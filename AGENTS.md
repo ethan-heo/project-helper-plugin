@@ -26,3 +26,4 @@ Conventional Commits를 따른다.
 
 - 문서 구조·배치·참조·갱신을 관리할 때는 [`docs/문서_작성_기준.md`](docs/문서_작성_기준.md)를 참조한다.
 - 문서와 프롬프트를 생성하거나 개선할 때는 [`docs/프롬프트_작성_가이드.md`](docs/프롬프트_작성_가이드.md)를 참조한다.
+- 스킬이 만드는 산출물의 문체·표기·용어를 정할 때는 [`plugins/project-helper/skills/_shared/writing-style.md`](plugins/project-helper/skills/_shared/writing-style.md)를 참조한다. 새 스킬도 이 문서를 참조하도록 만든다.

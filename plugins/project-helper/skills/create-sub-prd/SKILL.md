@@ -85,7 +85,7 @@ description: 확정된 PRD의 범위가 커서 요구사항 서술이 모호할 
 | 3 | 상위에서 확정된 절을 승계한다. 어느 절을 승계하고 어느 절을 새로 묻는지는 `detailing.md`가 정한다 |
 | 4 | 담당 요구사항을 질의응답으로 여러 항목으로 가르고, 각 항목에 관찰 가능한 충족 판정을 붙인다 |
 | 5 | 요구사항 ID는 상위 ID를 이어받아 매긴다 |
-| 6 | 절을 쓸 때 [`writing.md`](../_shared/prd/writing.md)의 서술 규칙을 적용하고, `detailing.md`의 구체화 판정을 대조한다 |
+| 6 | 절을 쓸 때 [`writing.md`](../_shared/prd/writing.md)의 서술 규칙과 [`writing-style.md`](../_shared/writing-style.md)의 문체·표기 규칙을 적용하고, `detailing.md`의 구체화 판정을 대조한다 |
 
 나누기만 하고 구체화하지 않으면 상위의 모호한 서술이 그대로 옮겨 간다. 상위 요구사항의 문장을 옮겨 적은 항목은 남기지 않는다.
 
