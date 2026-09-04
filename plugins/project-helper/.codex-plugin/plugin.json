@@ -1,6 +1,6 @@
 {
   "name": "project-helper",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "제품의 목적과 요구사항을 PRD로 확정하고, 범위가 크면 하위 PRD로 나누며, 기술적 해법을 사용자가 직접 설계하도록 돕고, 그 계획서대로 구현하고, 커밋 이력을 학습 문서로 옮겨 주는 다섯 스킬",
   "author": {
     "name": "ethan"
