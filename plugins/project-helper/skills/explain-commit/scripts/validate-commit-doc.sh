@@ -85,6 +85,9 @@ check_doc() {
   if ! printf '%s' "$deps" | grep -q '^```mermaid'; then
     printf '오류: %s — 의존 관계 절에 mermaid 블록이 없습니다.\n' "$name" >&2
     errors=$((errors + 1))
+  elif printf '%s' "$deps" | grep -qE '^[[:space:]]*flowchart[[:space:]]+(LR|RL)'; then
+    printf '경고: %s — 의존 관계 다이어그램이 계층 배치가 아닙니다. 규칙 개정 이전에 만든 문서입니다.\n' "$name" >&2
+    add_warned "$name"
   fi
 
   local terms
