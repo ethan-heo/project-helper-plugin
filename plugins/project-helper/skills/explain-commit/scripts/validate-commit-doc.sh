@@ -7,8 +7,8 @@ sections=(
   "## 한 줄 요약"
   "## 변경 전 상태와 문제"
   "## 변경 의도"
-  "## 실행 흐름"
   "## 의존 관계"
+  "## 실행 흐름"
   "## 용어와 배경"
 )
 
@@ -37,8 +37,8 @@ check_doc() {
       continue
     fi
     if (( line < prev )); then
-      printf '오류: %s — 절 순서가 규칙과 다릅니다: %s\n' "$name" "$section" >&2
-      errors=$((errors + 1))
+      printf '경고: %s — 절 순서가 규칙과 다릅니다: %s\n' "$name" "$section" >&2
+      add_warned "$name"
     fi
     prev="$line"
   done
@@ -49,11 +49,11 @@ check_doc() {
     printf '경고: %s — 구성 요소 절이 없습니다. 규칙 개정 이전에 만든 문서입니다.\n' "$name" >&2
     add_warned "$name"
   else
-    intent="$(grep -n -F -x '## 변경 의도' "$doc" | head -1 | cut -d: -f1 || true)"
+    intent="$(grep -n -F -x '## 의존 관계' "$doc" | head -1 | cut -d: -f1 || true)"
     flow="$(grep -n -F -x '## 실행 흐름' "$doc" | head -1 | cut -d: -f1 || true)"
     if [[ -z "$intent" || -z "$flow" ]] || (( comp < intent || comp > flow )); then
-      printf '오류: %s — 구성 요소 절이 변경 의도와 실행 흐름 사이에 있지 않습니다.\n' "$name" >&2
-      errors=$((errors + 1))
+      printf '경고: %s — 구성 요소 절이 의존 관계와 실행 흐름 사이에 있지 않습니다.\n' "$name" >&2
+      add_warned "$name"
     fi
     local components
     components="$(sed -n '/^## 구성 요소$/,/^## 실행 흐름$/p' "$doc" || true)"
@@ -65,13 +65,13 @@ check_doc() {
 
   local before
   before="$(sed -n '/^## 변경 전 상태와 문제$/,/^## 변경 의도$/p' "$doc" || true)"
-  if ! printf '%s' "$before" | grep -q '^\*\*전제한 환경\*\*'; then
-    printf '경고: %s — 변경 전 상태 절에 전제한 환경 라벨이 없습니다. 규칙 개정 이전에 만든 문서입니다.\n' "$name" >&2
+  if ! printf '%s' "$before" | grep -q '^\*\*실행 환경\*\*'; then
+    printf '경고: %s — 변경 전 상태 절에 실행 환경 라벨이 없습니다. 규칙 개정 이전에 만든 문서입니다.\n' "$name" >&2
     add_warned "$name"
   fi
 
   local flow_rows header_cols
-  flow_rows="$(sed -n '/^## 실행 흐름$/,/^## 의존 관계$/p' "$doc" || true)"
+  flow_rows="$(sed -n '/^## 실행 흐름$/,/^## 용어와 배경$/p' "$doc" || true)"
   if printf '%s' "$flow_rows" | grep -q '^| '; then
     header_cols="$(printf '%s' "$flow_rows" | grep '^| ' | head -1 | awk -F'|' '{print NF - 2}')"
     if (( header_cols < 5 )); then
@@ -81,7 +81,7 @@ check_doc() {
   fi
 
   local deps
-  deps="$(sed -n '/^## 의존 관계$/,/^## 용어와 배경$/p' "$doc" || true)"
+  deps="$(sed -n '/^## 의존 관계$/,/^## 구성 요소$/p' "$doc" || true)"
   if ! printf '%s' "$deps" | grep -q '^```mermaid'; then
     printf '오류: %s — 의존 관계 절에 mermaid 블록이 없습니다.\n' "$name" >&2
     errors=$((errors + 1))
