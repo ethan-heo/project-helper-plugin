@@ -43,3 +43,7 @@ codex plugin add project-helper@helpers
 ```
 
 설치와 갱신 모두 실행 중인 세션에는 적용되지 않는다. 새로 시작하는 대화부터 스킬을 쓸 수 있다.
+
+## 사용법
+
+스킬을 처음 쓴다면 [`docs/project-helper/스킬_사용법_튜토리얼.md`](docs/project-helper/스킬_사용법_튜토리얼.md)를 읽는다. Todo 리스트를 소재로 스킬 다섯 개를 부르는 순서와 각 스킬이 남기는 산출물을 순서대로 보여 준다.
