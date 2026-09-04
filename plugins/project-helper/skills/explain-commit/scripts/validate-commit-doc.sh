@@ -97,6 +97,24 @@ check_doc() {
     errors=$((errors + 1))
   fi
 
+  local prose
+  prose="$(awk '
+    /^```/ { fence = !fence; run = 0; next }
+    fence { next }
+    /^#/ { run = 0; next }
+    /^[[:space:]]*$/ { run = 0; next }
+    /^[|>-]/ { run = 0; next }
+    /^[0-9]+\./ { run = 0; next }
+    /^<!--/ { run = 0; next }
+    /^\*\*/ { run = 0; next }
+    { run++; if (run > max) max = run }
+    END { print max + 0 }
+  ' "$doc")"
+  if (( prose > 3 )); then
+    printf '경고: %s — 줄글 문단이 %s줄입니다. 목록이나 표로 나누십시오.\n' "$name" "$prose" >&2
+    add_warned "$name"
+  fi
+
   if ! printf '%s' "$name" | grep -qE '^[0-9]{4}-[0-9]{2}-[0-9]{2}-[0-9a-f]{7}-.+\.md$'; then
     printf '오류: %s — 파일명이 YYYY-MM-DD-<짧은해시>-<제목>.md 형식이 아닙니다.\n' "$name" >&2
     errors=$((errors + 1))
