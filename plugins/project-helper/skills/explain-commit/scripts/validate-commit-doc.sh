@@ -15,6 +15,13 @@ sections=(
 failed_docs=""
 warned_docs=""
 
+add_warned() {
+  case " $warned_docs " in
+    *" $1 "*) ;;
+    *) warned_docs="$warned_docs $1" ;;
+  esac
+}
+
 check_doc() {
   local doc="$1"
   local name errors=0
@@ -40,7 +47,7 @@ check_doc() {
   comp="$(grep -n -F -x '## 구성 요소' "$doc" | head -1 | cut -d: -f1 || true)"
   if [[ -z "$comp" ]]; then
     printf '경고: %s — 구성 요소 절이 없습니다. 규칙 개정 이전에 만든 문서입니다.\n' "$name" >&2
-    warned_docs="$warned_docs $name"
+    add_warned "$name"
   else
     intent="$(grep -n -F -x '## 변경 의도' "$doc" | head -1 | cut -d: -f1 || true)"
     flow="$(grep -n -F -x '## 실행 흐름' "$doc" | head -1 | cut -d: -f1 || true)"
@@ -53,6 +60,23 @@ check_doc() {
     if ! printf '%s' "$components" | grep -q '^| '; then
       printf '오류: %s — 구성 요소 절에 표가 없습니다.\n' "$name" >&2
       errors=$((errors + 1))
+    fi
+  fi
+
+  local before
+  before="$(sed -n '/^## 변경 전 상태와 문제$/,/^## 변경 의도$/p' "$doc" || true)"
+  if ! printf '%s' "$before" | grep -q '^\*\*전제한 환경\*\*'; then
+    printf '경고: %s — 변경 전 상태 절에 전제한 환경 라벨이 없습니다. 규칙 개정 이전에 만든 문서입니다.\n' "$name" >&2
+    add_warned "$name"
+  fi
+
+  local flow_rows header_cols
+  flow_rows="$(sed -n '/^## 실행 흐름$/,/^## 의존 관계$/p' "$doc" || true)"
+  if printf '%s' "$flow_rows" | grep -q '^| '; then
+    header_cols="$(printf '%s' "$flow_rows" | grep '^| ' | head -1 | awk -F'|' '{print NF - 2}')"
+    if (( header_cols < 5 )); then
+      printf '경고: %s — 실행 흐름 표에 출처 열이 없습니다. 규칙 개정 이전에 만든 문서입니다.\n' "$name" >&2
+      add_warned "$name"
     fi
   fi
 
@@ -77,7 +101,7 @@ check_doc() {
 
   if grep -q '확인 필요:' "$doc"; then
     printf '경고: %s — 확인 필요 표시가 남아 있습니다.\n' "$name" >&2
-    warned_docs="$warned_docs $name"
+    add_warned "$name"
   fi
 
   if (( errors > 0 )); then
