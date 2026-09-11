@@ -16,8 +16,8 @@
     },
     {
       "query": "알림 시스템을 큐 기반으로 바꾸려는데 설계부터 같이 봐줘",
-      "expect": "create-architecture",
-      "why": "알림 송수신 구성 요소 사이의 통신 계약 변경"
+      "expect": "create-plan",
+      "why": "첫 응답은 구현 방법 요청으로 발동한다. 구조 결정이 필요하면 create-plan이 준비 단계에서 create-architecture로 넘긴다"
     },
     {
       "query": "리팩터링 범위가 좀 큰데 순서를 어떻게 잡아야 할지 모르겠어",
