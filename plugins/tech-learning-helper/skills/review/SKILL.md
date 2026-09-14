@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 ## 역할과 목적
 
-`review`는 학습 패키지 하나에서 무엇을 배웠는지 한 파일로 모아 보여 주는 단축키입니다. 학습자는 `/tech-learning-helper:review`로 부릅니다. Claude Code에는 코드 리뷰를 하는 내장 `/review`가 있어서, `/review`만 입력하면 이 스킬 대신 내장 명령이 실행됩니다. 학습 상태는 `state.md`에, 질의응답은 날짜별 기록 파일에 흩어져 있으므로, 그 값을 옮겨 패키지의 `summary.md`에 남깁니다.
+`review`는 학습 패키지 하나에서 무엇을 배웠는지 한 파일로 모아 보여 주는 단축키입니다. 학습자는 `/tech-learning-helper:review`로 부릅니다. Claude Code에는 코드 리뷰를 하는 내장 `/review`가 있어서, `/review`만 입력하면 이 스킬 대신 내장 명령이 실행됩니다. 학습 상태는 `state.md`에, 질의응답은 날짜 디렉터리 아래 질문별 기록 파일에 있으므로, 그 값을 옮겨 패키지의 `summary.md`에 남깁니다.
 
 ## 실행 원칙
 
@@ -49,7 +49,7 @@ disable-model-invocation: true
 
 ### 정리
 
-`record.md`의 학습 정리 절에 따라 `summary.md`를 쓰고, 검증 스크립트를 통과한 뒤 `review(<주제>): 학습 정리 갱신` 커밋을 남깁니다. 다 쓴 `summary.md`는 학습자에게 그대로 보여 줍니다.
+`record.md`의 학습 정리 절에 따라 `records/` 아래 질문별 파일을 날짜·순번 순으로 읽어 `summary.md`를 쓰고, 검증 스크립트를 통과한 뒤 `review(<주제>): 학습 정리 갱신` 커밋을 남깁니다. 다 쓴 `summary.md`는 학습자에게 그대로 보여 줍니다.
 
 ### 정리 뒤
 
