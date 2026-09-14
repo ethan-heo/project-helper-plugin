@@ -4,8 +4,8 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 버전 | 2.0 |
-| 마지막 갱신 | 2026-09-14 12:46 |
+| 버전 | 2.1 |
+| 마지막 갱신 | 2026-09-14 14:38 |
 
 ## 시스템의 목적
 
@@ -36,5 +36,6 @@
 
 | 버전 | 갱신 시각 | 바뀐 파일 | 변경 요약 |
 | --- | --- | --- | --- |
+| 2.1 | 2026-09-14 14:38 | README.md, learning-flow.md, learning-record.md | 이어 하기 후보를 최근 저장소 하나에서 최근 순 저장소 목록과 기존 학습 패키지 목록으로 넓힘 |
 | 2.0 | 2026-09-14 12:46 | README.md, decisions.md, learning-flow.md, learning-workspace.md | Codex 지원을 위해 학습 폴더 위치를 도구와 무관한 설정 파일로 받도록 AD-008을 AD-011로 대체 |
 | 1.0 | 2026-09-14 12:36 | README.md, decisions.md, learning-flow.md, technology-knowledge.md, learning-workspace.md, learning-record.md | 첫 확정 |
