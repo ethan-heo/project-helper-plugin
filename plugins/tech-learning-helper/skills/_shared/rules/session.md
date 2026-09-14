@@ -32,7 +32,7 @@
 ### 시작 절차
 
 1. **학습 폴더를 확인한다** — 설정 파일이 없거나 가리키는 폴더가 없으면 위치를 묻고 설정 파일에 저장합니다(`workspace.md`).
-2. **재개 상태를 확인한다** — 기술 저장소의 `state.json`을 먼저 읽습니다(`record.md`). `sessionStatus: in_progress`이고 `inputMode: learning`이면 목록을 보여 주지 않고 `activeQuestion`의 `stage`와 `awaiting`에서 이어 갑니다.
+2. **재개 상태를 확인한다** — 기술 저장소의 `state.json`을 먼저 읽습니다(`record.md`). `sessionStatus: in_progress`이고 `inputMode: learning`이면 목록을 보여 주지 않고 `activeQuestion`의 `stage`와 `awaiting`에서 `record`가 가리키는 질문 파일로 이어 갑니다.
 3. **입력과 학습 목표를 정한다** — 진행 중인 재개 상태가 없을 때만 입력이 기술 이름·코드·링크·파일 경로 중 무엇인지 판별합니다.
 4. **기술 저장소를 정한다** — 가져온 자료가 있으면 저장소가 될 기술을 판정해 확인받습니다(`workspace.md`). 목록을 보여 줄 때만 `inputMode: selection`으로 바꿉니다(`record.md`의 이어 하기 목록).
 5. **저장소와 패키지를 확보한다** — 기술 저장소와 학습 패키지를 확보하고, 커밋되지 않은 기록·상태 변경이 있으면 먼저 커밋합니다(`workspace.md`, `record.md`).
