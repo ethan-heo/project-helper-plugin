@@ -103,16 +103,34 @@ for package in ${packages[@]+"${packages[@]}"}; do
   [[ -f "$package/source.md" ]] && require_file "$package/source.md" '## 원본 참조' '## 발췌'
   [[ -f "$package/summary.md" ]] && require_file "$package/summary.md" '## 학습 목표' '## 다룬 질문' '## 발견한 개념' '## 부분 이해 개념' '## 다음 탐색 후보'
   if [[ -d "$package/records" ]]; then
+    # 새 형식은 날짜 디렉터리 안에 질문별 파일을 두고, 기존 날짜 파일은 호환한다.
     while IFS= read -r record; do
       name="$(basename "$record")"
       if [[ ! "$name" =~ ^([0-9]{4}-[0-9]{2}-[0-9]{2})\.md$ ]]; then
-        fail "${record#"$repo"/}: 기록 파일 이름 오류 (YYYY-MM-DD.md)"
+        fail "${record#"$repo"/}: 기록 파일 이름 오류 (YYYY-MM-DD.md 또는 YYYY-MM-DD/NN-question-slug.md)"
         continue
       fi
       date="${BASH_REMATCH[1]}"
       [[ "$(head -n 1 "$record")" == "# $date" ]] || fail "${record#"$repo"/}: 첫 줄 날짜 불일치 (# $date)"
       check_record_speakers "$record"
     done < <(find "$package/records" -mindepth 1 -maxdepth 1 -type f | sort)
+
+    while IFS= read -r date_dir; do
+      date="$(basename "$date_dir")"
+      [[ "$date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || {
+        fail "${date_dir#"$repo"/}: 날짜 디렉터리 이름 오류 (YYYY-MM-DD)"
+        continue
+      }
+      while IFS= read -r record; do
+        name="$(basename "$record")"
+        if [[ ! "$name" =~ ^([0-9]{2})-([a-z0-9]+(-[a-z0-9]+)*)\.md$ ]]; then
+          fail "${record#"$repo"/}: 질문 기록 파일 이름 오류 (NN-question-slug.md)"
+          continue
+        fi
+        [[ "$(head -n 1 "$record")" == "# $date" ]] || fail "${record#"$repo"/}: 첫 줄 날짜 불일치 (# $date)"
+        check_record_speakers "$record"
+      done < <(find "$date_dir" -mindepth 1 -maxdepth 1 -type f | sort)
+    done < <(find "$package/records" -mindepth 1 -maxdepth 1 -type d | sort)
   fi
 done
 
