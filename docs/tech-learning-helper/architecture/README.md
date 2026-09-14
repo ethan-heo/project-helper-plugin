@@ -4,8 +4,8 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 버전 | 1.0 |
-| 마지막 갱신 | 2026-09-14 12:36 |
+| 버전 | 2.0 |
+| 마지막 갱신 | 2026-09-14 12:46 |
 
 ## 시스템의 목적
 
@@ -36,4 +36,5 @@
 
 | 버전 | 갱신 시각 | 바뀐 파일 | 변경 요약 |
 | --- | --- | --- | --- |
+| 2.0 | 2026-09-14 12:46 | README.md, decisions.md, learning-flow.md, learning-workspace.md | Codex 지원을 위해 학습 폴더 위치를 도구와 무관한 설정 파일로 받도록 AD-008을 AD-011로 대체 |
 | 1.0 | 2026-09-14 12:36 | README.md, decisions.md, learning-flow.md, technology-knowledge.md, learning-workspace.md, learning-record.md | 첫 확정 |
