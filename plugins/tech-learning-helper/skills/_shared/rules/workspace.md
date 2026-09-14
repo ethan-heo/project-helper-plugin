@@ -53,7 +53,7 @@
 
 **학습 폴더에 `<기술>/` 저장소가 없으면 만들고 `git init`으로 초기화합니다.**
 
-`<기술>`은 영문 kebab-case로 짓습니다. 저장소 루트에는 아래 양식의 `README.md`를 둡니다. `knowledge.md`는 [Example Builder](../roles/example-builder.md)가, `state.md`는 [학습 기록 규칙](record.md)이 만듭니다.
+`<기술>`은 영문 kebab-case로 짓습니다. 저장소 루트에는 아래 양식의 `README.md`를 둡니다. `knowledge.md`와 `state.md`, `state.json`은 학습 기록 규칙과 Example Builder의 절차에 따라 만듭니다.
 
 | 기술의 생태계 | 루트에 더 둘 파일 |
 | --- | --- |
