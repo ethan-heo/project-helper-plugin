@@ -17,7 +17,7 @@
 | 문서 | 맡는 일 | 읽는 시점 |
 | --- | --- | --- |
 | [`rules/workspace.md`](workspace.md) | 설정 파일, 기술 판정, 저장소·패키지 생성, `example` 커밋 | 1·3·4단계 |
-| [`rules/record.md`](record.md) | 이어 하기 목록, 상태 파일, 기록 파일, `learn` 커밋 | 3·4·5단계, 경로 마무리, 질의응답마다 |
+| [`rules/record.md`](record.md) | 이어 하기 목록, 상태 파일, 기록 파일, 학습 정리, 커밋 | 3·4·5단계, 경로 마무리, 질의응답마다, 정리할 때 |
 | [`roles/example-builder.md`](../roles/example-builder.md) | 개념·예제·탐색 질문·설명 경로 생성, 가져온 자료 처리 | 6단계와 새 질문이 나올 때 |
 | [`roles/question-gate.md`](../roles/question-gate.md) | 공개 단계와 전이 표 | 설명 경로의 단계마다 |
 | [`roles/knowledge-navigator.md`](../roles/knowledge-navigator.md) | 설명 경로 선택, 끝나지 않은 경로, 다음 탐색 후보 | 질문을 받을 때와 경로가 끝날 때 |
@@ -63,6 +63,7 @@
 | 구조 | 이 컴포넌트는 왜 따로 분리했어? | Question Gate → Knowledge Navigator → Structure Explainer |
 | 실행 순서 | 버튼을 누른 다음 어떤 순서로 실행돼? | Question Gate → Knowledge Navigator → Logic Explainer |
 | 직접 확인 | 직접 확인해 보고 싶어 | Experiment Designer |
+| 정리 | 지금까지 이해한 내용을 정리해 줘 | [학습 기록 규칙의 학습 정리](record.md#6-학습-정리) |
 
 두 관점에 걸친 질문은 질문에서 먼저 나온 관점으로 시작하고, 나머지 관점은 다음 탐색 후보로 남깁니다(`knowledge-navigator.md`).
 
