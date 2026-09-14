@@ -98,8 +98,24 @@ codex plugin add tech-learning-helper@helpers
 /learn src/hooks/useTodos.ts 12~30줄이 어떻게 동작하는지 모르겠어
 ```
 
+학습 도중 탐색 방향을 바로 바꾸고 싶으면 단축키 스킬을 부릅니다. 학습을 시작하지 않은 상태에서 불러도, 이어 할 학습을 고른 뒤 그 스킬의 방식으로 시작합니다.
+
+| 스킬 | 쓰임 |
+| --- | --- |
+| `structure` | 구조 관점 설명으로 곧바로 전환 |
+| `trace` | 실행 관점 설명으로 곧바로 전환 |
+| `experiment` | 이해한 내용을 예제로 직접 확인 |
+| `review` | 학습 패키지의 정리를 `summary.md`로 보관 |
+
+```
+/structure 이 컴포넌트는 왜 따로 분리했어?
+/trace 버튼을 누른 다음 어떤 순서로 실행돼?
+/experiment
+/tech-learning-helper:review
+```
+
 ### 알아 둘 것
 
 - 처음 호출하면 학습 폴더의 위치를 묻고 `~/.config/tech-learning-helper/config.json`에 저장합니다. Claude Code와 Codex가 같은 학습 폴더를 씁니다.
 - 예제와 질의응답 기록은 학습 폴더 아래 기술마다 하나씩 만드는 git 저장소에 남습니다. 작업 중인 프로젝트에는 파일을 만들지 않습니다.
-- 학습자가 직접 `/learn`을 호출할 때만 동작합니다. 웹·JavaScript 생태계의 예제는 TypeScript와 pnpm으로 실행하므로 pnpm이 필요합니다.
+- 다섯 스킬 모두 학습자가 직접 호출할 때만 동작합니다. `review`는 Claude Code에 내장된 `/review`(코드 리뷰)와 이름이 겹치므로 `/tech-learning-helper:review`로 부릅니다. 웹·JavaScript 생태계의 예제는 TypeScript와 pnpm으로 실행하므로 pnpm이 필요합니다.
