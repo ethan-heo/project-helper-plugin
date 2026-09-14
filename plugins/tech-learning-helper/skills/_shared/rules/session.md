@@ -16,36 +16,36 @@
 
 | 문서 | 맡는 일 | 읽는 시점 |
 | --- | --- | --- |
-| [`rules/workspace.md`](workspace.md) | 설정 파일, 기술 판정, 저장소·패키지 생성, `example` 커밋 | 1·3·4단계 |
-| [`rules/record.md`](record.md) | 이어 하기 목록, 상태 파일, 기록 파일, 학습 정리, 커밋 | 2·4·5·6단계, 경로 마무리, 질의응답마다, 정리할 때 |
-| [`roles/example-builder.md`](../roles/example-builder.md) | 개념·예제·탐색 질문·설명 경로 생성, 가져온 자료 처리 | 6단계와 새 질문이 나올 때 |
+| [`rules/workspace.md`](workspace.md) | 설정 파일, 기술 판정, 저장소·패키지 생성, `example` 커밋 | 1·4·5·7단계 |
+| [`rules/resume.md`](resume.md) | 세션 상태, 기존 저장소 복구, 이어 하기 목록, 중단된 변경 커밋 | 2·4·5·6단계 |
+| [`rules/record.md`](record.md) | 기록 파일, `state.md` 갱신, 커밋 규칙 | 질의응답마다, 경로 마무리 |
+| [`rules/review.md`](review.md) | 학습 정리와 `summary.md` | 정리를 요청받을 때 |
+| [`roles/example-builder.md`](../roles/example-builder.md) | 개념·예제·탐색 질문·설명 경로 생성, 가져온 자료 처리 | 7단계와 새 질문이 나올 때 |
 | [`roles/question-gate.md`](../roles/question-gate.md) | 공개 단계와 전이 표 | 설명 경로의 단계마다 |
 | [`roles/knowledge-navigator.md`](../roles/knowledge-navigator.md) | 설명 경로 선택, 끝나지 않은 경로, 다음 탐색 후보 | 질문을 받을 때와 경로가 끝날 때 |
 | [`roles/structure-explainer.md`](../roles/structure-explainer.md) | 구조 관점 설명 | 구조 관점의 경로를 진행할 때 |
 | [`roles/logic-explainer.md`](../roles/logic-explainer.md) | 실행 관점 설명 | 실행 관점의 경로를 진행할 때 |
 | [`roles/experiment-designer.md`](../roles/experiment-designer.md) | 확인 방법 제안과 실험 전후 비교 | 경로가 끝날 때와 직접 확인을 원할 때 |
 | [`writing-style.md`](../writing-style.md) | 기록과 설명의 문체 | 학습 폴더에 파일을 쓸 때 |
-| [`validate-learning-repo.sh`](../scripts/validate-learning-repo.sh) | 기술 저장소의 형식 검사 | 6단계와 경로 마무리의 커밋 직전 |
+| [`validate-learning-repo.sh`](../scripts/validate-learning-repo.sh) | 기술 저장소의 형식 검사 | 7단계와 경로 마무리의 커밋 직전 |
 
 ## 절차 흐름
 
 ### 시작 절차
 
 1. **학습 폴더를 확인한다** — 설정 파일이 없거나 가리키는 폴더가 없으면 위치를 묻고 설정 파일에 저장합니다(`workspace.md`).
-2. **재개 상태를 확인한다** — 기술 저장소의 `state.json`을 먼저 읽습니다(`record.md`). `sessionStatus: in_progress`이고 `inputMode: learning`이면 목록을 보여 주지 않고 `activeQuestion`의 `stage`와 `awaiting`에서 `record`가 가리키는 질문 파일로 이어 갑니다.
+2. **재개 상태를 확인한다** — 기술 저장소의 `state.json`을 먼저 읽습니다(`resume.md`). `sessionStatus: in_progress`이고 `inputMode: learning`이면 목록을 보여 주지 않고 `activeQuestion`의 `stage`와 `awaiting`에서 `record`가 가리키는 질문 파일로 이어 갑니다.
 3. **입력과 학습 목표를 정한다** — 진행 중인 재개 상태가 없을 때만 입력이 기술 이름·코드·링크·파일 경로 중 무엇인지 판별합니다.
-4. **기술 저장소를 정한다** — 가져온 자료가 있으면 저장소가 될 기술을 판정해 확인받습니다(`workspace.md`). 목록을 보여 줄 때만 `inputMode: selection`으로 바꿉니다(`record.md`의 이어 하기 목록).
-5. **저장소와 패키지를 확보한다** — 기술 저장소와 학습 패키지를 확보하고, 커밋되지 않은 기록·상태 변경이 있으면 먼저 커밋합니다(`workspace.md`, `record.md`).
-6. **이전 상태를 읽는다** — `state.json`의 재개 상태와 `state.md`의 누적 학습 상태를 읽습니다(`record.md`).
+4. **기술 저장소를 정한다** — 가져온 자료가 있으면 저장소가 될 기술을 판정해 확인받습니다(`workspace.md`). 목록을 보여 줄 때만 `inputMode: selection`으로 바꿉니다(`resume.md`의 이어 하기 목록).
+5. **저장소와 패키지를 확보한다** — 기술 저장소와 학습 패키지를 확보하고, 커밋되지 않은 기록·상태 변경이 있으면 먼저 커밋합니다(`workspace.md`, `resume.md`).
+6. **이전 상태를 읽는다** — `state.md`의 누적 학습 상태를 읽습니다(`resume.md`).
 7. **예제와 지식을 준비한다** — 새 학습을 시작할 때 개념·선수 관계·예제·탐색 질문·설명 경로를 만들거나 불러옵니다(`example-builder.md`). 예제를 처음 넣었으면 검증 스크립트를 통과한 뒤 `example` 커밋을 남깁니다.
 
 7단계를 마치면 호출한 스킬의 `SKILL.md`에 적힌 첫 설명으로 학습을 시작합니다. 재개 상태에서는 복원한 단계의 설명을 이어 가며, 이후 학습자의 질문은 아래 배정 표에 따라 역할 문서로 보냅니다.
 
 ### 입력 모드
 
-`inputMode: selection`은 직전에 학습 저장소나 패키지 목록을 보여 준 경우에만 사용합니다. 이 상태에서만 번호를 목록 선택으로 처리하고, 선택을 마치면 즉시 `inputMode: learning`으로 바꿉니다. `inputMode: learning`에서는 번호로 시작하는 답변도 현재 공개 단계의 학습 답변으로 처리합니다.
-
-`state.json`이 `recovery_required`이거나 JSON 형식이 잘못되면 기록 전문에서 현재 질문을 추정하지 않습니다. 재개할 질문을 학습자에게 확인한 뒤 상태를 `in_progress`로 바꿉니다.
+번호 입력을 목록 선택으로 볼지 학습 답변으로 볼지는 `state.json`의 `inputMode`로 정합니다. 두 모드의 뜻은 [학습 재개 규칙의 세션 상태](resume.md#세션-상태)를, `state.json`이 `recovery_required`이거나 손상됐을 때의 처리는 [세션 상태 읽기](resume.md#1-세션-상태-읽기)를 따릅니다.
 
 ### 학습 목표의 판정
 
@@ -53,7 +53,7 @@
 
 | 요청 | 판정 | 할 일 |
 | --- | --- | --- |
-| 기술 이름만 있고 그 저장소가 있음 | 이어 하기 | 학습 패키지 목록을 먼저 보여 주고, "새 주제"를 고르면 예제 후보 2~3개를 제시(`record.md`) |
+| 기술 이름만 있고 그 저장소가 있음 | 이어 하기 | 학습 패키지 목록을 먼저 보여 주고, "새 주제"를 고르면 예제 후보 2~3개를 제시(`resume.md`) |
 | 기술 이름만 있음 | 모호 | 예제로 만들 수 있는 후보 2~3개를 번호로 제시하고, 고르면 곧바로 시작 |
 | 기술과 개념 | 명확 | 개념의 대표 예제로 시작 |
 | 기술과 동작 | 명확 | 곧바로 시작 |
@@ -70,7 +70,7 @@
 | 구조 | 이 컴포넌트는 왜 따로 분리했어? | Question Gate → Knowledge Navigator → Structure Explainer |
 | 실행 순서 | 버튼을 누른 다음 어떤 순서로 실행돼? | Question Gate → Knowledge Navigator → Logic Explainer |
 | 직접 확인 | 직접 확인해 보고 싶어 | Experiment Designer |
-| 정리 | 지금까지 이해한 내용을 정리해 줘 | [학습 기록 규칙의 학습 정리](record.md#6-학습-정리) |
+| 정리 | 지금까지 이해한 내용을 정리해 줘 | [학습 정리 규칙](review.md) |
 
 두 관점에 걸친 질문은 질문에서 먼저 나온 관점으로 시작하고, 나머지 관점은 다음 탐색 후보로 남깁니다(`knowledge-navigator.md`).
 
