@@ -156,7 +156,7 @@ git -C <저장소> commit -m "learn(<주제>): <질문 요약> 탐색"
 
 ```bash
 bash <플러그인 경로>/skills/_shared/scripts/validate-learning-repo.sh <저장소>
-git -C <저장소> add packages/<주제>/summary.md
+git -C <저장소> add state.md packages/<주제>/summary.md
 git -C <저장소> commit -m "review(<주제>): 학습 정리 갱신"
 ```
 
@@ -166,8 +166,8 @@ git -C <저장소> commit -m "review(<주제>): 학습 정리 갱신"
 | --- | --- | --- |
 | 예제를 처음 넣었을 때 | `example(<주제>): <예제 요약> 추가` | 패키지의 예제와 `README.md`, `source.md` |
 | 설명 경로 하나가 끝났을 때 | `learn(<주제>): <질문 요약> 탐색` | 기록·상태 파일과 새로 저장한 지식 |
-| 코드 변경형 실험이 끝났을 때 | `learn(<주제>): <질문 요약> 실험` | 바뀐 예제 코드와 기록 파일 |
-| 학습 정리를 마쳤을 때 | `review(<주제>): 학습 정리 갱신` | `summary.md` |
+| 코드 변경형 실험이 끝났을 때 | `learn(<주제>): <질문 요약> 실험` | 바뀐 예제 코드, 기록 파일, `state.md` |
+| 학습 정리를 마쳤을 때 | `review(<주제>): 학습 정리 갱신` | `summary.md`, `state.md` |
 | 다음 `learn` 시작 때 커밋되지 않은 변경이 있을 때 | `learn(<주제>): 중단된 탐색 기록` | 커밋되지 않은 기록·상태 파일 |
 
 괄호 안에는 학습 패키지 이름을 넣어 `git log`로 주제별 이력을 걸러 낼 수 있게 합니다. 설명은 한국어 명사형으로 끝냅니다. `example` 커밋의 절차는 [학습 작업 공간 규칙](workspace.md#7-example-커밋)에 있습니다.
