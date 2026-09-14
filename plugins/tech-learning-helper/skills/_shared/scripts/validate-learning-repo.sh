@@ -30,7 +30,7 @@ require_file() {
     has_heading "$file" "$heading" || fail "${file#"$repo"/}: 필수 절 누락 ($heading)"
   done
 }
-check_state() {
+check_repo_state() {
   local file="$repo/state.json"
   if [[ ! -f "$file" ]]; then
     warn "${file#"$repo"/}: 파일 없음 (기존 저장소 복구 필요)"
@@ -38,19 +38,50 @@ check_state() {
   fi
   if ! jq -e '
     type == "object"
-    and (. as $state | (["sessionStatus", "inputMode", "package", "record", "activeQuestion", "viewpoint", "path", "stage", "awaiting", "nextCandidates", "lastTurn"] | all(.[]; . as $key | $state | has($key))))
+    and (. as $state | (["sessionStatus", "inputMode", "activePackage", "lastPackage", "discoveredConcepts"] | all(.[]; . as $key | $state | has($key))))
     and (.sessionStatus | IN("idle", "awaiting_selection", "in_progress", "recovery_required"))
     and (.inputMode | IN("selection", "learning"))
-    and (.package | type == "string")
+    and (.activePackage | type == "string" or type == "null")
+    and (.lastPackage | type == "string")
+    and (.discoveredConcepts | type == "array")
+  ' "$file" >/dev/null 2>&1; then
+    fail "${file#"$repo"/}: JSON 형식 또는 필수 상태 필드 오류"
+    return
+  fi
+  local active
+  active="$(jq -r '.activePackage // empty' "$file")"
+  if [[ -n "$active" && ! -d "$repo/packages/$active" ]]; then
+    fail "${file#"$repo"/}: activePackage가 가리키는 패키지 없음 ($active)"
+  fi
+}
+# 패키지 state.json은 세션 재개 상태와 누적 학습 상태를 함께 담는다.
+check_package_state() {
+  local package="$1" file="$1/state.json"
+  if [[ ! -f "$file" ]]; then
+    warn "${file#"$repo"/}: 파일 없음 (기존 저장소 복구 필요)"
+    return
+  fi
+  if ! jq -e '
+    type == "object"
+    and (. as $state | (["record", "activeQuestion", "viewpoint", "path", "stage", "awaiting", "lastTurn", "questions", "discoveredConcepts", "partialConcepts", "nextCandidates"] | all(.[]; . as $key | $state | has($key))))
     and (.record | type == "string")
     and (.activeQuestion | type == "string")
-    and (.nextCandidates | type == "array")
     and (.lastTurn | type == "object")
     and (.lastTurn.speaker | IN("학습자", "assistant"))
     and (.lastTurn.type | type == "string")
+    and (.questions | type == "array")
+    and (.questions | all(.[]; (.question | type == "string") and (.record | type == "string") and (.status | IN("진행", "완료"))))
+    and (.discoveredConcepts | type == "array")
+    and (.partialConcepts | type == "array")
+    and (.nextCandidates | type == "array")
   ' "$file" >/dev/null 2>&1; then
     fail "${file#"$repo"/}: JSON 형식 또는 필수 상태 필드 오류"
+    return
   fi
+  local record
+  while IFS= read -r record; do
+    [[ -z "$record" || -f "$package/$record" ]] || fail "${file#"$repo"/}: questions의 기록 파일 없음 ($record)"
+  done < <(jq -r '.questions[].record' "$file")
 }
 check_record_speakers() {
   local file="$1" invalid
@@ -83,11 +114,9 @@ check_questions() {
 }
 
 [[ -e "$repo/.git" ]] || fail "$repo: git 저장소가 아님"
-check_state
+check_repo_state
 
 require_file "$repo/README.md" '## 학습 패키지'
-require_file "$repo/knowledge.md" '## 개념' '## 선수 관계'
-require_file "$repo/state.md" '## 마지막 학습 패키지' '## 발견한 개념' '## 부분 이해 개념' '## 미공개 개념' '## 다음 탐색 후보'
 
 packages=()
 if [[ -d "$repo/packages" ]]; then
@@ -101,7 +130,7 @@ for package in ${packages[@]+"${packages[@]}"}; do
   [[ -f "$package/questions.md" ]] && check_questions "$package/questions.md"
   [[ -d "$package/src" ]] || fail "${package#"$repo"/}/src: 디렉터리 없음"
   [[ -f "$package/source.md" ]] && require_file "$package/source.md" '## 원본 참조' '## 발췌'
-  [[ -f "$package/summary.md" ]] && require_file "$package/summary.md" '## 학습 목표' '## 다룬 질문' '## 발견한 개념' '## 부분 이해 개념' '## 다음 탐색 후보'
+  check_package_state "$package"
   if [[ -d "$package/records" ]]; then
     # 새 형식은 날짜 디렉터리 안에 질문별 파일을 두고, 기존 날짜 파일은 호환한다.
     while IFS= read -r record; do
