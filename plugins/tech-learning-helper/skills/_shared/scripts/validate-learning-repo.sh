@@ -30,6 +30,38 @@ require_file() {
     has_heading "$file" "$heading" || fail "${file#"$repo"/}: 필수 절 누락 ($heading)"
   done
 }
+check_state() {
+  local file="$repo/state.json"
+  if [[ ! -f "$file" ]]; then
+    warn "${file#"$repo"/}: 파일 없음 (기존 저장소 복구 필요)"
+    return
+  fi
+  if ! jq -e '
+    type == "object"
+    and (. as $state | (["sessionStatus", "inputMode", "package", "record", "activeQuestion", "viewpoint", "path", "stage", "awaiting", "nextCandidates", "lastTurn"] | all(.[]; . as $key | $state | has($key))))
+    and (.sessionStatus | IN("idle", "awaiting_selection", "in_progress", "recovery_required"))
+    and (.inputMode | IN("selection", "learning"))
+    and (.package | type == "string")
+    and (.record | type == "string")
+    and (.activeQuestion | type == "string")
+    and (.nextCandidates | type == "array")
+    and (.lastTurn | type == "object")
+    and (.lastTurn.speaker | IN("학습자", "assistant"))
+    and (.lastTurn.type | type == "string")
+  ' "$file" >/dev/null 2>&1; then
+    fail "${file#"$repo"/}: JSON 형식 또는 필수 상태 필드 오류"
+  fi
+}
+check_record_speakers() {
+  local file="$1" invalid
+  invalid="$(awk '
+    /^[[:space:]]*```/ { fence = !fence; next }
+    fence { next }
+    /^\*\*학습자\*\*/ && $0 != "**학습자**" { print NR; next }
+    /^\*\*설명\([^)]*\)\*\*/ && $0 !~ /^\*\*설명\([^)]*\)\*\*$/ { print NR }
+  ' "$file")"
+  [[ -z "$invalid" ]] || fail "${file#"$repo"/}: 발화 이름을 별도 줄로 작성하지 않음 ($invalid)"
+}
 # 탐색 질문은 질문마다 ### 제목과 설명 경로의 번호 목록을 가진다.
 check_questions() {
   local file="$1" missing
@@ -51,6 +83,7 @@ check_questions() {
 }
 
 [[ -e "$repo/.git" ]] || fail "$repo: git 저장소가 아님"
+check_state
 
 require_file "$repo/README.md" '## 학습 패키지'
 require_file "$repo/knowledge.md" '## 개념' '## 선수 관계'
@@ -78,6 +111,7 @@ for package in ${packages[@]+"${packages[@]}"}; do
       fi
       date="${BASH_REMATCH[1]}"
       [[ "$(head -n 1 "$record")" == "# $date" ]] || fail "${record#"$repo"/}: 첫 줄 날짜 불일치 (# $date)"
+      check_record_speakers "$record"
     done < <(find "$package/records" -mindepth 1 -maxdepth 1 -type f | sort)
   fi
 done
