@@ -18,8 +18,8 @@
 | --- | --- | --- |
 | [`rules/workspace.md`](workspace.md) | 설정 파일, 기술 판정, 저장소·패키지 생성, `example` 커밋 | 1·4·5·7단계 |
 | [`rules/resume.md`](resume.md) | 세션 상태, 기존 저장소 복구, 이어 하기 목록, 중단된 변경 커밋 | 2·4·5·6단계 |
-| [`rules/record.md`](record.md) | 기록 파일, `state.md` 갱신, 커밋 규칙 | 질의응답마다, 경로 마무리 |
-| [`rules/review.md`](review.md) | 학습 정리와 `summary.md` | 정리를 요청받을 때 |
+| [`rules/record.md`](record.md) | 기록 파일, 패키지 상태 파일 갱신, 커밋 규칙 | 질의응답마다, 경로 마무리 |
+| [`rules/review.md`](review.md) | 학습 정리와 상태 값 표시 | 정리를 요청받을 때 |
 | [`roles/example-builder.md`](../roles/example-builder.md) | 개념·예제·탐색 질문·설명 경로 생성, 가져온 자료 처리 | 7단계와 새 질문이 나올 때 |
 | [`roles/question-gate.md`](../roles/question-gate.md) | 공개 단계와 전이 표 | 설명 경로의 단계마다 |
 | [`roles/knowledge-navigator.md`](../roles/knowledge-navigator.md) | 설명 경로 선택, 끝나지 않은 경로, 다음 탐색 후보 | 질문을 받을 때와 경로가 끝날 때 |
@@ -34,12 +34,12 @@
 ### 시작 절차
 
 1. **학습 폴더를 확인한다** — 설정 파일이 없거나 가리키는 폴더가 없으면 위치를 묻고 설정 파일에 저장합니다(`workspace.md`).
-2. **재개 상태를 확인한다** — 기술 저장소의 `state.json`을 먼저 읽습니다(`resume.md`). `sessionStatus: in_progress`이고 `inputMode: learning`이면 목록을 보여 주지 않고 `activeQuestion`의 `stage`와 `awaiting`에서 `record`가 가리키는 질문 파일로 이어 갑니다.
+2. **재개 상태를 확인한다** — 저장소 `state.json`을 먼저 읽습니다(`resume.md`). `sessionStatus: in_progress`이고 `activePackage`가 있으면 목록을 보여 주지 않고 그 패키지 `state.json`의 `stage`와 `awaiting`에서 `record`가 가리키는 질문 파일로 이어 갑니다.
 3. **입력과 학습 목표를 정한다** — 진행 중인 재개 상태가 없을 때만 입력이 기술 이름·코드·링크·파일 경로 중 무엇인지 판별합니다.
 4. **기술 저장소를 정한다** — 가져온 자료가 있으면 저장소가 될 기술을 판정해 확인받습니다(`workspace.md`). 목록을 보여 줄 때만 `inputMode: selection`으로 바꿉니다(`resume.md`의 이어 하기 목록).
 5. **저장소와 패키지를 확보한다** — 기술 저장소와 학습 패키지를 확보하고, 커밋되지 않은 기록·상태 변경이 있으면 먼저 커밋합니다(`workspace.md`, `resume.md`).
-6. **이전 상태를 읽는다** — `state.md`의 누적 학습 상태를 읽습니다(`resume.md`).
-7. **예제와 지식을 준비한다** — 새 학습을 시작할 때 개념·선수 관계·예제·탐색 질문·설명 경로를 만들거나 불러옵니다(`example-builder.md`). 예제를 처음 넣었으면 검증 스크립트를 통과한 뒤 `example` 커밋을 남깁니다.
+6. **이전 상태를 읽는다** — 패키지 `state.json`의 누적 학습 상태를 읽습니다(`resume.md`).
+7. **예제와 지식을 준비한다** — 새 학습을 시작할 때 예제·탐색 질문·설명 경로를 만들거나 불러옵니다(`example-builder.md`). 저장소 `state.json`의 `discoveredConcepts`에 이미 있는 개념은 새로 설명하지 않습니다. 예제를 처음 넣었으면 검증 스크립트를 통과한 뒤 `example` 커밋을 남깁니다.
 
 7단계를 마치면 호출한 스킬의 `SKILL.md`에 적힌 첫 설명으로 학습을 시작합니다. 재개 상태에서는 복원한 단계의 설명을 이어 가며, 이후 학습자의 질문은 아래 배정 표에 따라 역할 문서로 보냅니다.
 

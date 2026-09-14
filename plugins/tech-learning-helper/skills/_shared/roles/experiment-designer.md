@@ -36,11 +36,11 @@ git -C <저장소> diff "$base" -- packages/<주제>/src
 
 ```bash
 bash <플러그인 경로>/skills/_shared/scripts/validate-learning-repo.sh <저장소>
-git -C <저장소> add state.md state.json packages/<주제>
+git -C <저장소> add state.json packages/<주제>
 git -C <저장소> commit -m "learn(<주제>): <질문 요약> 실험"
 ```
 
-커밋에는 바뀐 예제 코드, 실험을 적은 기록 파일, `state.md`, `state.json`이 함께 들어갑니다. 실험 뒤 제시한 다음 탐색 후보와 경로 도중에 남긴 단계가 `state.md`에 있기 때문입니다. 구조 비교형 실험은 코드를 바꾸지 않으므로 커밋하지 않고, 그 기록은 다음 커밋에 함께 담습니다. 실험의 기록 방법은 [학습 기록 규칙](../rules/record.md#1-질의응답-기록)을 따릅니다.
+커밋에는 바뀐 예제 코드, 실험을 적은 기록 파일, 저장소 `state.json`, 패키지 `state.json`이 함께 들어갑니다. 실험 뒤 제시한 다음 탐색 후보와 경로 도중에 남긴 단계가 패키지 `state.json`에 있기 때문입니다. 구조 비교형 실험은 코드를 바꾸지 않으므로 커밋하지 않고, 그 기록은 다음 커밋에 함께 담습니다. 실험의 기록 방법은 [학습 기록 규칙](../rules/record.md#1-질의응답-기록)을 따릅니다.
 
 ## 예외 처리
 

@@ -38,7 +38,7 @@ disable-model-invocation: true
 | 설명 경로 도중에 호출 | 현재 단계의 현상을 알려 주고, 남은 단계를 다음 탐색 후보로 남긴 뒤 첫 설명 시작 |
 | 진행 중인 학습이 있고 경로가 끝남 | 곧바로 첫 설명 시작 |
 
-설명 경로 도중에 부르면 Question Gate 전이 표의 "다른 질문"과 똑같이 처리합니다. 원래 경로의 남은 단계는 `state.md`의 `## 다음 탐색 후보`에 남깁니다(`knowledge-navigator.md`).
+설명 경로 도중에 부르면 Question Gate 전이 표의 "다른 질문"과 똑같이 처리합니다. 원래 경로의 남은 단계는 그 패키지 `state.json`의 `nextCandidates`에 남깁니다(`knowledge-navigator.md`).
 
 ### 첫 설명
 
