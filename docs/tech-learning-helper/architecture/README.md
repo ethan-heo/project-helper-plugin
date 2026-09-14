@@ -4,8 +4,8 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 버전 | 2.2 |
-| 마지막 갱신 | 2026-09-14 17:32 |
+| 버전 | 2.3 |
+| 마지막 갱신 | 2026-09-14 18:10 |
 
 ## 시스템의 목적
 
@@ -36,6 +36,7 @@
 
 | 버전 | 갱신 시각 | 바뀐 파일 | 변경 요약 |
 | --- | --- | --- | --- |
+| 2.3 | 2026-09-14 18:10 | decisions.md, learning-record.md | 중간 세션 재개 상태를 `state.json`으로 분리 |
 | 2.2 | 2026-09-14 17:32 | README.md, learning-flow.md, learning-record.md | `review`는 예제 준비 없이 학습 선택과 상태 읽기만 거치고, 질의응답 기록을 받는 계약 추가 |
 | 2.1 | 2026-09-14 14:38 | README.md, learning-flow.md, learning-record.md | 이어 하기 후보를 최근 저장소 하나에서 최근 순 저장소 목록과 기존 학습 패키지 목록으로 넓힘 |
 | 2.0 | 2026-09-14 12:46 | README.md, decisions.md, learning-flow.md, learning-workspace.md | Codex 지원을 위해 학습 폴더 위치를 도구와 무관한 설정 파일로 받도록 AD-008을 AD-011로 대체 |

@@ -6,9 +6,9 @@
 
 ## 핵심 지시
 
-**학습 상태는 기술 저장소의 `state.md` 하나에, 질의응답은 학습 패키지의 날짜별 기록 파일에 남기고, 설명 경로 하나가 끝날 때마다 커밋합니다.**
+**누적 학습 상태는 기술 저장소의 `state.md`에, 중간 세션 재개 상태는 `state.json`에, 질의응답은 학습 패키지의 날짜별 기록 파일에 남기고, 설명 경로 하나가 끝날 때마다 커밋합니다.**
 
-새 세션은 이전 대화를 기억하지 못합니다. 이어 하기에 필요한 정보는 모두 파일에서 읽습니다. 상태를 바꿀지는 학습 진행 절차가 판단하고, 이 규칙은 받은 내용을 남기는 방법만 정합니다.
+새 세션은 이전 대화를 기억하지 못합니다. 재개에 필요한 정보는 `state.json`에서, 누적 학습 정보는 `state.md`에서 읽습니다. 기록 전문은 질의응답 보존과 정리 근거로만 사용하며, 현재 질문을 추정하는 기준으로 사용하지 않습니다.
 
 ## 절차 흐름
 
@@ -64,26 +64,52 @@ tanstack-query 저장소에 학습 패키지가 3개 있습니다.
 | "새 주제" (패키지 목록에서) | [Example Builder](../roles/example-builder.md)로 예제 후보 2~3개를 제시 |
 | 학습 폴더에 저장소가 없음 | 배울 기술이나 자료를 물음 |
 
-### 2. 중단된 세션의 변경 커밋
+### 2. 세션 상태 파일
+
+**기술 저장소 루트의 `state.json`에 현재 세션의 재개 정보를 저장합니다.**
+
+```json
+{
+  "sessionStatus": "in_progress",
+  "inputMode": "learning",
+  "package": "<주제>",
+  "record": "packages/<주제>/records/YYYY-MM-DD.md",
+  "activeQuestion": "<현재 질문>",
+  "viewpoint": "<구조|실행>",
+  "path": "<설명 경로>",
+  "stage": "<관찰 유도|힌트|부분 설명|전체 설명>",
+  "awaiting": "<다음에 기대하는 학습자 입력>",
+  "nextCandidates": ["<다음 탐색 후보>"],
+  "lastTurn": { "speaker": "<학습자|assistant>", "type": "<발화 유형>" }
+}
+```
+
+`sessionStatus`는 `idle`, `awaiting_selection`, `in_progress`, `recovery_required` 중 하나입니다. `inputMode`는 `selection` 또는 `learning`이며, 목록을 보여 준 직후에만 `selection`으로 설정합니다. 번호 입력은 `selection`일 때만 목록 선택으로 처리하고, `learning`일 때는 현재 공개 단계의 학습 답변으로 처리합니다.
+
+학습자 입력 전후에 현재 질문, 공개 단계, 다음 기대 입력, 마지막 발화 유형을 갱신합니다. 설명 경로가 끝나면 `state.md`를 갱신하고 `state.json`을 `idle`로 바꿉니다.
+
+### 3. 중단된 세션의 변경 커밋
 
 **학습을 시작할 때 기술 저장소에 커밋되지 않은 기록·상태 변경이 있으면, 다른 작업보다 먼저 커밋합니다.**
 
-`git -C <저장소> status --porcelain`으로 `state.md`와 `packages/*/records/`의 변경을 찾습니다. 설명 경로가 끝나기 전에 세션이 닫혀 남은 변경입니다.
+`git -C <저장소> status --porcelain`으로 `state.json`, `state.md`, `packages/*/records/`의 변경을 찾습니다. 설명 경로가 끝나기 전에 세션이 닫혀 남은 변경입니다.
 
 ```bash
-git -C <저장소> add state.md packages/<주제>/records
+git -C <저장소> add state.json state.md packages/<주제>/records
 git -C <저장소> commit -m "learn(<주제>): 중단된 탐색 기록"
 ```
 
 `<주제>`는 변경된 기록 파일이 속한 패키지 이름입니다. 여러 패키지에 걸치면 `state.md`의 마지막 학습 패키지를 씁니다.
 
-### 3. 학습 상태 읽기
+### 4. 학습 상태 읽기
 
-**학습을 시작하면 `state.md`를 읽어 학습 진행 절차에 넘깁니다.**
+**학습을 시작하면 `state.json`을 먼저 읽어 재개 여부를 판단하고, `state.md`를 누적 학습 상태로 넘깁니다.**
 
 | 선행 상태 | 할 일 |
 | --- | --- |
-| `state.md`가 있음 | 다섯 절을 읽어 이전 학습 상태로 사용 |
+| `state.json`이 있음 | JSON 형식을 검사하고 현재 세션 상태로 사용 |
+| `state.json`이 없음 | 복원 가능한 기록인지 확인하고, 모호하면 `recovery_required`로 둠 |
+| `state.md`가 있음 | 다섯 절을 읽어 누적 학습 상태로 사용 |
 | `state.md`가 없음 | 아래 양식으로 빈 상태 파일을 만들고, 모든 절에 `없음`을 적음 |
 
 ### 4. 질의응답 기록
