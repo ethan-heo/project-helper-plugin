@@ -68,6 +68,7 @@ for package in ${packages[@]+"${packages[@]}"}; do
   [[ -f "$package/questions.md" ]] && check_questions "$package/questions.md"
   [[ -d "$package/src" ]] || fail "${package#"$repo"/}/src: 디렉터리 없음"
   [[ -f "$package/source.md" ]] && require_file "$package/source.md" '## 원본 참조' '## 발췌'
+  [[ -f "$package/summary.md" ]] && require_file "$package/summary.md" '## 학습 목표' '## 다룬 질문' '## 발견한 개념' '## 부분 이해 개념' '## 다음 탐색 후보'
   if [[ -d "$package/records" ]]; then
     while IFS= read -r record; do
       name="$(basename "$record")"
