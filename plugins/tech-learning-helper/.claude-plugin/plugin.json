@@ -1,0 +1,15 @@
+{
+  "name": "tech-learning-helper",
+  "version": "0.1.0",
+  "description": "동작하는 예제에서 출발해 '왜?'와 '어떻게?' 질문으로 원리를 익히는 기술 학습 스킬",
+  "author": {
+    "name": "ethan"
+  },
+  "keywords": [
+    "learning",
+    "tutorial",
+    "top-down",
+    "examples",
+    "socratic"
+  ]
+}
