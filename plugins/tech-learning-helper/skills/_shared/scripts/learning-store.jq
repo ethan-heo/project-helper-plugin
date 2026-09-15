@@ -130,10 +130,11 @@ def valid_payload:
     and (.stage | IN("관찰 유도", "힌트", "부분 설명", "전체 설명"))
     and (.awaiting | type == "string"))
   and ((has("learning") | not) or (.learning | valid_learning));
-def validate_request($p):
+def validate_request($p; $mode):
   . as $b
   | if ($p | valid_payload | not) then error("저장 입력 형식 오류")
-    elif ([.questions[] | select(.id == $p.questionId and .status == "진행")] | length) != 1
+    elif ([.questions[] | select(.id == $p.questionId and (.status == "진행" or
+        ($mode == "save-turn" and ([$p.records[] | select(.questionId == $p.questionId) | .turns[-1].type] | first) == "실험")))] | length) != 1
       then error("진행 중인 대상 질문이 없습니다")
     elif any($p.records[]; .questionId as $id | ([$b.questions[] | select(.id == $id and .record != "")] | length) != 1)
       then error("기록 대상 질문이 없습니다")

@@ -20,6 +20,7 @@ disable-model-invocation: true
 
 | 문서 | 맡는 일 | 읽는 시점 |
 | --- | --- | --- |
+| [`rules/store.md`](../_shared/rules/store.md) | 공용 조회·저장 명령 | 첫 상태 조회·저장 시 |
 | [`rules/session.md`](../_shared/rules/session.md) | 시작 절차, 질문 배정, 경로 마무리 | 호출하자마자 |
 | [`roles/knowledge-navigator.md`](../_shared/roles/knowledge-navigator.md) | 설명 경로 선택과 끝나지 않은 경로 | 첫 설명의 경로를 고를 때 |
 | [`roles/example-builder.md`](../_shared/roles/example-builder.md) | 구조 관점 경로와 탐색 질문 생성 | 저장된 구조 관점 경로가 없을 때 |

@@ -4,7 +4,7 @@
 
 **기술 저장소를 정한 직후, 커밋되지 않은 기록·상태 변경이 있으면 다른 작업보다 먼저 커밋합니다.**
 
-`git -C <저장소> status --porcelain`으로 저장소 `state.json`, `packages/*/state.json`, `packages/*/questions.json`, `packages/*/records/`의 변경을 찾습니다. 설명 경로가 끝나기 전에 세션이 닫혀 남은 변경입니다.
+`git -C <저장소> status --porcelain`으로 저장소 `state.json`, `packages/*/state.json`, `packages/*/questions.json`, `packages/*/records/`의 변경을 찾습니다. 설명 경로가 끝나기 전에 세션이 닫혀 남은 변경입니다. 중단된 저장이 있으면 [학습 상태 명령의 실패 처리](store.md#실패-처리)로 먼저 복구하고, 정상 학습 파일만 커밋합니다. Git 관리 디렉터리의 복구 자료는 추가하지 않습니다.
 
 ```bash
 git -C <저장소> add state.json packages/<주제>/state.json packages/<주제>/questions.json packages/<주제>/records

@@ -81,7 +81,7 @@ tanstack-query 저장소에 학습 패키지가 3개 있습니다.
 | 학습자 입력 | 할 일 |
 | --- | --- |
 | 번호(저장소 목록에서) | 그 저장소의 학습 패키지 목록을 이어서 보여 줌 |
-| 번호(패키지 목록에서) | 그 패키지의 `state.json`을 읽어 3절의 패키지 재개로 이어 감 |
+| 번호(패키지 목록에서) | 3절의 `context` 조회로 패키지 재개 |
 | "다음", "이전" | 다음이나 이전 5개를 같은 모양으로 보여 줌 |
 | 기술 이름 (저장소 목록에서) | 그 기술로 학습을 시작 |
 | "새 주제" (패키지 목록에서) | [Example Builder](../roles/example-builder.md)로 예제 후보 2~3개를 제시 |
@@ -102,17 +102,26 @@ git -C <저장소> add -A packages/<주제>/questions.md packages/<주제>/quest
 git -C <저장소> commit -m "learn(<주제>): 질문 파일 구조 이전"
 ```
 
+구형 질문 이전과 필요한 커밋을 마치면 [학습 상태 명령](store.md)에 따라 한 번 조회합니다.
+
+```bash
+bash <플러그인 경로>/skills/_shared/scripts/learning-store.sh context <패키지>
+```
+
 | 발견한 것 | 할 일 |
 | --- | --- |
-| `activeQuestionId`가 있고, `questions-store.sh get <패키지> <id>`로 받은 항목이 `status: 진행` | 목록을 다시 보여 주지 않고, 그 항목의 `record`가 가리키는 기록 파일에서 `stage`와 `awaiting`부터 이어 감 |
-| `activeQuestionId`가 없거나 그 항목이 `status: 완료` | `nextCandidates`가 있으면 후보를 제시하고, 없으면 학습 목표 판정으로 새 설명 경로를 시작 |
-| 패키지 `state.json`이 없거나 손상됨 | 학습자에게 상태를 확인받은 뒤 다시 씀 |
+| `currentQuestion.status: 진행` | 반환된 현재 단계·공개 수준에서 재개 |
+| `needsPositionConfirmation: true` | 해당 질문의 재개 위치 확인 |
+| 현재 질문 없음 또는 완료 | 다음 후보 제시 또는 새 경로 준비 |
+| 상태 파일 없음·손상 | 상태 확인 후 복구 |
+
+대화 맥락이 부족할 때만 `currentQuestion.recordPath`에서 필요한 부분을 읽습니다. 기록 전문을 기본으로 읽거나 질문별 `get`을 추가 호출하지 않습니다. 저장 충돌·복구 오류는 [실패 처리](store.md#실패-처리)를 따릅니다.
 
 ### 4. 누적 상태 읽기
 
-**진행 중이거나 고른 패키지 `state.json`의 `discoveredConcepts`·`partialConcepts`·`nextCandidates`를 읽어 누적 학습 상태로 넘깁니다. 다룬 질문이 필요하면 `questions-store.sh toc <패키지>`로 목차만 읽습니다.**
+**재개 때 받은 `context.state`와 `context.discoveredConcepts`를 사용합니다. 같은 세션의 일반 답변마다 다시 조회하지 않습니다.**
 
-패키지 `state.json`이 없으면 [아래 양식](#패키지-statejson)대로 빈 값을 채워 만듭니다.
+진행 중인 질문과 다른 질문의 경로가 필요할 때는 Knowledge Navigator의 목차·개별 조회를 사용합니다. 새 패키지의 초기 상태는 아래 양식으로 만들되, 아직 현재 질문이 없으면 `activeQuestionId`를 생략합니다.
 
 ## 양식
 
@@ -132,16 +141,17 @@ git -C <저장소> commit -m "learn(<주제>): 질문 파일 구조 이전"
 ```json
 {
   "activeQuestionId": "<저장소>-<주제>-<순번>",
+  "stepIndex": null,
   "stage": "<관찰 유도|힌트|부분 설명|전체 설명>",
   "awaiting": "<다음에 기대하는 학습자 입력>",
   "lastTurn": { "speaker": "<학습자|assistant>", "type": "<발화 유형>" },
   "discoveredConcepts": ["<발견한 개념 이름>"],
   "partialConcepts": [{ "concept": "<개념>", "remaining": "<아직 공개하지 않은 부분>" }],
-  "nextCandidates": ["<다음 탐색 후보>"]
+  "nextCandidates": [{"kind": "new", "label": "<다음 탐색 후보>"}]
 }
 ```
 
-`activeQuestionId`가 가리키는 질문의 원문·관점·설명 경로·기록 파일은 패키지의 `questions.json`에 있고, [`questions-store.sh`](../scripts/questions-store.sh)로만 읽고 씁니다. 아직 질문을 시작하지 않은 패키지에서는 `activeQuestionId`를 두지 않습니다.
+`activeQuestionId`가 가리키는 질문의 원문·관점·설명 경로·기록 파일은 패키지의 `questions.json`에 있고, 등록·개별 조회에는 [`questions-store.sh`](../scripts/questions-store.sh)를, 재개·정리·응답 저장에는 [학습 상태 명령](store.md)을 사용합니다. 아직 질문을 시작하지 않은 패키지에서는 `activeQuestionId`를 두지 않습니다.
 
 ## 예외 처리
 

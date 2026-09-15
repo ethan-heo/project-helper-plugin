@@ -22,6 +22,7 @@ disable-model-invocation: true
 
 | 문서 | 맡는 일 | 읽는 시점 |
 | --- | --- | --- |
+| [`rules/store.md`](../_shared/rules/store.md) | 공용 조회·저장 명령 | 첫 상태 조회·저장 시 |
 | [`rules/session.md`](../_shared/rules/session.md) | 학습 상태 판정, 경로 중단, 학습 재개 | 호출하자마자와 정리 뒤 학습을 이어 갈 때 |
 | [`rules/workspace.md`](../_shared/rules/workspace.md) | 설정 파일과 학습 폴더 | 진행 중인 학습이 없을 때 |
 | [`rules/resume.md`](../_shared/rules/resume.md) | 번호 입력 해석, 이어 하기 목록 | 정리할 학습을 고를 때 |
@@ -44,7 +45,7 @@ disable-model-invocation: true
 
 1. **학습 폴더를 확인한다** — `session.md`의 1단계를 따릅니다.
 2. **정리할 학습을 고른다** — 기술 이름 없이 부르면 기술 저장소 목록에서, 기술 이름과 함께 부르면 학습 패키지 목록에서 고르게 합니다(`resume.md`의 이어 하기 목록). 저장소 목록에서 고르면 그 저장소의 마지막 학습 패키지를 정리합니다.
-3. **학습 상태를 읽는다** — `session.md`의 6단계를 따릅니다.
+3. **학습 상태를 읽는다** — `review.md`의 `review-data`로 한 번 조회합니다. 정리만 할 때는 `context`를 추가 호출하지 않습니다.
 
 ### 정리
 
@@ -52,9 +53,9 @@ disable-model-invocation: true
 
 ### 정리 뒤
 
-정리를 마치면 패키지 `state.json`의 `nextCandidates`에서 2~3개를 번호로 제시합니다.
+정리를 마치면 정리 결과의 `nextCandidates`에서 2~3개를 번호로 제시합니다.
 
-학습자가 후보를 고르면 `session.md`의 7단계로 예제와 지식을 준비한 뒤, 그 후보의 설명 경로를 관찰 유도로 시작합니다. 이후 질문은 `session.md`의 배정 표로 받습니다.
+학습자가 후보를 고르면 `session.md`의 7단계로 예제와 지식을 준비한 뒤, 새 후보는 관찰 유도로 시작하고, 중단 후보는 저장된 재개 단계에서 이어 갑니다. 이후 질문은 `session.md`의 배정 표로 받습니다.
 
 ## 경계
 

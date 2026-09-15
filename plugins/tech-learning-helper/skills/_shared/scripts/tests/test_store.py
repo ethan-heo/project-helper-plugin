@@ -96,6 +96,17 @@ class ReadTests(StoreCase):
 
 
 class WriteTests(StoreCase):
+    def test_experiment_on_completed_question_preserves_completion(self):
+        payload = self.payload("experiment-1")
+        payload["questionId"] = "javascript-counter-1"
+        payload["records"][0]["questionId"] = "javascript-counter-1"
+        payload["records"][0]["turns"][-1]["type"] = "실험"
+        payload["progress"]["stepIndex"] = None
+        self.call("save-turn", payload)
+        self.assertEqual(self.call("context")["currentQuestion"]["status"], "완료")
+        record = (self.package / "records/2026-09-15/01-question.md").read_text()
+        self.assertIn("## 실험: 출력 1은 왜 달라지나요?", record)
+
     def test_concurrent_existing_and_new_commands_are_rejected_then_retry(self):
         script = '''source "$1/store-common.sh"
 source "$1/store-transaction.sh"

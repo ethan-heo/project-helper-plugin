@@ -20,6 +20,7 @@ disable-model-invocation: true
 
 | 문서 | 맡는 일 | 읽는 시점 |
 | --- | --- | --- |
+| [`rules/store.md`](../_shared/rules/store.md) | 공용 조회·저장 명령 | 첫 상태 조회·저장 시 |
 | [`rules/session.md`](../_shared/rules/session.md) | 시작 절차, 목표 판정, 질문 배정, 경로 마무리 | 호출하자마자 |
 | [`roles/question-gate.md`](../_shared/roles/question-gate.md) | 공개 단계와 전이 표 | 첫 설명을 할 때 |
 

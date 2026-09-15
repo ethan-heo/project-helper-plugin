@@ -20,6 +20,7 @@ disable-model-invocation: true
 
 | 문서 | 맡는 일 | 읽는 시점 |
 | --- | --- | --- |
+| [`rules/store.md`](../_shared/rules/store.md) | 공용 조회·저장 명령 | 첫 상태 조회·저장 시 |
 | [`rules/session.md`](../_shared/rules/session.md) | 시작 절차, 질문 배정, 경로 마무리 | 호출하자마자 |
 | [`rules/record.md`](../_shared/rules/record.md) | 기록 파일, 실험 기록, 실험 커밋 | 확인 대상을 찾을 때와 실험을 기록할 때 |
 | [`roles/experiment-designer.md`](../_shared/roles/experiment-designer.md) | 확인 방법 제안, 전후 비교, 실험 커밋 | 확인 방법을 제안할 때와 실험이 끝날 때 |

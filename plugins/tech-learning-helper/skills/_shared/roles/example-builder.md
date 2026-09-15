@@ -8,7 +8,7 @@
 
 **저장된 지식이 있으면 불러오고, 학습 목표에 필요한데 없는 것만 새로 만들어 저장합니다.**
 
-개념은 별도 목록에 두지 않고 설명 경로의 서술 안에만 둡니다. 탐색 질문과 설명 경로는 학습 패키지의 `questions.json`에 두고, [`questions-store.sh`](../scripts/questions-store.sh)로만 읽고 씁니다. 탐색 질문은 그 패키지 예제의 코드와 동작 안에서만 나옵니다. 이 문서는 가르치는 순서와 공개 단계를 다루지 않습니다.
+개념은 별도 목록에 두지 않고 설명 경로의 서술 안에만 둡니다. 탐색 질문과 설명 경로는 학습 패키지의 `questions.json`에 두고, 등록·개별 조회에는 [`questions-store.sh`](../scripts/questions-store.sh)를 사용하고, 학습 중 상태 처리는 [학습 상태 명령](../rules/store.md)에 맡깁니다. 탐색 질문은 그 패키지 예제의 코드와 동작 안에서만 나옵니다. 이 문서는 가르치는 순서와 공개 단계를 다루지 않습니다.
 
 ## 절차 흐름
 
@@ -21,7 +21,7 @@
 | 저장소 `discoveredConcepts`에 있음 | 그 경로 단계를 "이미 다룬 개념"으로만 참조 |
 | 저장소 `discoveredConcepts`에 없음 | 그 경로 단계에서 처음 설명 |
 
-`discoveredConcepts`는 [학습 재개 규칙](../rules/resume.md#저장소-statejson)이 정하는 저장소 `state.json`의 필드이며, 이 절차는 그 값을 읽기만 합니다.
+`discoveredConcepts`는 [학습 재개 규칙](../rules/resume.md#저장소-statejson)이 정하는 저장소 `state.json`의 필드이며, 이 절차는 재개 때 받은 `context.discoveredConcepts`를 사용합니다.
 
 ### 2. 예제
 

@@ -10,8 +10,8 @@ store_write() {
   store_request "$mode" "$payload"
   if [[ "$STORE_REPLAY" == 1 ]]; then printf '%s\n' "$STORE_RESULT"; return; fi
   store_load
-  transformed="$(jq -c -L "$STORE_SCRIPTS" --argjson p "$payload" \
-    'include "learning-store"; validate_request($p) | apply_turn($p) | normalize_bundle
+  transformed="$(jq -c -L "$STORE_SCRIPTS" --argjson p "$payload" --arg mode "$mode" \
+    'include "learning-store"; validate_request($p; $mode) | apply_turn($p) | normalize_bundle
       | if valid_positions then . else error("재개 위치 오류") end' <<<"$STORE_BUNDLE" 2>/dev/null)" \
     || store_fail invalid_request '질문 상태 또는 기록 대상이 잘못되었습니다'
   if [[ "$mode" == finish-question ]]; then
@@ -33,6 +33,9 @@ store_write() {
     new_path="$work/record-$i.md"
     cp "$target" "$new_path"
     printf '\n' >> "$new_path"
+    if jq -e ".records[$i].turns | any(.[];.speaker == \"assistant\" and .type == \"실험\")" <<<"$payload" >/dev/null; then
+      jq -r --arg id "$id" '.questions[] | select(.id==$id) | "## 실험: " + .question + "\n"' <<<"$STORE_BUNDLE" >> "$new_path"
+    fi
     jq -rj -L "$STORE_SCRIPTS" "include \"learning-store\"; .records[$i].turns | render_turns" <<<"$payload" >> "$new_path"
     store_stage "${target#"$STORE_REPO"/}" "$new_path"
   done

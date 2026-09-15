@@ -50,7 +50,7 @@ bash <플러그인 경로>/skills/_shared/scripts/questions-store.sh toc <패키
 
 **경로 도중 학습자가 다른 질문을 하면, 원래 경로의 남은 단계를 그 패키지 `state.json`의 `nextCandidates`에 남기고 새 질문의 경로로 넘어갑니다.**
 
-후보에는 원래 질문과 남은 단계의 번호를 함께 적습니다. 새 경로가 끝나도 원래 경로로 자동으로 돌아가지 않고, 학습자가 후보에서 고를 때 이어 갑니다.
+후보에는 `kind: resume`, 원래 질문의 `label`·`questionId`, 다음에 재개할 `resumeStep`을 담아 저장 요청의 `learning.nextCandidates`로 전달합니다. 현재 위치는 `progress.stepIndex`로 기록하며, 형식은 [학습 상태 명령](../rules/store.md#재개-위치와-후보)을 따릅니다. 새 경로가 끝나도 원래 경로로 자동으로 돌아가지 않고, 학습자가 후보에서 고를 때 이어 갑니다.
 
 | 후보 | 이어지는 질문이나 남은 경로 단계 |
 | --- | --- |
@@ -66,7 +66,7 @@ bash <플러그인 경로>/skills/_shared/scripts/questions-store.sh toc <패키
 | 그 패키지 `state.json`의 `nextCandidates` | 끝나지 않은 경로의 남은 단계와, 남겨 둔 다른 관점 |
 | 경로 도중 떠오른 개념 | 3단계에서 설명하지 않고 남긴 개념 |
 
-후보는 모두 직전 질문과 이어지는 것이어야 합니다. 제시한 후보는 그 패키지 `state.json`의 `nextCandidates`에 글로만 남기고, 설명 경로는 학습자가 그 후보를 고른 뒤에 만들어 등록합니다.
+후보는 모두 직전 질문과 이어지는 것이어야 합니다. 새 후보는 `kind: new`와 `label`만 저장 요청의 `learning.nextCandidates`에 넣고, 설명 경로는 학습자가 그 후보를 고른 뒤에 만들어 등록합니다.
 
 ## 예외 처리
 
