@@ -47,6 +47,8 @@
 
 마지막 발화, 이번에 공개한 개념, 부분 이해와 다음 후보를 `finish-question`에 함께 전달합니다. 스크립트가 질문 완료와 두 상태 파일의 개념·활동 날짜를 갱신합니다. `save-turn`이나 `questions-store.sh complete`를 같은 응답에 따로 호출하지 않습니다.
 
+스크립트는 완료한 질문을 가리키는 `resume` 후보를 지웁니다. 경로에 다루지 못한 단계가 남은 채 완료하면, 그 단계는 [Knowledge Navigator의 다루지 못한 단계](../roles/knowledge-navigator.md#다루지-못한-단계)에 따라 `kind: new` 후보로 다음 후보에 넣습니다.
+
 ```bash
 bash <플러그인 경로>/skills/_shared/scripts/validate-learning-repo.sh <저장소>
 git -C <저장소> add state.json packages/<주제>/state.json packages/<주제>
