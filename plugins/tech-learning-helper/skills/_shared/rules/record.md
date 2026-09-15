@@ -100,7 +100,7 @@ git -C <저장소> commit -m "learn(<주제>): <질문 요약> 탐색"
 ## 왜 캐시가 비워졌지?
 
 - 관점: 실행
-- 설명 경로: [`questions.md`](../../questions.md)의 같은 질문
+- 질문 id: `react-cache-3`
 
 **학습자**
 

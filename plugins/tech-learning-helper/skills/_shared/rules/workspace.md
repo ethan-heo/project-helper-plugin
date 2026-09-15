@@ -64,7 +64,7 @@
 
 **학습 주제마다 `packages/<주제>/`를 만들고, 같은 이름의 패키지가 있으면 새로 만들지 않고 그 패키지에서 이어 갑니다.**
 
-`<주제>`는 영문 kebab-case로 짓습니다. 패키지에는 아래 양식의 `README.md`와 예제를 담을 `src/`를 둡니다. `questions.md`와 `source.md`는 Example Builder가, `records/`는 [학습 기록 규칙](record.md)이, 패키지 `state.json`은 [학습 재개 규칙](resume.md)이 만듭니다. 새 패키지를 만들면 저장소 `README.md`의 `## 학습 패키지` 표에 한 행을 더하고, 저장소 `state.json`의 `packages`에 `{ name: <주제>, lastActivity: 오늘 날짜 }` 항목을 더합니다.
+`<주제>`는 영문 kebab-case로 짓습니다. 패키지에는 아래 양식의 `README.md`, 예제를 담을 `src/`, 빈 배열(`[]`)만 담은 `questions.json`을 둡니다. `questions.json`은 이후 [`questions-store.sh`](../scripts/questions-store.sh)로만 고칩니다. `source.md`는 Example Builder가, `records/`는 [학습 기록 규칙](record.md)이, 패키지 `state.json`은 [학습 재개 규칙](resume.md)이 만듭니다. 새 패키지를 만들면 저장소 `README.md`의 `## 학습 패키지` 표에 한 행을 더하고, 저장소 `state.json`의 `packages`에 `{ name: <주제>, lastActivity: 오늘 날짜 }` 항목을 더합니다.
 
 | 기술의 생태계 | 패키지의 실행 준비 |
 | --- | --- |

@@ -25,15 +25,15 @@
 | 순서 | 옮기는 값 | 읽는 곳 |
 | --- | --- | --- |
 | 학습 목표 | 패키지의 학습 목표 | 패키지 `README.md`의 `## 학습 목표` |
-| 다룬 질문 | 질문, 도달한 개념, 날짜, 기록 파일 링크 | 패키지 `state.json`의 `questions`, `questions.md` |
+| 다룬 질문 | 질문, 도달한 개념, 날짜, 기록 파일 링크 | `questions-store.sh toc`와 `get`의 결과 |
 | 발견한 개념 | 이 패키지에서 발견한 개념 이름 | 패키지 `state.json`의 `discoveredConcepts` |
 | 부분 이해 개념 | 개념과 남은 설명 | 패키지 `state.json`의 `partialConcepts` |
 | 다음 탐색 후보 | 후보와 이어지는 질문이나 남은 단계 | 패키지 `state.json`의 `nextCandidates` |
 
 | 값 | 옮기는 방법 |
 | --- | --- |
-| 다룬 질문 | `questions`를 기록 파일 경로의 날짜·순번 순으로 옮김 |
-| 도달한 개념(완료한 질문) | `questions.md`에서 같은 질문의 설명 경로를 찾아, 마지막 단계에 적힌 개념 |
+| 다룬 질문 | `questions-store.sh toc <패키지>`의 항목을 등록 순서대로 옮기고, 날짜와 링크는 `get`으로 받은 `record`에서 가져옴 |
+| 도달한 개념(완료한 질문) | `get`으로 받은 `path`의 마지막 단계에 적힌 개념. `path`가 비어 있으면 `경로 없음` |
 | 도달한 개념(진행 중인 질문) | `nextCandidates`에서 같은 질문을 찾아 `미도달(남은 단계 3~4)`처럼 남은 단계를 적음 |
 | 발견한 개념 | `discoveredConcepts`를 이름 목록으로 나열(뜻은 별도로 저장하지 않으므로 적지 않음) |
 | 부분 이해 개념, 다음 탐색 후보 | `partialConcepts`, `nextCandidates`를 그대로 옮김 |
