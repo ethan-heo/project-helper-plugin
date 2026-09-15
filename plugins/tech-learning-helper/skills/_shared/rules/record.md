@@ -16,7 +16,14 @@
 
 **질의응답이 오갈 때마다 `packages/<주제>/records/YYYY-MM-DD/NN-question-slug.md`에 기록하고, 세션을 보지 않은 사람이 해당 기록 파일만 읽고 따라갈 수 있게 적습니다.**
 
-새 질문이 나오면 그날 디렉터리가 없을 때 만들고, 그 안에 다음 순번의 `NN-question-slug.md`를 만든 뒤 패키지 `state.json`의 `record`를 그 경로로 바꾸고 `questions`에 `status: 진행`인 항목을 더합니다. 날짜는 학습자 컴퓨터의 오늘 날짜입니다. 파일의 첫 줄은 `# YYYY-MM-DD`로 두고, 질문 원문과 학습자·설명을 기록합니다. 같은 질문의 설명 경로와 실험은 하나의 파일에 둡니다. 기존 `records/YYYY-MM-DD.md`는 읽기 호환 대상으로만 처리합니다.
+새 질문이 나오면 [Knowledge Navigator](../roles/knowledge-navigator.md)가 `questions-store.sh toc`로 같은 뜻의 질문이 이미 등록됐는지 판단한 결과에 따라 아래처럼 기록 파일과 질문 항목을 정합니다.
+
+| 발견한 것 | 할 일 |
+| --- | --- |
+| 등록된 질문이 없음 | 그날 디렉터리가 없으면 만들고, 그 안에 다음 순번의 `NN-question-slug.md`를 만듦. 이 경로로 Example Builder가 `questions-store.sh add`를 부르고, 출력된 `id`를 패키지 `state.json`의 `activeQuestionId`에 적음 |
+| 같은 뜻의 질문이 등록돼 있음 | 새 파일을 만들지 않고 그 항목의 `record`에 이어 적음. 항목이 `status: 완료`면 `questions-store.sh start <패키지> <id>`로 `진행`으로 되돌리고, 그 `id`를 `activeQuestionId`에 적음 |
+
+날짜는 학습자 컴퓨터의 오늘 날짜입니다. 파일의 첫 줄은 `# YYYY-MM-DD`로 두고, 질문 원문과 학습자·설명을 기록합니다. 같은 질문의 설명 경로와 실험은 하나의 파일에 둡니다. 기존 `records/YYYY-MM-DD.md`는 읽기 호환 대상으로만 처리합니다.
 
 | 규칙 | 판정 |
 | --- | --- |
@@ -38,11 +45,14 @@
 
 ### 2. 설명 경로 종료
 
-**설명 경로 하나가 끝나면 패키지 `state.json`을 갱신하고 저장소 `state.json`의 인덱스를 갱신한 뒤, 검증 스크립트를 통과시키고 `learn` 커밋을 남깁니다.**
+**설명 경로 하나가 끝나면 질문 항목을 완료로 바꾸고 패키지 `state.json`과 저장소 `state.json`의 인덱스를 갱신한 뒤, 검증 스크립트를 통과시키고 `learn` 커밋을 남깁니다.**
+
+```bash
+bash <플러그인 경로>/skills/_shared/scripts/questions-store.sh complete <패키지> <activeQuestionId>
+```
 
 | 필드(패키지 `state.json`) | 갱신 내용 |
 | --- | --- |
-| `questions`의 해당 항목 | `status`를 `완료`로 바꿈 |
 | `discoveredConcepts` | 이번 경로에서 공개한 개념 추가 |
 | `partialConcepts` | 공개했지만 전체 설명에 이르지 않은 개념 |
 | `nextCandidates` | 직전 질문과 이어지는 개념과, 끝나지 않은 경로의 남은 단계 |
@@ -62,8 +72,9 @@ git -C <저장소> commit -m "learn(<주제>): <질문 요약> 탐색"
 | 커밋 시점 | 메시지 형식 | 포함 파일 |
 | --- | --- | --- |
 | 예제를 처음 넣었을 때 | `example(<주제>): <예제 요약> 추가` | 패키지의 예제와 `README.md`, `source.md` |
-| 설명 경로 하나가 끝났을 때 | `learn(<주제>): <질문 요약> 탐색` | 기록 파일, 저장소 `state.json`, 패키지 `state.json`, 새로 저장한 지식 |
+| 설명 경로 하나가 끝났을 때 | `learn(<주제>): <질문 요약> 탐색` | 기록 파일, 저장소 `state.json`, 패키지 `state.json`, `questions.json` |
 | 코드 변경형 실험이 끝났을 때 | `learn(<주제>): <질문 요약> 실험` | 바뀐 예제 코드, 기록 파일, 저장소 `state.json`, 패키지 `state.json` |
+| 구형 질문 파일을 옮겼을 때 | `learn(<주제>): 질문 파일 구조 이전` | `questions.json`, 패키지 `state.json`, 지운 `questions.md` |
 | 학습 정리를 마쳤을 때 | 해당 없음(새 파일을 만들지 않음) | 해당 없음 |
 | 다음 학습 시작 때 커밋되지 않은 변경이 있을 때 | `learn(<주제>): 중단된 탐색 기록` | 커밋되지 않은 기록·상태 파일 |
 
@@ -75,10 +86,11 @@ git -C <저장소> commit -m "learn(<주제>): <질문 요약> 탐색"
 | `learn` 탐색 | 이 문서의 2절 |
 | `learn` 실험 | [Experiment Designer](../roles/experiment-designer.md#실험-커밋) |
 | 중단된 탐색 기록 | [학습 재개: 중단된 변경 커밋](resume-commit.md) |
+| 질문 파일 구조 이전 | [학습 재개 규칙의 패키지 재개](resume.md#3-패키지-재개) |
 
 ## 양식
 
-패키지 `state.json`의 필드와 값 구성은 [학습 재개 규칙의 양식](resume.md#패키지-statejson)을 따릅니다. `questions`·`discoveredConcepts`·`partialConcepts`·`nextCandidates`에 항목이 없으면 빈 배열로 둡니다.
+패키지 `state.json`의 필드와 값 구성은 [학습 재개 규칙의 양식](resume.md#패키지-statejson)을 따릅니다. `discoveredConcepts`·`partialConcepts`·`nextCandidates`에 항목이 없으면 빈 배열로 둡니다. 질문 목록은 패키지 `state.json`이 아니라 `questions.json`에 있습니다.
 
 ### 기록 파일
 

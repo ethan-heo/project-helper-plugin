@@ -5,6 +5,7 @@ usage() {
   printf '사용법: questions-store.sh toc <패키지>\n' >&2
   printf '       questions-store.sh get <패키지> <id>\n' >&2
   printf '       questions-store.sh add <패키지> <관점> <기록경로> <질문원문> <단계...>\n' >&2
+  printf '       questions-store.sh start <패키지> <id>\n' >&2
   printf '       questions-store.sh complete <패키지> <id>\n' >&2
   printf '       questions-store.sh migrate <패키지>\n' >&2
   exit 1
@@ -84,14 +85,16 @@ case "$mode" in
     printf '%s\n' "$updated" >"$file"
     printf '%s\n' "$id"
     ;;
-  complete)
+  start | complete)
     [[ $# == 1 ]] || usage
     id="$1"
+    status="진행"
+    [[ "$mode" == "complete" ]] && status="완료"
     if ! read_store | jq -e --arg id "$id" 'any(.[]; .id == $id)' >/dev/null 2>&1; then
       printf '오류: id를 찾을 수 없음: %s\n' "$id" >&2
       exit 1
     fi
-    updated="$(read_store | jq --arg id "$id" 'map(if .id == $id then .status = "완료" else . end)')"
+    updated="$(read_store | jq --arg id "$id" --arg s "$status" 'map(if .id == $id then .status = $s else . end)')"
     printf '%s\n' "$updated" >"$file"
     ;;
   migrate)
