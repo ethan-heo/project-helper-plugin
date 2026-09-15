@@ -12,7 +12,7 @@
 
 시작 절차를 마친 뒤의 첫 설명은 호출한 스킬의 `SKILL.md`가 정합니다. 이후에는 세션이 끝날 때까지 학습자의 자연어 질문을 아래 배정 표로 이어 받습니다.
 
-학습 폴더에 남기는 기록과 설명의 문체는 [`writing-style.md`](../writing-style.md)를 따릅니다.
+학습 폴더에 남기는 기록과, 재개 메시지·실험 제안·다음 탐색 후보처럼 채팅으로만 보여 주는 안내의 문체는 모두 [`writing-style.md`](../writing-style.md)를 따릅니다.
 
 ## 참조 문서
 
@@ -33,7 +33,7 @@
 | [`roles/structure-explainer.md`](../roles/structure-explainer.md) | 구조 관점 설명 | 구조 관점의 경로를 진행할 때 |
 | [`roles/logic-explainer.md`](../roles/logic-explainer.md) | 실행 관점 설명 | 실행 관점의 경로를 진행할 때 |
 | [`roles/experiment-designer.md`](../roles/experiment-designer.md) | 확인 방법 제안과 실험 전후 비교 | 경로가 끝날 때와 직접 확인을 원할 때 |
-| [`writing-style.md`](../writing-style.md) | 기록과 설명의 문체 | 학습 폴더에 파일을 쓸 때 |
+| [`writing-style.md`](../writing-style.md) | 기록과 채팅 안내의 문체 | 학습자에게 설명을 쓸 때 |
 | [`validate-learning-repo.sh`](../scripts/validate-learning-repo.sh) | 기술 저장소의 형식 검사 | 7단계와 경로 마무리의 커밋 직전 |
 | [`resume-scan.sh`](../scripts/resume-scan.sh) | 저장소·패키지 스캔, 이어 하기 목록 재료 | 2단계 |
 
