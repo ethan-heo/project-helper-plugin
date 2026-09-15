@@ -30,6 +30,7 @@ require_file() {
     has_heading "$file" "$heading" || fail "${file#"$repo"/}: 필수 절 누락 ($heading)"
   done
 }
+# 저장소 state.json은 재개 지점을 판단하지 않는 인덱스이므로, 패키지 이름과 마지막 활동 날짜만 검사한다.
 check_repo_state() {
   local file="$repo/state.json"
   if [[ ! -f "$file" ]]; then
@@ -38,21 +39,18 @@ check_repo_state() {
   fi
   if ! jq -e '
     type == "object"
-    and (. as $state | (["sessionStatus", "inputMode", "activePackage", "lastPackage", "discoveredConcepts"] | all(.[]; . as $key | $state | has($key))))
-    and (.sessionStatus | IN("idle", "awaiting_selection", "in_progress", "recovery_required"))
-    and (.inputMode | IN("selection", "learning"))
-    and (.activePackage | type == "string" or type == "null")
-    and (.lastPackage | type == "string")
+    and (. as $state | (["packages", "discoveredConcepts"] | all(.[]; . as $key | $state | has($key))))
+    and (.packages | type == "array")
+    and (.packages | all(.[]; (.name | type == "string") and (.lastActivity | type == "string" and test("^[0-9]{4}-[0-9]{2}-[0-9]{2}$"))))
     and (.discoveredConcepts | type == "array")
   ' "$file" >/dev/null 2>&1; then
     fail "${file#"$repo"/}: JSON 형식 또는 필수 상태 필드 오류"
     return
   fi
-  local active
-  active="$(jq -r '.activePackage // empty' "$file")"
-  if [[ -n "$active" && ! -d "$repo/packages/$active" ]]; then
-    fail "${file#"$repo"/}: activePackage가 가리키는 패키지 없음 ($active)"
-  fi
+  local name
+  while IFS= read -r name; do
+    [[ -z "$name" || -d "$repo/packages/$name" ]] || fail "${file#"$repo"/}: packages가 가리키는 패키지 없음 ($name)"
+  done < <(jq -r '.packages[].name' "$file")
 }
 # 패키지 state.json은 세션 재개 상태와 누적 학습 상태를 함께 담는다.
 check_package_state() {
