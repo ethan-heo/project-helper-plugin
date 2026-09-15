@@ -6,6 +6,7 @@ usage() {
   printf '       questions-store.sh get <패키지> <id>\n' >&2
   printf '       questions-store.sh add <패키지> <관점> <기록경로> <질문원문> <단계...>\n' >&2
   printf '       questions-store.sh complete <패키지> <id>\n' >&2
+  printf '       questions-store.sh migrate <패키지>\n' >&2
   exit 1
 }
 
@@ -28,6 +29,27 @@ id_prefix() {
     exit 1
   fi
   printf '%s-%s' "$(basename "$(dirname "$(dirname "$abs")")")" "$(basename "$abs")"
+}
+
+# 구형 questions.md의 ### 헤더마다 {question, viewpoint, path}를 뽑아 JSON 배열로 낸다.
+parse_legacy_questions() {
+  awk '
+    /^### / { print "Q\t" substr($0, 5); next }
+    /^- 관점: / { line = $0; sub(/^- 관점: /, "", line); print "V\t" line; next }
+    /^[0-9]+\. / { line = $0; sub(/^[0-9]+\. /, "", line); print "S\t" line; next }
+  ' "$1" | jq -R -s '
+    split("\n")
+    | map(select(length > 0) | {tag: .[0:1], val: .[2:]})
+    | reduce .[] as $l (
+        {items: [], cur: null};
+        if $l.tag == "Q" then
+          {items: (.items + (if .cur then [.cur] else [] end)), cur: {question: $l.val, viewpoint: "", path: []}}
+        elif $l.tag == "V" and .cur then .cur.viewpoint = $l.val
+        elif $l.tag == "S" and .cur then .cur.path += [$l.val]
+        else . end
+      )
+    | .items + (if .cur then [.cur] else [] end)
+  '
 }
 
 case "$mode" in
@@ -71,6 +93,51 @@ case "$mode" in
     fi
     updated="$(read_store | jq --arg id "$id" 'map(if .id == $id then .status = "완료" else . end)')"
     printf '%s\n' "$updated" >"$file"
+    ;;
+  migrate)
+    [[ $# == 0 ]] || usage
+    state="$package/state.json"
+    legacy="$package/questions.md"
+    legacy_state="false"
+    if [[ -f "$state" ]] && jq -e 'has("questions") or has("activeQuestion")' "$state" >/dev/null; then
+      legacy_state="true"
+    fi
+    [[ -f "$legacy" || "$legacy_state" == "true" ]] || exit 0
+    prefix="$(id_prefix)"
+
+    parsed="[]"
+    [[ -f "$legacy" ]] && parsed="$(parse_legacy_questions "$legacy")"
+    old="[]"
+    [[ -f "$state" ]] && old="$(jq -c '.questions // []' "$state")"
+
+    # 구형 두 파일을 잇는 id가 없으므로, 백틱과 공백만 무시한 원문이 헤더와 같을 때만 경로를 옮긴다.
+    migrated="$(jq --arg p "$prefix-" --argjson parsed "$parsed" '
+      def norm: gsub("[`\\s]"; "");
+      to_entries | map(.value as $q | ([$parsed[] | select((.question | norm) == ($q.question | norm))] | first) as $m | {
+        id: ($p + ((.key + 1) | tostring)),
+        question: $q.question,
+        viewpoint: ($m.viewpoint // ""),
+        path: ($m.path // []),
+        status: $q.status,
+        record: $q.record
+      })
+    ' <<<"$old")"
+    missing="$(jq -r '.[] | select(.path == []) | "  - \(.id): \(.question)"' <<<"$migrated")"
+    if [[ -n "$missing" ]]; then
+      printf '경고: questions.md에서 같은 헤더를 찾지 못해 경로 없이 옮긴 질문:\n%s\n' "$missing" >&2
+    fi
+    printf '%s\n' "$migrated" >"$file"
+
+    if [[ -f "$state" ]]; then
+      active="$(jq -r '.activeQuestion // empty' "$state")"
+      active_id="$(jq --arg q "$active" '[.[] | select(.question == $q) | .id] | first' <<<"$migrated")"
+      jq --argjson active "$active_id" '
+        del(.questions, .activeQuestion, .viewpoint, .path, .record)
+        | if $active then .activeQuestionId = $active else . end
+      ' "$state" >"$state.tmp"
+      mv "$state.tmp" "$state"
+    fi
+    rm -f "$legacy"
     ;;
   *)
     usage
