@@ -28,6 +28,7 @@
 | [`roles/experiment-designer.md`](../roles/experiment-designer.md) | 확인 방법 제안과 실험 전후 비교 | 경로가 끝날 때와 직접 확인을 원할 때 |
 | [`writing-style.md`](../writing-style.md) | 기록과 설명의 문체 | 학습 폴더에 파일을 쓸 때 |
 | [`validate-learning-repo.sh`](../scripts/validate-learning-repo.sh) | 기술 저장소의 형식 검사 | 7단계와 경로 마무리의 커밋 직전 |
+| [`resume-scan.sh`](../scripts/resume-scan.sh) | 저장소·패키지 스캔, 이어 하기 목록 재료 | 2단계 |
 
 ## 절차 흐름
 
