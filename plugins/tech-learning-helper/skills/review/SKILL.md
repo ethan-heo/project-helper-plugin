@@ -24,7 +24,8 @@ disable-model-invocation: true
 | --- | --- | --- |
 | [`rules/session.md`](../_shared/rules/session.md) | 시작 절차, 질문 배정, 경로 마무리 | 진행 중인 학습이 없을 때와 정리 뒤 학습을 이어 갈 때 |
 | [`rules/workspace.md`](../_shared/rules/workspace.md) | 설정 파일과 학습 폴더 | 진행 중인 학습이 없을 때 |
-| [`rules/resume.md`](../_shared/rules/resume.md) | 번호 입력 해석, 이어 하기 목록, 중단된 변경 커밋 | 정리할 학습을 고를 때 |
+| [`rules/resume.md`](../_shared/rules/resume.md) | 번호 입력 해석, 이어 하기 목록 | 정리할 학습을 고를 때 |
+| [`rules/resume-commit.md`](../_shared/rules/resume-commit.md) | 중단된 변경 커밋 | 커밋되지 않은 변경이 있을 때만 |
 | [`rules/review.md`](../_shared/rules/review.md) | 학습 정리 값 옮기기와 표시 순서 | 정리할 때 |
 | [`roles/knowledge-navigator.md`](../_shared/roles/knowledge-navigator.md) | 끝나지 않은 경로와 다음 탐색 후보 | 경로 도중에 불렸을 때와 정리가 끝날 때 |
 
@@ -43,7 +44,7 @@ disable-model-invocation: true
 
 1. **학습 폴더를 확인한다** — `session.md`의 1단계를 따릅니다.
 2. **정리할 학습을 고른다** — 기술 이름 없이 부르면 기술 저장소 목록에서, 기술 이름과 함께 부르면 학습 패키지 목록에서 고르게 합니다(`resume.md`의 이어 하기 목록). 저장소 목록에서 고르면 그 저장소의 마지막 학습 패키지를 정리합니다.
-3. **중단된 변경을 커밋한다** — 커밋되지 않은 기록·상태 변경이 있으면 `resume.md` 5절에 따라 "중단된 탐색 기록"으로 먼저 커밋합니다. 그래야 정리에 보여 줄 기록 파일과 상태 파일이 이력에 남습니다.
+3. **중단된 변경을 커밋한다** — 커밋되지 않은 기록·상태 변경이 있으면 `resume-commit.md`에 따라 "중단된 탐색 기록"으로 먼저 커밋합니다. 그래야 정리에 보여 줄 기록 파일과 상태 파일이 이력에 남습니다.
 4. **학습 상태를 읽는다** — `session.md`의 6단계를 따릅니다.
 
 설명 경로 도중에 부르면 Question Gate 전이 표의 "다른 질문"과 똑같이 처리합니다. 원래 경로의 남은 단계는 그 패키지 `state.json`의 `nextCandidates`에 남깁니다(`knowledge-navigator.md`).

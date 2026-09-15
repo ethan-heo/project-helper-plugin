@@ -36,37 +36,14 @@ bash <플러그인 경로>/skills/_shared/scripts/resume-scan.sh repos <학습�
 
 | 발견한 것(`status`) | 할 일 |
 | --- | --- |
-| 기술 이름 없음 | 위 명령 결과로 3절의 기술 저장소 목록을 보여 줌 |
-| 기술 이름이 있고 그 저장소가 있음 | `resume-scan.sh packages <저장소>`로 3절의 학습 패키지 목록을 보여 줌 |
-| `missing_state` | 2절에 따라 기존 파일을 확인하고 인덱스를 만듦 |
+| 기술 이름 없음 | 위 명령 결과로 2절의 기술 저장소 목록을 보여 줌 |
+| 기술 이름이 있고 그 저장소가 있음 | `resume-scan.sh packages <저장소>`로 2절의 학습 패키지 목록을 보여 줌 |
+| `missing_state` | [`resume-legacy.md`](resume-legacy.md)에 따라 기존 파일을 확인하고 인덱스를 만듦 |
 | `invalid_state` | 어긋난 부분을 알리고, `packages/` 디렉터리를 다시 스캔해 인덱스를 새로 씀 |
-| `legacy` | 2절에 따라 `legacyFiles`가 가리키는 파일을 새 구조로 옮김 |
+| `legacy` | [`resume-legacy.md`](resume-legacy.md)에 따라 `legacyFiles`가 가리키는 파일을 새 구조로 옮김 |
 | `staleEntries`에 이름이 있음 | 그 항목을 지우고 다시 씀. 재개 지점을 담지 않으므로 확인 없이 정리합니다 |
 
-### 2. 기존 저장소 이전
-
-**저장소를 열었을 때 구형 루트 `state.json`(`package`·`sessionStatus`·`activePackage` 같은 필드가 있는 형태)이나 `state.md`·`knowledge.md`·`summary.md`가 있으면, 아래 순서로 새 구조로 옮긴 뒤 옛 파일을 지우고 [중단된 변경 커밋](#5-중단된-변경-커밋)과 같은 방식으로 커밋합니다.**
-
-1. 구형 루트 `state.json`의 `record`·`activeQuestion`·`viewpoint`·`path`·`stage`·`awaiting`·`nextCandidates`·`lastTurn`이 있으면 그 패키지의 `state.json`으로 옮깁니다. `package`·`sessionStatus`·`inputMode`·`activePackage`·`lastPackage` 필드는 버립니다.
-2. `state.md`의 발견한 개념(패키지별)을 각 패키지 `state.json`의 `discoveredConcepts`로 옮기고, 이름만 모아 저장소 `state.json`의 `discoveredConcepts`에도 더합니다.
-3. `state.md`의 부분 이해 개념·다음 탐색 후보를 `state.md`의 마지막 학습 패키지의 `state.json`으로 옮깁니다. `state.md`의 미공개 개념과 `knowledge.md`는 버립니다.
-4. `records/` 안 각 질문 기록 파일을 확인해, 구형 `state.json`이 가리키던 기록이면 `status: 진행`, 나머지는 `status: 완료`로 그 패키지 `state.json`의 `questions`에 적습니다.
-5. 각 패키지의 `records/`에서 가장 늦은 날짜를 찾아 저장소 `state.json`의 `packages[].lastActivity`로 씁니다.
-6. `summary.md`는 버립니다. 패키지 `state.json`이 같은 정보를 담습니다.
-
-이전 대상 파일이 서로 어긋나면(예: `state.md`는 있는데 구형 `state.json`이 없음) 자동으로 옮기지 않고 학습자에게 상태를 확인받습니다. 구형과 신형 상태 파일이 동시에 있으면 신형을 우선하고 구형은 지웁니다.
-
-**이전할 구형 파일이 없고 저장소 `state.json`도 없으면, 기록 전문에서 현재 질문을 정하지 않고 커밋되지 않은 기록 변경을 기준으로 인덱스를 만듭니다.**
-
-| 발견한 것 | 할 일 |
-| --- | --- |
-| 진행 중인 기록 변경이 없음 | `packages/` 디렉터리를 스캔해 인덱스 생성 |
-| 기록 변경이 있고 현재 질문을 하나로 확인할 수 있음 | 그 질문과 공개 단계를 학습자에게 확인받은 뒤 해당 패키지 `state.json` 생성 |
-| 기록 변경이 있지만 현재 질문이 모호함 | 재개할 질문을 학습자에게 확인 |
-
-복구를 확인하기 전에는 이어 하기 목록을 보여 주지 않습니다. 학습자가 재개할 질문을 고르면 그 질문·기록 파일을 해당 패키지 `state.json`에 저장합니다.
-
-### 3. 이어 하기 목록
+### 2. 이어 하기 목록
 
 **새 세션에서 이어 할 학습을 고르게 할 때, 아래 두 목록 중 요청에 맞는 것을 번호 목록으로 보여 줍니다.**
 
@@ -104,13 +81,13 @@ tanstack-query 저장소에 학습 패키지가 3개 있습니다.
 | 학습자 입력 | 할 일 |
 | --- | --- |
 | 번호(저장소 목록에서) | 그 저장소의 학습 패키지 목록을 이어서 보여 줌 |
-| 번호(패키지 목록에서) | 그 패키지의 `state.json`을 읽어 4절의 패키지 재개로 이어 감 |
+| 번호(패키지 목록에서) | 그 패키지의 `state.json`을 읽어 3절의 패키지 재개로 이어 감 |
 | "다음", "이전" | 다음이나 이전 5개를 같은 모양으로 보여 줌 |
 | 기술 이름 (저장소 목록에서) | 그 기술로 학습을 시작 |
 | "새 주제" (패키지 목록에서) | [Example Builder](../roles/example-builder.md)로 예제 후보 2~3개를 제시 |
 | 학습 폴더에 저장소가 없음 | 배울 기술이나 자료를 물음 |
 
-### 4. 패키지 재개
+### 3. 패키지 재개
 
 **패키지를 고르면 그 패키지의 `state.json`을 읽어, 열린 질문이 있으면 이어 가고 없으면 새로 시작합니다.**
 
@@ -120,20 +97,7 @@ tanstack-query 저장소에 학습 패키지가 3개 있습니다.
 | `questions`에 `status: 진행`인 항목이 없음 | `nextCandidates`가 있으면 후보를 제시하고, 없으면 학습 목표 판정으로 새 설명 경로를 시작 |
 | 패키지 `state.json`이 없거나 손상됨 | 학습자에게 상태를 확인받은 뒤 다시 씀 |
 
-### 5. 중단된 변경 커밋
-
-**기술 저장소를 정한 직후, 커밋되지 않은 기록·상태 변경이 있으면 다른 작업보다 먼저 커밋합니다.**
-
-`git -C <저장소> status --porcelain`으로 저장소 `state.json`, `packages/*/state.json`, `packages/*/records/`의 변경을 찾습니다. 설명 경로가 끝나기 전에 세션이 닫혀 남은 변경입니다.
-
-```bash
-git -C <저장소> add state.json packages/<주제>/state.json packages/<주제>/records
-git -C <저장소> commit -m "learn(<주제>): 중단된 탐색 기록"
-```
-
-`<주제>`는 변경된 기록 파일이 속한 패키지 이름입니다. 여러 패키지에 걸치면 그중 가장 최근에 변경된 패키지를 씁니다.
-
-### 6. 누적 상태 읽기
+### 4. 누적 상태 읽기
 
 **진행 중이거나 고른 패키지 `state.json`의 `questions`·`discoveredConcepts`·`partialConcepts`·`nextCandidates`를 읽어 누적 학습 상태로 넘깁니다.**
 
@@ -176,6 +140,6 @@ git -C <저장소> commit -m "learn(<주제>): 중단된 탐색 기록"
 
 | 예외 조건 | 할 일 |
 | --- | --- |
-| 설명 경로 도중 세션이 끝남 | 다음 학습 시작 때 5절로 커밋되지 않은 변경을 먼저 커밋 |
+| 설명 경로 도중 세션이 끝남 | 다음 학습 시작 때 [`resume-commit.md`](resume-commit.md)로 커밋되지 않은 변경을 먼저 커밋 |
 | 저장소 `state.json`이 손상됨 | `packages/` 디렉터리를 다시 스캔해 인덱스를 새로 씀. 재개 지점을 담지 않으므로 확인 없이 복구합니다 |
-| 패키지 `state.json`이 손상됨 | 조용히 덮어쓰지 않고, 4절의 마지막 행대로 확인받은 뒤 새로 씀 |
+| 패키지 `state.json`이 손상됨 | 조용히 덮어쓰지 않고, 3절의 마지막 행대로 확인받은 뒤 새로 씀 |
