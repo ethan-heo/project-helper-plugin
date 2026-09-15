@@ -14,12 +14,19 @@
 
 ### 1. 설명 경로 선택
 
-**학습자의 질문을 패키지의 `questions.md`에서 찾아, 같은 뜻의 질문이 있으면 그 설명 경로를 씁니다.**
+**학습자의 질문과 같은 뜻의 질문이 패키지에 있는지 [`questions-store.sh`](../scripts/questions-store.sh)의 목차로 판단하고, 있으면 그 설명 경로를 씁니다.**
 
-| 선행 상태 | 할 일 |
+```bash
+bash <플러그인 경로>/skills/_shared/scripts/questions-store.sh toc <패키지>
+```
+
+목차에는 질문마다 `id`·원문·관점·상태만 있습니다. 같은 뜻인지는 원문을 보고 판단하고, 설명 경로는 고른 질문 하나만 받습니다.
+
+| 발견한 것 | 할 일 |
 | --- | --- |
-| 같은 뜻의 질문이 있음 | 저장된 설명 경로와 관점을 그대로 사용 |
-| 같은 뜻의 질문이 없음 | [Example Builder](example-builder.md)의 규칙으로 경로를 새로 만들어 `questions.md`에 더함 |
+| 같은 뜻의 질문이 있음 | `questions-store.sh get <패키지> <id>`로 받은 설명 경로와 관점을 그대로 사용 |
+| 같은 뜻의 질문이 있지만 `path`가 비어 있음 | 이전하며 경로를 잃은 질문이므로 [Example Builder](example-builder.md)의 규칙으로 경로를 새로 만들어 등록 |
+| 같은 뜻의 질문이 없음 | [Example Builder](example-builder.md)의 규칙으로 경로를 새로 만들어 등록 |
 
 경로의 관점이 구조이면 [Structure Explainer](structure-explainer.md)를, 실행이면 [Logic Explainer](logic-explainer.md)를 따라 각 단계를 설명합니다.
 
@@ -43,7 +50,7 @@
 
 | 후보 | 이어지는 질문이나 남은 경로 단계 |
 | --- | --- |
-| 왜 캐시가 비워졌지? | `questions.md`의 같은 질문, 3~4단계 |
+| 왜 캐시가 비워졌지? | `react-cache-3`의 3~4단계 |
 
 ### 5. 다음 탐색 후보 제시
 
@@ -51,11 +58,11 @@
 
 | 후보의 출처 | 고르는 기준 |
 | --- | --- |
-| 방금 끝난 경로 | `questions.md`의 다른 설명 경로 중, 경로의 마지막 개념을 선수 단계로 삼는 경로 |
+| 방금 끝난 경로 | 경로의 마지막 개념을 선수 단계로 삼아, 같은 예제 안에서 이어서 물을 수 있는 질문 |
 | 그 패키지 `state.json`의 `nextCandidates` | 끝나지 않은 경로의 남은 단계와, 남겨 둔 다른 관점 |
 | 경로 도중 떠오른 개념 | 3단계에서 설명하지 않고 남긴 개념 |
 
-후보는 모두 직전 질문과 이어지는 것이어야 합니다. 제시한 후보는 그 패키지 `state.json`의 `nextCandidates`에 반영합니다.
+후보는 모두 직전 질문과 이어지는 것이어야 합니다. 제시한 후보는 그 패키지 `state.json`의 `nextCandidates`에 글로만 남기고, 설명 경로는 학습자가 그 후보를 고른 뒤에 만들어 등록합니다.
 
 ## 예외 처리
 
