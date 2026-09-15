@@ -167,5 +167,6 @@ store_commit() {
     fi
   done
   touch "$pending/committed"
+  if [[ "${LEARNING_STORE_TESTING:-}" == 1 && "${LEARNING_STORE_KILL_COMMITTED:-}" == 1 ]]; then kill -KILL "$$"; fi
   store_recover
 }

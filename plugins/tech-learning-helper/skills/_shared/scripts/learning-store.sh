@@ -4,7 +4,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/store-common.sh"
 
 source "$STORE_SCRIPTS/store-transaction.sh"
 
-[[ $# == 2 ]] || store_fail usage 'learning-store.sh <context|review-data|save-turn> <패키지>'
+[[ $# == 2 ]] || store_fail usage 'learning-store.sh <context|review-data|save-turn|finish-question> <패키지>'
 mode="$1"
 store_init "$2"
 case "$mode" in
@@ -17,7 +17,7 @@ case "$mode" in
     jq -c -L "$STORE_SCRIPTS" --argjson goal "$goal" --arg package "$STORE_PACKAGE" \
       "include \"learning-store\"; $filter" <<<"$STORE_BUNDLE"
     ;;
-  save-turn)
+  save-turn | finish-question)
     source "$STORE_SCRIPTS/store-write.sh"
     store_write "$mode"
     ;;

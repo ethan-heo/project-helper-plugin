@@ -96,6 +96,69 @@ class ReadTests(StoreCase):
 
 
 class WriteTests(StoreCase):
+    def test_concurrent_existing_and_new_commands_are_rejected_then_retry(self):
+        script = '''source "$1/store-common.sh"
+source "$1/store-transaction.sh"
+store_init "$2"
+store_lock
+echo ready
+read -r release
+'''
+        holder = subprocess.Popen(["bash", "-c", script, "lock", str(SCRIPTS), str(self.package)],
+                                  stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        try:
+            self.assertEqual(holder.stdout.readline().strip(), "ready")
+            before = self.snapshot()
+            self.assertIn("busy", self.call("save-turn", self.payload(), ok=False).stderr)
+            old = subprocess.run(["bash", str(SCRIPTS / "questions-store.sh"), "start", str(self.package), "javascript-counter-1"], capture_output=True)
+            self.assertNotEqual(old.returncode, 0)
+            self.assertEqual(before, self.snapshot())
+        finally:
+            holder.communicate("release\n", timeout=5)
+        self.call("save-turn", self.payload())
+        old = subprocess.run(["bash", str(SCRIPTS / "questions-store.sh"), "start", str(self.package), "javascript-counter-1"], capture_output=True)
+        self.assertEqual(old.returncode, 0, old.stderr)
+        self.assertIn("증가 연산", self.call("context")["state"]["discoveredConcepts"])
+
+    def test_committed_request_survives_missing_receipt_publication(self):
+        self.call("finish-question", self.payload(), ok=False,
+                  env={"LEARNING_STORE_TESTING": "1", "LEARNING_STORE_KILL_COMMITTED": "1"})
+        before = self.snapshot()
+        self.call("finish-question", self.payload())
+        self.assertEqual(before, self.snapshot())
+
+    def test_finish_updates_all_states_and_accumulated_concepts(self):
+        self.call("save-turn", self.payload())
+        payload = self.payload("finish-1")
+        del payload["learning"]
+        result = self.call("finish-question", payload)
+        self.assertEqual(len(result["changedFiles"]), 4)
+        value = self.call("context")
+        self.assertEqual(value["currentQuestion"]["status"], "완료")
+        self.assertIn("증가 연산", value["discoveredConcepts"])
+        before = self.snapshot()
+        self.assertEqual(result, self.call("finish-question", payload))
+        self.assertEqual(before, self.snapshot())
+        checked = subprocess.run(["bash", str(SCRIPTS / "validate-learning-repo.sh"), str(self.repo)], capture_output=True)
+        self.assertEqual(checked.returncode, 0, checked.stderr)
+
+    def test_finish_rolls_back_each_of_four_files(self):
+        before = self.snapshot()
+        for position in (1, 2, 3, 4):
+            self.call("finish-question", self.payload(), ok=False,
+                      env={"LEARNING_STORE_TESTING": "1", "LEARNING_STORE_FAIL_AFTER": str(position)})
+            self.assertEqual(before, self.snapshot())
+        self.call("finish-question", self.payload())
+
+    def test_killed_finish_is_recovered_on_retry(self):
+        payload = self.payload()
+        self.call("finish-question", payload, ok=False,
+                  env={"LEARNING_STORE_TESTING": "1", "LEARNING_STORE_KILL_AFTER": "4"})
+        self.call("context", ok=False)
+        self.call("finish-question", payload)
+        record = (self.package / "records/2026-09-15/02-question.md").read_text()
+        self.assertEqual(record.count('"증가"가 먼저입니다.'), 1)
+
     def test_save_turn_preserves_transcript_and_replays(self):
         payload = self.payload()
         result = self.call("save-turn", payload)

@@ -112,3 +112,12 @@ def render_turns:
   map(if .speaker == "학습자" then
     "**학습자**\n\n" + (.text | split("\n") | map("> " + .) | join("\n"))
   else "**설명(" + .type + ")**\n\n" + .text end) | join("\n\n") + "\n";
+
+def finish_turn($p; $name; $date):
+  .questions |= map(if .id == $p.questionId then .status = "완료" else . end)
+  | .state |= del(.stepIndex)
+  | .state.discoveredConcepts as $concepts
+  | .repo.discoveredConcepts |= reduce $concepts[] as $name (.; if index($name) == null then . + [$name] else . end)
+  | .repo.packages |= (if any(.[]; .name == $name)
+      then map(if .name == $name then .lastActivity = $date else . end)
+      else . + [{name:$name,lastActivity:$date}] end);
