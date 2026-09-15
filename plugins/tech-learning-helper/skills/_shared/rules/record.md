@@ -60,6 +60,7 @@ git -C <저장소> commit -m "learn(<주제>): <질문 요약> 탐색"
 | 커밋 시점 | 메시지 형식 | 포함 파일 |
 | --- | --- | --- |
 | 예제를 처음 넣었을 때 | `example(<주제>): <예제 요약> 추가` | 패키지의 예제와 `README.md`, `source.md` |
+| 재현되지 않는 예제를 고쳤을 때 | `example(<주제>): <수정 요약> 수정` | 바뀐 예제와 `README.md` |
 | 설명 경로 하나가 끝났을 때 | `learn(<주제>): <질문 요약> 탐색` | 기록 파일, 저장소 `state.json`, 패키지 `state.json`, `questions.json` |
 | 코드 변경형 실험이 끝났을 때 | `learn(<주제>): <질문 요약> 실험` | 바뀐 예제 코드, 기록 파일, 저장소 `state.json`, 패키지 `state.json` |
 | 구형 질문 파일을 옮겼을 때 | `learn(<주제>): 질문 파일 구조 이전` | `questions.json`, 패키지 `state.json`, 지운 `questions.md` |
@@ -70,7 +71,8 @@ git -C <저장소> commit -m "learn(<주제>): <질문 요약> 탐색"
 
 | 커밋 | 절차 |
 | --- | --- |
-| `example` | [학습 작업 공간 규칙](workspace.md#7-example-커밋) |
+| `example` 추가 | [학습 작업 공간 규칙](workspace.md#7-example-커밋) |
+| `example` 수정 | [Example Builder의 재현되지 않는 예제](../roles/example-builder.md#5-재현되지-않는-예제) |
 | `learn` 탐색 | 이 문서의 2절 |
 | `learn` 실험 | [Experiment Designer](../roles/experiment-designer.md#실험-커밋) |
 | 중단된 탐색 기록 | [학습 재개: 중단된 변경 커밋](resume-commit.md) |

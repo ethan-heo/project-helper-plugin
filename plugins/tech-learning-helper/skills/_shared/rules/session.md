@@ -27,7 +27,7 @@
 | [`rules/store.md`](store.md) | 명령 입출력과 실패 처리 | 첫 조회·저장 시 |
 | [`rules/record.md`](record.md) | 기록 파일, 패키지 상태 파일 갱신, 커밋 규칙 | 질의응답마다, 경로 마무리 |
 | [`rules/review.md`](review.md) | 학습 정리와 상태 값 표시 | 정리를 요청받을 때 |
-| [`roles/example-builder.md`](../roles/example-builder.md) | 개념·예제·탐색 질문·설명 경로 생성, 가져온 자료 처리 | 7단계와 새 질문이 나올 때 |
+| [`roles/example-builder.md`](../roles/example-builder.md) | 개념·예제·탐색 질문·설명 경로 생성, 가져온 자료 처리, 재현되지 않는 예제 | 7단계, 새 질문이 나올 때, 경로를 멈췄을 때 |
 | [`roles/question-gate.md`](../roles/question-gate.md) | 공개 단계와 전이 표 | 설명 경로의 단계마다 |
 | [`roles/knowledge-navigator.md`](../roles/knowledge-navigator.md) | 설명 경로 선택, 끝나지 않은 경로, 다음 탐색 후보 | 질문을 받을 때와 경로가 끝날 때 |
 | [`roles/structure-explainer.md`](../roles/structure-explainer.md) | 구조 관점 설명 | 구조 관점의 경로를 진행할 때 |
@@ -116,6 +116,7 @@
 | --- | --- |
 | git이 설치되어 있지 않음 | 학습을 시작하지 않고 git 설치 안내(`workspace.md`) |
 | 예제의 실행 환경이 없음 | 설치 명령을 안내하고, 설치 전에는 실행 단계로 넘어가지 않음(`workspace.md`) |
+| 예제가 학습자 환경에서 기대한 현상을 보이지 않음 | 환경을 진단하지 않고 경로를 멈춘 뒤 예제 수정이나 질문 보류를 물음(`question-gate.md`, `example-builder.md`) |
 | 링크를 읽지 못함 | 같은 동작의 예제를 새로 만들고 원본 접근 실패를 기록(`example-builder.md`) |
 | 검증 스크립트가 실패함 | 커밋하지 않고 어긋난 파일을 고친 뒤 다시 검사 |
 
