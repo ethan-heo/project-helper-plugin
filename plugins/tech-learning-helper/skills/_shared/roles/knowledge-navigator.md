@@ -20,6 +20,8 @@
 bash <플러그인 경로>/skills/_shared/scripts/questions-store.sh toc <패키지>
 ```
 
+`trace`·`structure`로 호출했으면 지정된 관점까지 같은 질문을 찾습니다. 같은 뜻이어도 관점이 다르면 새 경로가 필요한 질문으로 처리합니다.
+
 목차에는 질문마다 `id`·원문·관점·상태만 있습니다. 같은 뜻인지는 원문을 보고 판단하고, 설명 경로는 고른 질문 하나만 받습니다.
 
 | 발견한 것 | 할 일 |
@@ -27,6 +29,8 @@ bash <플러그인 경로>/skills/_shared/scripts/questions-store.sh toc <패키
 | 같은 뜻의 질문이 있음 | `questions-store.sh get <패키지> <id>`로 받은 설명 경로와 관점을 그대로 사용 |
 | 같은 뜻의 질문이 있지만 `path`가 비어 있음 | 이전하며 경로를 잃은 질문이므로 [Example Builder](example-builder.md)의 규칙으로 경로를 새로 만들어 등록 |
 | 같은 뜻의 질문이 없음 | [Example Builder](example-builder.md)의 규칙으로 경로를 새로 만들어 등록 |
+
+질문 없이 관점 단축키를 호출했으면 지정된 관점의 탐색 질문 후보 2~3개를 번호로 제시합니다. 다음 탐색 후보도 그 관점의 질문을 우선하며, 후보 저장과 경로 생성 시점은 5절을 따릅니다.
 
 경로의 관점이 구조이면 [Structure Explainer](structure-explainer.md)를, 실행이면 [Logic Explainer](logic-explainer.md)를 따라 각 단계를 설명합니다.
 
