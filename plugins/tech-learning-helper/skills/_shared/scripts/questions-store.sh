@@ -4,7 +4,7 @@ set -euo pipefail
 usage() {
   printf '사용법: questions-store.sh toc <패키지>\n' >&2
   printf '       questions-store.sh get <패키지> <id>\n' >&2
-  printf '       questions-store.sh add <패키지> <id> <관점> <기록경로> <질문원문> <단계...>\n' >&2
+  printf '       questions-store.sh add <패키지> <관점> <기록경로> <질문원문> <단계...>\n' >&2
   printf '       questions-store.sh complete <패키지> <id>\n' >&2
   exit 1
 }
@@ -17,6 +17,17 @@ file="$package/questions.json"
 
 read_store() {
   if [[ -f "$file" ]]; then cat "$file"; else echo '[]'; fi
+}
+
+# id 접두어 <저장소>-<패키지>는 <저장소>/packages/<패키지> 경로에서만 만든다.
+id_prefix() {
+  local abs
+  abs="$(cd "$package" && pwd -P)"
+  if [[ "$(basename "$(dirname "$abs")")" != "packages" ]]; then
+    printf '오류: 패키지 경로가 <저장소>/packages/<패키지> 형태가 아님: %s\n' "$package" >&2
+    exit 1
+  fi
+  printf '%s-%s' "$(basename "$(dirname "$(dirname "$abs")")")" "$(basename "$abs")"
 }
 
 case "$mode" in
@@ -35,23 +46,19 @@ case "$mode" in
     printf '%s\n' "$result"
     ;;
   add)
-    [[ $# -ge 5 ]] || usage
-    base_id="$1" viewpoint="$2" record="$3" question="$4"
-    shift 4
+    [[ $# -ge 4 ]] || usage
+    viewpoint="$1" record="$2" question="$3"
+    shift 3
+    [[ -d "$package" ]] || { printf '오류: 패키지 디렉터리 없음: %s\n' "$package" >&2; exit 1; }
+    prefix="$(id_prefix)"
+    next="$(read_store | jq --arg p "$prefix-" '[.[].id | select(startswith($p)) | ltrimstr($p) | tonumber? ] | (max // 0) + 1')"
+    id="$prefix-$next"
     steps_json="$(printf '%s\n' "$@" | jq -R . | jq -s .)"
-    existing="$(read_store | jq -c '[.[].id]')"
-    id="$base_id"
-    n=2
-    while jq -e --arg id "$id" '. as $ids | ($ids | index($id)) != null' >/dev/null 2>&1 <<<"$existing"; do
-      id="${base_id}-${n}"
-      n=$((n + 1))
-    done
     entry="$(jq -n \
       --arg id "$id" --arg question "$question" --arg viewpoint "$viewpoint" \
       --arg record "$record" --argjson path "$steps_json" \
       '{id: $id, question: $question, viewpoint: $viewpoint, path: $path, status: "진행", record: $record}')"
     updated="$(read_store | jq --argjson entry "$entry" '. + [$entry]')"
-    mkdir -p "$package"
     printf '%s\n' "$updated" >"$file"
     printf '%s\n' "$id"
     ;;
