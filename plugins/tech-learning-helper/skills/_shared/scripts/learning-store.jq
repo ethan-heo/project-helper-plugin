@@ -58,3 +58,57 @@ def review_data($goal; $package):
     partialConcepts: .state.partialConcepts,
     nextCandidates: .state.nextCandidates
   };
+
+def valid_learning:
+  type == "object"
+  and (keys - ["addDiscoveredConcepts", "partialConcepts", "nextCandidates"] | length == 0)
+  and ((has("addDiscoveredConcepts") | not) or (.addDiscoveredConcepts | strings))
+  and ((has("partialConcepts") | not) or (.partialConcepts | type == "array" and all(.[];
+    (.concept | type == "string") and (.remaining | type == "string"))))
+  and ((has("nextCandidates") | not) or (.nextCandidates | strings));
+def valid_payload:
+  type == "object"
+  and (keys - ["operationId", "questionId", "records", "progress", "learning"] | length == 0)
+  and (.operationId | type == "string" and length > 0 and length <= 128)
+  and (.questionId | type == "string")
+  and (.records | type == "array" and length > 0 and all(.[];
+    (keys - ["questionId", "turns"] | length == 0)
+    and (.questionId | type == "string")
+    and (.turns | type == "array" and length > 0 and all(.[];
+      (keys - ["speaker", "type", "text"] | length == 0)
+      and (.speaker | IN("학습자", "assistant"))
+      and (.type | type == "string" and length > 0 and test("^[^\\r\\n*()]+$"))
+      and (if .speaker == "assistant" then (.type | IN("관찰 유도", "힌트", "부분 설명", "전체 설명", "현상", "실험")) else true end)
+      and (.text | type == "string")))))
+  and ([.records[].questionId] | length == (unique | length))
+  and (.progress | type == "object"
+    and (keys - ["stage", "awaiting"] | length == 0)
+    and (.stage | IN("관찰 유도", "힌트", "부분 설명", "전체 설명"))
+    and (.awaiting | type == "string"))
+  and ((has("learning") | not) or (.learning | valid_learning));
+def validate_request($p):
+  . as $b
+  | if ($p | valid_payload | not) then error("저장 입력 형식 오류")
+    elif ([.questions[] | select(.id == $p.questionId and .status == "진행")] | length) != 1
+      then error("진행 중인 대상 질문이 없습니다")
+    elif any($p.records[]; .questionId as $id | ([$b.questions[] | select(.id == $id and .record != "")] | length) != 1)
+      then error("기록 대상 질문이 없습니다")
+    elif ([$p.records[] | select(.questionId == $p.questionId)] | length) != 1
+      then error("현재 질문의 발화가 필요합니다")
+    elif ([$p.records[] | select(.questionId == $p.questionId) | .turns[-1].speaker] | first) != "assistant"
+      then error("마지막 설명 발화가 필요합니다")
+    else . end;
+def apply_turn($p):
+  .state |= (
+    .activeQuestionId = $p.questionId
+    | .stage = $p.progress.stage | .awaiting = $p.progress.awaiting
+    | .lastTurn = ([$p.records[] | select(.questionId == $p.questionId) | .turns[-1] | {speaker,type}] | first)
+    | .discoveredConcepts = reduce ($p.learning.addDiscoveredConcepts // [])[] as $name (.discoveredConcepts;
+        if index($name) == null then . + [$name] else . end)
+    | if $p.learning | has("partialConcepts") then .partialConcepts = $p.learning.partialConcepts else . end
+    | if $p.learning | has("nextCandidates") then .nextCandidates = $p.learning.nextCandidates else . end
+  );
+def render_turns:
+  map(if .speaker == "학습자" then
+    "**학습자**\n\n" + (.text | split("\n") | map("> " + .) | join("\n"))
+  else "**설명(" + .type + ")**\n\n" + .text end) | join("\n\n") + "\n";

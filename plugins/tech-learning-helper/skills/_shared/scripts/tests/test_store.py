@@ -37,6 +37,14 @@ class StoreCase(unittest.TestCase):
         return {str(p.relative_to(self.repo)): p.read_bytes() for p in self.repo.rglob("*")
                 if p.is_file() and ".git" not in p.parts}
 
+    def payload(self, operation="turn-1"):
+        return {"operationId": operation, "questionId": "javascript-counter-2",
+                "records": [{"questionId": "javascript-counter-2", "turns": [
+                    {"speaker": "학습자", "type": "답변", "text": '"증가"가 먼저입니다.\n두 번째 줄\n'},
+                    {"speaker": "assistant", "type": "관찰 유도", "text": '코드를 보세요.\n\n```js\nconsole.log(`$HOME`);\n```\n'}]}],
+                "progress": {"stage": "관찰 유도", "awaiting": "다음 답변"},
+                "learning": {"addDiscoveredConcepts": ["증가 연산"], "partialConcepts": []}}
+
 
 class ReadTests(StoreCase):
     def test_review_keeps_questions_without_record(self):
@@ -85,6 +93,50 @@ class ReadTests(StoreCase):
         self.call("context", ok=False)
         self.edit("questions.json", lambda qs: [{**q, "record": "records/../../state.json"} for q in qs])
         self.call("context", ok=False)
+
+
+class WriteTests(StoreCase):
+    def test_save_turn_preserves_transcript_and_replays(self):
+        payload = self.payload()
+        result = self.call("save-turn", payload)
+        self.assertEqual(len(result["changedFiles"]), 2)
+        state = json.loads((self.package / "state.json").read_text())
+        self.assertEqual(state["discoveredConcepts"], ["변수", "증가 연산"])
+        self.assertEqual(state["partialConcepts"], [])
+        record = (self.package / "records/2026-09-15/02-question.md").read_text()
+        self.assertIn(payload["records"][0]["turns"][1]["text"], record)
+        self.assertIn('> "증가"가 먼저입니다.\n> 두 번째 줄\n> ', record)
+        before = self.snapshot()
+        self.assertEqual(self.call("save-turn", payload), result)
+        self.assertEqual(before, self.snapshot())
+        payload["progress"]["awaiting"] = "다른 값"
+        self.assertIn("duplicate_id", self.call("save-turn", payload, ok=False).stderr)
+
+    def test_save_rolls_back_both_files(self):
+        before = self.snapshot()
+        for position in (1, 2):
+            self.call("save-turn", self.payload(), ok=False,
+                      env={"LEARNING_STORE_TESTING": "1", "LEARNING_STORE_FAIL_AFTER": str(position)})
+            self.assertEqual(before, self.snapshot())
+        self.call("save-turn", self.payload())
+
+    def test_invalid_request_does_not_block_reads(self):
+        payload = self.payload()
+        payload["questionId"] = "unknown"
+        before = self.snapshot()
+        self.call("save-turn", payload, ok=False)
+        self.assertEqual(before, self.snapshot())
+        self.call("context")
+
+    def test_question_switch_routes_each_record(self):
+        payload = self.payload()
+        payload["records"].insert(0, {"questionId": "javascript-counter-1", "turns": [
+            {"speaker": "assistant", "type": "현상", "text": "이전 질문의 관찰 결과"}]})
+        self.call("save-turn", payload)
+        one = (self.package / "records/2026-09-15/01-question.md").read_text()
+        two = (self.package / "records/2026-09-15/02-question.md").read_text()
+        self.assertIn("이전 질문의 관찰 결과", one)
+        self.assertNotIn("이전 질문의 관찰 결과", two)
 
 
 class TransactionTests(StoreCase):
