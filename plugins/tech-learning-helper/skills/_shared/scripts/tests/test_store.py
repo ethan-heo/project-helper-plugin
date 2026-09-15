@@ -202,6 +202,50 @@ read -r release
         self.assertNotIn("이전 질문의 관찰 결과", two)
 
 
+class ProgressTests(StoreCase):
+    def test_legacy_candidates_normalize_without_writing(self):
+        before = self.snapshot()
+        value = self.call("context")
+        self.assertTrue(value["needsPositionConfirmation"])
+        candidates = value["state"]["nextCandidates"]
+        self.assertEqual(candidates[0]["questionId"], "javascript-counter-2")
+        self.assertEqual(candidates[0]["resumeStep"], 2)
+        self.assertEqual(candidates[1]["kind"], "legacy")
+        self.assertEqual(before, self.snapshot())
+        payload = self.payload()
+        payload["progress"]["stepIndex"] = 2
+        self.call("save-turn", payload)
+        stored = json.loads((self.package / "state.json").read_text())
+        self.assertEqual(stored["nextCandidates"], candidates)
+        self.assertEqual(stored["stepIndex"], 2)
+        self.assertFalse(self.call("context")["needsPositionConfirmation"])
+        self.assertEqual(self.call("review-data")["questions"][1]["resumeStep"], 2)
+
+    def test_invalid_steps_are_rejected_before_writing(self):
+        before = self.snapshot()
+        for step in (0, -1, 4, 1.5, "2", True):
+            payload = self.payload(str(step))
+            payload["progress"]["stepIndex"] = step
+            self.call("save-turn", payload, ok=False)
+            self.assertEqual(before, self.snapshot())
+
+    def test_unknown_candidate_does_not_block_other_questions(self):
+        text = "없는 질문 unknown-4의 2~3단계"
+        self.edit("state.json", lambda s: {**s, "nextCandidates": [text]})
+        value = self.call("context")
+        self.assertEqual(value["state"]["nextCandidates"], [{"kind": "legacy", "label": text}])
+        payload = self.payload()
+        payload["progress"]["stepIndex"] = 1
+        self.call("save-turn", payload)
+
+    def test_resume_reference_and_repository_validation(self):
+        self.edit("state.json", lambda s: {**s, "nextCandidates": [
+            {"kind": "resume", "label": "중단 질문", "questionId": "missing", "resumeStep": 1}]})
+        self.call("context", ok=False)
+        result = subprocess.run(["bash", str(SCRIPTS / "validate-learning-repo.sh"), str(self.repo)], capture_output=True)
+        self.assertNotEqual(result.returncode, 0)
+
+
 class TransactionTests(StoreCase):
     def test_receipt_replay_and_id_conflict(self):
         script = '''set -euo pipefail

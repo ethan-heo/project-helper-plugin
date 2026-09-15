@@ -1,4 +1,14 @@
 def strings: type == "array" and all(.[]; type == "string");
+def positive_step: type == "number" and . >= 1 and floor == .;
+def candidates:
+  type == "array" and all(.[];
+    type == "string" or (type == "object"
+      and (.label | type == "string")
+      and (if .kind == "resume" then
+        (keys - ["kind", "label", "questionId", "resumeStep"] | length == 0)
+        and (.questionId | type == "string") and has("resumeStep")
+        and (.resumeStep == null or (.resumeStep | positive_step))
+      else (.kind | IN("new", "legacy")) and (keys - ["kind", "label"] | length == 0) end)));
 def valid_repo:
   type == "object" and (.discoveredConcepts | strings)
   and (.packages | type == "array" and all(.[];
@@ -14,7 +24,8 @@ def valid_state:
   and (.discoveredConcepts | strings)
   and (.partialConcepts | type == "array" and all(.[];
     (.concept | type == "string") and (.remaining | type == "string")))
-  and (.nextCandidates | strings);
+  and (.nextCandidates | candidates)
+  and (.stepIndex == null or (.stepIndex | positive_step));
 def valid_questions($prefix):
   type == "array" and all(.[];
     (.id | type == "string" and startswith($prefix)
@@ -37,22 +48,54 @@ def bundle($repo; $state; $questions; $prefix):
   | if .state.activeQuestionId != null and
       ([.questions[] | select(.id == $b.state.activeQuestionId)] | length) != 1
     then error("현재 질문 ID가 없습니다") else . end;
+def valid_positions:
+  . as $b
+  | ([.questions[] | select(.id == $b.state.activeQuestionId)] | first) as $active
+  | (if .state.stepIndex == null then true
+      else $active != null and $active.status == "진행" and .state.stepIndex <= ($active.path | length) end)
+    and all($b.state.nextCandidates[] | select(type == "object" and .kind == "resume");
+      . as $candidate
+      | ([$b.questions[] | select(.id == $candidate.questionId)] | first) as $q
+      | $q != null and ($candidate.resumeStep == null or $candidate.resumeStep <= ($q.path | length)));
+def normalize_candidate($questions):
+  if type != "string" then . else
+    . as $label
+    | ([match("(?<id>[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*-[1-9][0-9]*)의[[:space:]]*(?<start>[0-9]+)(~(?<end>[0-9]+))?단계"; "g")
+        | [.captures[] | select(.name != null) | {key:.name,value:.string}] | from_entries]) as $matches
+    | if ($matches | length) != 1 then {kind:"legacy",label:$label}
+      else $matches[0] as $m
+      | ([$questions[] | select(.id == $m.id)] | first) as $q
+      | ($m.start | tonumber) as $start
+      | (($m.end // $m.start) | tonumber) as $end
+      | if $q != null and $start >= 1 and $end >= $start and $end <= ($q.path | length)
+        then {kind:"resume",label:$label,questionId:$m.id,resumeStep:$start}
+        else {kind:"legacy",label:$label} end
+      end
+  end;
+def normalize_bundle:
+  .questions as $qs
+  | .state.nextCandidates |= map(normalize_candidate($qs))
+  | .state.stepIndex = (.state.stepIndex // null);
 def context($goal; $package):
-  . as $b | {
+  normalize_bundle | . as $b | {
     package: $package, goal: $goal,
     currentQuestion: ([.questions[] | select(.id == $b.state.activeQuestionId)
       | . + {recordPath: (if .record == "" then null else $package + "/" + .record end)}] | first // null),
     state: .state,
-    discoveredConcepts: .repo.discoveredConcepts
+    discoveredConcepts: .repo.discoveredConcepts,
+    needsPositionConfirmation: (.state.stepIndex == null and
+      any(.questions[]; .id == $b.state.activeQuestionId and .status == "진행"))
   };
 def review_data($goal; $package):
-  {
+  normalize_bundle | . as $b | {
     package: $package, goal: $goal,
-    questions: [.questions[] | {
+    questions: [.questions[] | . as $q | {
       id, question, viewpoint, status, record,
       recordPath: (if .record == "" then null else $package + "/" + .record end),
       date: ((try (.record | capture("^records/(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})(/|\\.md$)").date) catch null) // null),
-      lastStep: (.path | last // null)
+      lastStep: (.path | last // null),
+      resumeStep: (if .id == $b.state.activeQuestionId and .status == "진행" then $b.state.stepIndex
+        else ([$b.state.nextCandidates[] | select(.kind == "resume" and .questionId == $q.id) | .resumeStep] | first // null) end)
     }],
     discoveredConcepts: .state.discoveredConcepts,
     partialConcepts: .state.partialConcepts,
@@ -65,7 +108,7 @@ def valid_learning:
   and ((has("addDiscoveredConcepts") | not) or (.addDiscoveredConcepts | strings))
   and ((has("partialConcepts") | not) or (.partialConcepts | type == "array" and all(.[];
     (.concept | type == "string") and (.remaining | type == "string"))))
-  and ((has("nextCandidates") | not) or (.nextCandidates | strings));
+  and ((has("nextCandidates") | not) or (.nextCandidates | candidates));
 def valid_payload:
   type == "object"
   and (keys - ["operationId", "questionId", "records", "progress", "learning"] | length == 0)
@@ -82,7 +125,8 @@ def valid_payload:
       and (.text | type == "string")))))
   and ([.records[].questionId] | length == (unique | length))
   and (.progress | type == "object"
-    and (keys - ["stage", "awaiting"] | length == 0)
+    and (keys - ["stage", "awaiting", "stepIndex"] | length == 0)
+    and (.stepIndex == null or (.stepIndex | positive_step))
     and (.stage | IN("관찰 유도", "힌트", "부분 설명", "전체 설명"))
     and (.awaiting | type == "string"))
   and ((has("learning") | not) or (.learning | valid_learning));
@@ -100,7 +144,9 @@ def validate_request($p):
     else . end;
 def apply_turn($p):
   .state |= (
-    .activeQuestionId = $p.questionId
+    .stepIndex = (if $p.progress | has("stepIndex") then $p.progress.stepIndex
+      elif .activeQuestionId != $p.questionId then null else .stepIndex // null end)
+    | .activeQuestionId = $p.questionId
     | .stage = $p.progress.stage | .awaiting = $p.progress.awaiting
     | .lastTurn = ([$p.records[] | select(.questionId == $p.questionId) | .turns[-1] | {speaker,type}] | first)
     | .discoveredConcepts = reduce ($p.learning.addDiscoveredConcepts // [])[] as $name (.discoveredConcepts;
@@ -116,6 +162,7 @@ def render_turns:
 def finish_turn($p; $name; $date):
   .questions |= map(if .id == $p.questionId then .status = "완료" else . end)
   | .state |= del(.stepIndex)
+  | .state.nextCandidates |= map(select(.kind != "resume" or .questionId != $p.questionId))
   | .state.discoveredConcepts as $concepts
   | .repo.discoveredConcepts |= reduce $concepts[] as $name (.; if index($name) == null then . + [$name] else . end)
   | .repo.packages |= (if any(.[]; .name == $name)

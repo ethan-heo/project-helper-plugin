@@ -97,6 +97,11 @@ case "$mode" in
     fi
     updated="$(read_store | jq --arg id "$id" --arg s "$status" 'map(if .id == $id then .status = $s else . end)')"
     printf '%s\n' "$updated" >"$file"
+    if [[ "$mode" == complete && -f "$package/state.json" ]]; then
+      jq --arg id "$id" 'if .activeQuestionId == $id then del(.stepIndex) else . end' \
+        "$package/state.json" > "$package/state.json.tmp"
+      mv "$package/state.json.tmp" "$package/state.json"
+    fi
     ;;
   migrate)
     [[ $# == 0 ]] || usage

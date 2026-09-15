@@ -6,6 +6,7 @@ if [[ $# != 1 || ! -d "$1" ]]; then
   exit 1
 fi
 repo="${1%/}"
+scripts_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 errors=0
 fail() { printf '오류: %s\n' "$1" >&2; errors=$((errors + 1)); }
 warn() { printf '경고: %s\n' "$1" >&2; }
@@ -65,28 +66,23 @@ check_package_state() {
     warn "${file#"$repo"/}: 파일 없음 (기존 저장소 복구 필요)"
     return
   fi
-  if ! jq -e '
-    type == "object"
-    and (. as $state | (["stage", "awaiting", "lastTurn", "discoveredConcepts", "partialConcepts", "nextCandidates"] | all(.[]; . as $key | $state | has($key))))
-    and ((has("activeQuestionId") | not) or (.activeQuestionId | type == "string"))
-    and (.lastTurn | type == "object")
-    and (.lastTurn.speaker | IN("학습자", "assistant"))
-    and (.lastTurn.type | type == "string")
-    and (.discoveredConcepts | type == "array")
-    and (.partialConcepts | type == "array")
-    and (.nextCandidates | type == "array")
-  ' "$file" >/dev/null 2>&1; then
+  if ! jq -e -L "$scripts_dir" 'include "learning-store"; valid_state' "$file" >/dev/null 2>&1; then
     fail "${file#"$repo"/}: JSON 형식 또는 필수 상태 필드 오류"
     return
+  fi
+  if [[ -f "$package/questions.json" ]] && ! jq -en -L "$scripts_dir" \
+    --slurpfile state "$file" --slurpfile questions "$package/questions.json" \
+    'include "learning-store"; {state:$state[0],questions:$questions[0]} | valid_positions' >/dev/null 2>&1; then
+    fail "${file#"$repo"/}: 현재 단계 또는 후보의 재개 위치 오류"
   fi
   local active
   active="$(jq -r '.activeQuestionId // empty' "$file")"
   if [[ -n "$active" && -f "$package/questions.json" ]] \
-    && ! jq -e --arg id "$active" 'type == "array" and any(.[]; .id == $id)' "$package/questions.json" >/dev/null 2>&1; then
+    && ! jq -e --arg id "$active" 'any(.[]; .id == $id)' "$package/questions.json" >/dev/null 2>&1; then
     fail "${file#"$repo"/}: activeQuestionId가 questions.json에 없음 ($active)"
   fi
 }
-# questions.json은 questions-store.sh만 쓰며, id는 <저장소>-<패키지>-<순번>이다.
+# 질문 명령과 learning-store가 같은 검증을 사용하며, id는 <저장소>-<패키지>-<순번>이다.
 check_questions_json() {
   local package="$1" file="$1/questions.json" prefix
   if [[ ! -f "$file" ]]; then
@@ -94,17 +90,7 @@ check_questions_json() {
     return
   fi
   prefix="$repo_name-$(basename "$package")-"
-  if ! jq -e --arg p "$prefix" '
-    type == "array"
-    and all(.[];
-      (.id | type == "string" and startswith($p) and (ltrimstr($p) | test("^[1-9][0-9]*$")))
-      and (.question | type == "string")
-      and (.viewpoint | IN("구조", "실행", ""))
-      and (.path | type == "array" and all(.[]; type == "string"))
-      and (.status | IN("진행", "완료"))
-      and (.record | type == "string"))
-    and ([.[].id] | length == (unique | length))
-  ' "$file" >/dev/null 2>&1; then
+  if ! jq -e -L "$scripts_dir" --arg p "$prefix" 'include "learning-store"; valid_questions($p)' "$file" >/dev/null 2>&1; then
     fail "${file#"$repo"/}: JSON 형식 또는 필수 필드 오류 (id는 ${prefix}<순번>, status는 진행|완료)"
     return
   fi

@@ -11,7 +11,8 @@ store_write() {
   if [[ "$STORE_REPLAY" == 1 ]]; then printf '%s\n' "$STORE_RESULT"; return; fi
   store_load
   transformed="$(jq -c -L "$STORE_SCRIPTS" --argjson p "$payload" \
-    'include "learning-store"; validate_request($p) | apply_turn($p)' <<<"$STORE_BUNDLE" 2>/dev/null)" \
+    'include "learning-store"; validate_request($p) | apply_turn($p) | normalize_bundle
+      | if valid_positions then . else error("재개 위치 오류") end' <<<"$STORE_BUNDLE" 2>/dev/null)" \
     || store_fail invalid_request '질문 상태 또는 기록 대상이 잘못되었습니다'
   if [[ "$mode" == finish-question ]]; then
     transformed="$(jq -c -L "$STORE_SCRIPTS" --argjson p "$payload" \

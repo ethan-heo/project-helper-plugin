@@ -35,7 +35,8 @@ store_load() {
     --slurpfile state "$STORE_PACKAGE/state.json" \
     --slurpfile questions "$STORE_PACKAGE/questions.json" \
     --arg prefix "$STORE_PREFIX" \
-    'include "learning-store"; bundle($repo; $state; $questions; $prefix)' 2>/dev/null)" \
+    'include "learning-store"; bundle($repo; $state; $questions; $prefix)
+      | if valid_positions then . else error("재개 위치 오류") end' 2>/dev/null)" \
     || store_fail invalid_state '상태·질문 JSON 또는 현재 질문 참조가 잘못되었습니다'
   while IFS= read -r relative; do
     [[ -z "$relative" ]] && continue
