@@ -143,13 +143,15 @@ bash <플러그인 경로>/skills/_shared/scripts/learning-store.sh context <패
   "activeQuestionId": "<저장소>-<주제>-<순번>",
   "stepIndex": null,
   "stage": "<관찰 유도|힌트|부분 설명|전체 설명>",
-  "awaiting": "<다음에 기대하는 학습자 입력>",
+  "awaiting": "<다음에 기대하는 필수 입력 하나>",
   "lastTurn": { "speaker": "<학습자|assistant>", "type": "<발화 유형>" },
   "discoveredConcepts": ["<발견한 개념 이름>"],
   "partialConcepts": [{ "concept": "<개념>", "remaining": "<아직 공개하지 않은 부분>" }],
   "nextCandidates": [{"kind": "new", "label": "<다음 탐색 후보>"}]
 }
 ```
+
+`awaiting`에는 학습자가 반드시 해야 할 입력 하나를 명사구로 적습니다. 예시는 `다음 탐색 후보 번호`, `학습 답변`, `재개 위치 확인`입니다. 실험 결과처럼 해도 되고 안 해도 되는 입력은 `awaiting`에 적지 않고, `lastTurn.type`이 `실험`인지로 판단합니다. 두 입력을 "또는"으로 이어 적으면 재개 메시지도 두 행동을 동시에 요구하게 됩니다.
 
 `activeQuestionId`가 가리키는 질문의 원문·관점·설명 경로·기록 파일은 패키지의 `questions.json`에 있고, 등록·개별 조회에는 [`questions-store.sh`](../scripts/questions-store.sh)를, 재개·정리·응답 저장에는 [학습 상태 명령](store.md)을 사용합니다. 아직 질문을 시작하지 않은 패키지에서는 `activeQuestionId`를 두지 않습니다.
 
