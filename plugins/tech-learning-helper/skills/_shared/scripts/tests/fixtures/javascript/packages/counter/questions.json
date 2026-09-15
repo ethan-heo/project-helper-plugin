@@ -1,0 +1,34 @@
+[
+  {
+    "id": "javascript-counter-1",
+    "question": "출력 1은 왜 달라지나요?",
+    "viewpoint": "실행",
+    "path": [
+      "출력 관찰",
+      "증가 시점",
+      "반환 값"
+    ],
+    "status": "완료",
+    "record": "records/2026-09-15/01-question.md"
+  },
+  {
+    "id": "javascript-counter-2",
+    "question": "출력 2은 왜 달라지나요?",
+    "viewpoint": "실행",
+    "path": [
+      "출력 관찰",
+      "증가 시점",
+      "반환 값"
+    ],
+    "status": "진행",
+    "record": "records/2026-09-15/02-question.md"
+  },
+  {
+    "id": "javascript-counter-3",
+    "question": "출력 3은 왜 달라지나요?",
+    "viewpoint": "구조",
+    "path": [],
+    "status": "완료",
+    "record": "records/2026-09-15/03-question.md"
+  }
+]
