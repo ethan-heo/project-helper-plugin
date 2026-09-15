@@ -53,6 +53,7 @@ parse_legacy_questions() {
   '
 }
 
+questions_dispatch() {
 case "$mode" in
   toc)
     [[ $# == 0 ]] || usage
@@ -145,4 +146,46 @@ case "$mode" in
   *)
     usage
     ;;
+esac
+
+}
+
+source "$(dirname "${BASH_SOURCE[0]}")/store-common.sh"
+source "$STORE_SCRIPTS/store-transaction.sh"
+store_init "$package"
+case "$mode" in
+  toc | get)
+    store_read_lock
+    questions_dispatch "$@"
+    ;;
+  add | start | complete | migrate)
+    store_lock
+    store_recover
+    store_begin
+    original_package="$STORE_PACKAGE"
+    package="$STORE_META/pending/work/$(basename "$STORE_REPO")/packages/$(basename "$STORE_PACKAGE")"
+    mkdir -p "$package"
+    for name in questions.json state.json questions.md; do
+      store_target "${original_package#"$STORE_REPO"/}/$name" >/dev/null || store_fail invalid_target '질문 저장 경로가 잘못되었습니다'
+      if [[ -f "$original_package/$name" ]]; then cp -p "$original_package/$name" "$package/$name"; fi
+    done
+    file="$package/questions.json"
+    result="$(questions_dispatch "$@")" || store_fail invalid_question '질문 처리에 실패했습니다'
+    if [[ -f "$file" ]]; then
+      jq -e -L "$STORE_SCRIPTS" --arg prefix "$STORE_PREFIX" 'include "learning-store"; valid_questions($prefix)' "$file" >/dev/null 2>&1 \
+        || store_fail invalid_question '저장할 질문 형식이 잘못되었습니다'
+    fi
+    for name in questions.json state.json questions.md; do
+      if [[ -f "$package/$name" ]]; then
+        if [[ ! -f "$original_package/$name" ]] || ! cmp -s "$original_package/$name" "$package/$name"; then
+          store_stage "${original_package#"$STORE_REPO"/}/$name" "$package/$name"
+        fi
+      elif [[ -f "$original_package/$name" ]]; then
+        store_stage "${original_package#"$STORE_REPO"/}/$name" -
+      fi
+    done
+    if [[ "$STORE_INDEX" -gt 0 ]]; then store_commit; else store_recover; fi
+    [[ -z "$result" ]] || printf '%s\n' "$result"
+    ;;
+  *) usage ;;
 esac

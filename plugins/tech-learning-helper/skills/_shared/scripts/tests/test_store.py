@@ -87,5 +87,74 @@ class ReadTests(StoreCase):
         self.call("context", ok=False)
 
 
+class TransactionTests(StoreCase):
+    def test_receipt_replay_and_id_conflict(self):
+        script = '''set -euo pipefail
+source "$1/store-common.sh"
+source "$1/store-transaction.sh"
+store_init "$2"
+store_lock
+store_recover
+store_request probe "$3"
+if [[ "$STORE_REPLAY" == 1 ]]; then printf '%s' "$STORE_RESULT"; exit; fi
+store_begin
+printf 'new\\n' > "$STORE_META/pending/value"
+store_stage "packages/counter/records/2026-09-15/01-question.md" "$STORE_META/pending/value"
+STORE_RESULT='{"saved":true}'
+store_commit
+printf '%s' "$STORE_RESULT"
+'''
+        def execute(value):
+            return subprocess.run(["bash", "-c", script, "probe", str(SCRIPTS), str(self.package), value], capture_output=True)
+        first = execute('{"operationId":"test","value":1}')
+        self.assertEqual(first.returncode, 0, first.stderr)
+        before = self.snapshot()
+        second = execute('{"value":1,"operationId":"test"}')
+        self.assertEqual(second.stdout, first.stdout)
+        self.assertEqual(second.returncode, 0, second.stderr)
+        self.assertEqual(before, self.snapshot())
+        self.assertNotEqual(execute('{"operationId":"test","value":2}').returncode, 0)
+
+    def questions(self, mode, *args, env=None):
+        return subprocess.run(["bash", str(SCRIPTS / "questions-store.sh"), mode, str(self.package), *args],
+                              text=True, capture_output=True, env={**os.environ, **(env or {})})
+
+    def legacy(self):
+        qs = json.loads((self.package / "questions.json").read_text())
+        self.edit("state.json", lambda s: {**s, "questions": qs, "activeQuestion": qs[1]["question"]})
+        text = "\n".join(f'### {q["question"]}\n- 관점: {q["viewpoint"]}\n1. 관찰\n2. 원인' for q in qs)
+        (self.package / "questions.md").write_text(text)
+
+    def test_legacy_migration_rolls_back_each_file(self):
+        self.legacy()
+        before = self.snapshot()
+        for position in (1, 2, 3):
+            result = self.questions("migrate", env={"LEARNING_STORE_TESTING": "1", "LEARNING_STORE_FAIL_AFTER": str(position)})
+            self.assertNotEqual(result.returncode, 0)
+            self.assertEqual(before, self.snapshot(), result.stderr)
+        result = self.questions("migrate")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertFalse((self.package / "questions.md").exists())
+
+    def test_killed_migration_requires_recovery(self):
+        self.legacy()
+        before = self.snapshot()
+        result = self.questions("migrate", env={"LEARNING_STORE_TESTING": "1", "LEARNING_STORE_KILL_AFTER": "2"})
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("recovery_required", self.call("context", ok=False).stderr)
+        # 다음 저장은 먼저 복구한 뒤 요청을 검증한다. 잘못된 요청이면 복구한 원본만 남는다.
+        self.questions("start", "unknown")
+        self.assertEqual(before, self.snapshot())
+
+    def test_existing_start_and_complete_share_transaction(self):
+        before = self.snapshot()
+        result = self.questions("start", "javascript-counter-1", env={"LEARNING_STORE_TESTING": "1", "LEARNING_STORE_FAIL_AFTER": "1"})
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(before, self.snapshot())
+        result = self.questions("start", "javascript-counter-1")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.questions("complete", "javascript-counter-1").returncode, 0)
+
+
 if __name__ == "__main__":
     unittest.main()
