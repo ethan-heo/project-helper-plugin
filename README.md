@@ -105,7 +105,7 @@ codex plugin add tech-learning-helper@helpers
 | `structure` | 구조 관점 설명으로 곧바로 전환 |
 | `trace` | 실행 관점 설명으로 곧바로 전환 |
 | `experiment` | 이해한 내용을 예제로 직접 확인 |
-| `review` | 학습 패키지의 정리를 `summary.md`로 보관 |
+| `review` | 학습 패키지의 정리를 채팅으로 보여 줌 |
 
 ```
 /structure 이 컴포넌트는 왜 따로 분리했어?
