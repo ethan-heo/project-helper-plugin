@@ -52,7 +52,13 @@ check_repo_state() {
     [[ -z "$name" || -d "$repo/packages/$name" ]] || fail "${file#"$repo"/}: packages가 가리키는 패키지 없음 ($name)"
   done < <(jq -r '.packages[].name' "$file")
 }
-# 패키지 state.json은 세션 재개 상태와 누적 학습 상태를 함께 담는다.
+# 구형 패키지는 다음에 그 패키지를 고를 때 questions-store.sh migrate가 옮기므로, 오류가 아닌 경고로 남긴다.
+is_legacy_package() {
+  local package="$1"
+  [[ -f "$package/questions.md" ]] && return 0
+  [[ -f "$package/state.json" ]] && jq -e 'type == "object" and (has("questions") or has("activeQuestion"))' "$package/state.json" >/dev/null 2>&1
+}
+# 패키지 state.json은 재개 포인터(activeQuestionId)와 누적 학습 상태를 담는다.
 check_package_state() {
   local package="$1" file="$1/state.json"
   if [[ ! -f "$file" ]]; then
@@ -61,14 +67,11 @@ check_package_state() {
   fi
   if ! jq -e '
     type == "object"
-    and (. as $state | (["record", "activeQuestion", "viewpoint", "path", "stage", "awaiting", "lastTurn", "questions", "discoveredConcepts", "partialConcepts", "nextCandidates"] | all(.[]; . as $key | $state | has($key))))
-    and (.record | type == "string")
-    and (.activeQuestion | type == "string")
+    and (. as $state | (["stage", "awaiting", "lastTurn", "discoveredConcepts", "partialConcepts", "nextCandidates"] | all(.[]; . as $key | $state | has($key))))
+    and ((has("activeQuestionId") | not) or (.activeQuestionId | type == "string"))
     and (.lastTurn | type == "object")
     and (.lastTurn.speaker | IN("학습자", "assistant"))
     and (.lastTurn.type | type == "string")
-    and (.questions | type == "array")
-    and (.questions | all(.[]; (.question | type == "string") and (.record | type == "string") and (.status | IN("진행", "완료"))))
     and (.discoveredConcepts | type == "array")
     and (.partialConcepts | type == "array")
     and (.nextCandidates | type == "array")
@@ -76,10 +79,39 @@ check_package_state() {
     fail "${file#"$repo"/}: JSON 형식 또는 필수 상태 필드 오류"
     return
   fi
+  local active
+  active="$(jq -r '.activeQuestionId // empty' "$file")"
+  if [[ -n "$active" && -f "$package/questions.json" ]] \
+    && ! jq -e --arg id "$active" 'type == "array" and any(.[]; .id == $id)' "$package/questions.json" >/dev/null 2>&1; then
+    fail "${file#"$repo"/}: activeQuestionId가 questions.json에 없음 ($active)"
+  fi
+}
+# questions.json은 questions-store.sh만 쓰며, id는 <저장소>-<패키지>-<순번>이다.
+check_questions_json() {
+  local package="$1" file="$1/questions.json" prefix
+  if [[ ! -f "$file" ]]; then
+    fail "${file#"$repo"/}: 파일 없음"
+    return
+  fi
+  prefix="$repo_name-$(basename "$package")-"
+  if ! jq -e --arg p "$prefix" '
+    type == "array"
+    and all(.[];
+      (.id | type == "string" and startswith($p) and (ltrimstr($p) | test("^[1-9][0-9]*$")))
+      and (.question | type == "string")
+      and (.viewpoint | IN("구조", "실행", ""))
+      and (.path | type == "array" and all(.[]; type == "string"))
+      and (.status | IN("진행", "완료"))
+      and (.record | type == "string"))
+    and ([.[].id] | length == (unique | length))
+  ' "$file" >/dev/null 2>&1; then
+    fail "${file#"$repo"/}: JSON 형식 또는 필수 필드 오류 (id는 ${prefix}<순번>, status는 진행|완료)"
+    return
+  fi
   local record
   while IFS= read -r record; do
-    [[ -z "$record" || -f "$package/$record" ]] || fail "${file#"$repo"/}: questions의 기록 파일 없음 ($record)"
-  done < <(jq -r '.questions[].record' "$file")
+    [[ -z "$record" || -f "$package/$record" ]] || fail "${file#"$repo"/}: 기록 파일 없음 ($record)"
+  done < <(jq -r '.[].record' "$file")
 }
 check_record_speakers() {
   local file="$1" invalid
@@ -91,27 +123,8 @@ check_record_speakers() {
   ' "$file")"
   [[ -z "$invalid" ]] || fail "${file#"$repo"/}: 발화 이름을 별도 줄로 작성하지 않음 ($invalid)"
 }
-# 탐색 질문은 질문마다 ### 제목과 설명 경로의 번호 목록을 가진다.
-check_questions() {
-  local file="$1" missing
-  missing="$(awk '
-    /^[[:space:]]*```/ { fence = !fence; next }
-    fence { next }
-    /^### / {
-      if (title != "" && !steps) print title
-      title = substr($0, 5); steps = 0; count++; next
-    }
-    /^## / { if (title != "" && !steps) print title; title = ""; next }
-    /^[0-9]+\. / { if (title != "") steps = 1 }
-    END {
-      if (title != "" && !steps) print title
-      if (!count) print "(질문 없음)"
-    }
-  ' "$file")"
-  [[ -z "$missing" ]] || fail "${file#"$repo"/}: 설명 경로 누락 ($(printf '%s' "$missing" | paste -sd ',' -))"
-}
-
 [[ -e "$repo/.git" ]] || fail "$repo: git 저장소가 아님"
+repo_name="$(basename "$(cd "$repo" && pwd -P)")"
 check_repo_state
 
 require_file "$repo/README.md" '## 학습 패키지'
@@ -124,11 +137,14 @@ fi
 
 for package in ${packages[@]+"${packages[@]}"}; do
   require_file "$package/README.md" '## 학습 목표' '## 실행 방법'
-  require_file "$package/questions.md" '## 탐색 질문'
-  [[ -f "$package/questions.md" ]] && check_questions "$package/questions.md"
   [[ -d "$package/src" ]] || fail "${package#"$repo"/}/src: 디렉터리 없음"
   [[ -f "$package/source.md" ]] && require_file "$package/source.md" '## 원본 참조' '## 발췌'
-  check_package_state "$package"
+  if is_legacy_package "$package"; then
+    warn "${package#"$repo"/}: 구형 질문 형식 (questions-store.sh migrate 필요)"
+  else
+    check_questions_json "$package"
+    check_package_state "$package"
+  fi
   if [[ -d "$package/records" ]]; then
     # 새 형식은 날짜 디렉터리 안에 질문별 파일을 두고, 기존 날짜 파일은 호환한다.
     while IFS= read -r record; do
