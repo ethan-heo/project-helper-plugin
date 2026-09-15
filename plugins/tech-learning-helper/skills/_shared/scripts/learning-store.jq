@@ -45,3 +45,16 @@ def context($goal; $package):
     state: .state,
     discoveredConcepts: .repo.discoveredConcepts
   };
+def review_data($goal; $package):
+  {
+    package: $package, goal: $goal,
+    questions: [.questions[] | {
+      id, question, viewpoint, status, record,
+      recordPath: (if .record == "" then null else $package + "/" + .record end),
+      date: ((try (.record | capture("^records/(?<date>[0-9]{4}-[0-9]{2}-[0-9]{2})(/|\\.md$)").date) catch null) // null),
+      lastStep: (.path | last // null)
+    }],
+    discoveredConcepts: .state.discoveredConcepts,
+    partialConcepts: .state.partialConcepts,
+    nextCandidates: .state.nextCandidates
+  };

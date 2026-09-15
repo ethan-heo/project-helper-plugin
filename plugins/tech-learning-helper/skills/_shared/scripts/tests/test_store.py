@@ -39,6 +39,23 @@ class StoreCase(unittest.TestCase):
 
 
 class ReadTests(StoreCase):
+    def test_review_keeps_questions_without_record(self):
+        self.edit("questions.json", lambda qs: [{**q, "record": ""} for q in qs])
+        value = self.call("review-data")
+        self.assertEqual(len(value["questions"]), 3)
+        self.assertTrue(all(q["date"] is None and q["recordPath"] is None for q in value["questions"]))
+
+    def test_review_keeps_order_dates_and_last_step(self):
+        before = self.snapshot()
+        value = self.call("review-data")
+        self.assertEqual([q["id"] for q in value["questions"]],
+                         [f"javascript-counter-{n}" for n in (1, 2, 3)])
+        self.assertEqual([q["date"] for q in value["questions"]], ["2026-09-15"] * 3)
+        self.assertEqual(value["questions"][0]["lastStep"], "반환 값")
+        self.assertIsNone(value["questions"][2]["lastStep"])
+        self.assertNotIn("console.log", json.dumps(value))
+        self.assertEqual(before, self.snapshot())
+
     def test_context_preserves_files_and_omits_transcript(self):
         before = self.snapshot()
         value = self.call("context")
