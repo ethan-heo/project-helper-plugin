@@ -38,7 +38,7 @@
 
 ### 2. 설명 경로 종료
 
-**설명 경로 하나가 끝나면 패키지 `state.json`을 갱신하고 저장소 `state.json`을 `idle`로 바꾼 뒤, 검증 스크립트를 통과시키고 `learn` 커밋을 남깁니다.**
+**설명 경로 하나가 끝나면 패키지 `state.json`을 갱신하고 저장소 `state.json`의 인덱스를 갱신한 뒤, 검증 스크립트를 통과시키고 `learn` 커밋을 남깁니다.**
 
 | 필드(패키지 `state.json`) | 갱신 내용 |
 | --- | --- |
@@ -47,7 +47,7 @@
 | `partialConcepts` | 공개했지만 전체 설명에 이르지 않은 개념 |
 | `nextCandidates` | 직전 질문과 이어지는 개념과, 끝나지 않은 경로의 남은 단계 |
 
-패키지 `state.json`의 `discoveredConcepts`에 새로 더한 이름은 저장소 `state.json`의 `discoveredConcepts`에도 더합니다. 저장소 `state.json`은 `lastPackage`를 방금 학습한 패키지로 두고, `activePackage`를 `null`로, `sessionStatus`를 `idle`로 바꿉니다.
+저장소 `state.json`에서는 그 패키지 항목의 `lastActivity`를 오늘 날짜로 바꾸고, 패키지 `state.json`의 `discoveredConcepts`에 새로 더한 이름을 저장소 `state.json`의 `discoveredConcepts`에도 더합니다.
 
 ```bash
 bash <플러그인 경로>/skills/_shared/scripts/validate-learning-repo.sh <저장소>
@@ -74,7 +74,7 @@ git -C <저장소> commit -m "learn(<주제>): <질문 요약> 탐색"
 | `example` | [학습 작업 공간 규칙](workspace.md#7-example-커밋) |
 | `learn` 탐색 | 이 문서의 2절 |
 | `learn` 실험 | [Experiment Designer](../roles/experiment-designer.md#실험-커밋) |
-| 중단된 탐색 기록 | [학습 재개 규칙](resume.md#4-중단된-변경-커밋) |
+| 중단된 탐색 기록 | [학습 재개 규칙](resume.md#5-중단된-변경-커밋) |
 
 ## 양식
 
@@ -119,5 +119,5 @@ git -C <저장소> commit -m "learn(<주제>): <질문 요약> 탐색"
 
 | 예외 조건 | 할 일 |
 | --- | --- |
-| 설명 경로 도중 세션이 끝남 | 다음 학습 시작 때 [학습 재개 규칙](resume.md#4-중단된-변경-커밋)으로 커밋되지 않은 변경을 먼저 커밋 |
+| 설명 경로 도중 세션이 끝남 | 다음 학습 시작 때 [학습 재개 규칙](resume.md#5-중단된-변경-커밋)으로 커밋되지 않은 변경을 먼저 커밋 |
 | 검증 스크립트가 실패함 | 커밋하지 않고 어긋난 파일을 고친 뒤 다시 검사 |
