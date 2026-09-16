@@ -27,9 +27,10 @@ disable-model-invocation: true
 ## 실행 절차
 
 1. [시작 절차](../_shared/rules/session.md#시작-절차)에 따라 학습을 준비합니다.
-2. 새 질문을 시작하면 `currentQuestion.orientation`을 확인합니다. 값이 있으면 첫 관찰 유도 전에 `scope`·`map`·`terms`·`observations`를 사전 안내로 출력하고, 별도 확인 없이 [관찰 유도](../_shared/roles/question-gate.md#공개-단계)로 이어 갑니다. orientation이 없으면 기존 관찰 유도부터 시작합니다.
-3. 새 학습이면 예제를 실행해 보게 한 뒤 사전 안내 또는 [관찰 유도](../_shared/roles/question-gate.md#공개-단계)로 시작합니다. 이어 하는 학습은 복원한 단계에서 재개합니다.
-4. 이후 질문과 경로 종료는 `session.md`의 [질문 유형별 배정](../_shared/rules/session.md#질문-유형별-배정)과 [경로 마무리](../_shared/rules/session.md#경로-마무리)를 따릅니다.
+2. 새 질문을 시작하면 `currentQuestion.orientation`을 확인합니다. `standard`가 현재 기준과 같으면 첫 관찰 유도 전에 `scope`·`terms`·`observations`를 이 순서로 출력합니다. `terms`와 `observations`의 항목은 저장된 순서대로 하나도 빼지 않으며, 옛 안내에 `map`이 남아 있어도 출력하지 않습니다. 출력한 뒤에는 별도 확인 없이 [관찰 유도](../_shared/roles/question-gate.md#공개-단계)로 이어 갑니다.
+3. `orientation`이 없거나 `standard`가 없으면 [Example Builder](../_shared/roles/example-builder.md#3-사전-안내-탐색-질문과-설명-경로)가 현재 기준으로 안내를 만들어 저장한 뒤 같은 순서로 출력합니다.
+4. 새 학습이면 예제를 실행해 보게 한 뒤 사전 안내 또는 [관찰 유도](../_shared/roles/question-gate.md#공개-단계)로 시작합니다. 이어 하는 학습은 복원한 단계에서 재개합니다.
+5. 이후 질문과 경로 종료는 `session.md`의 [질문 유형별 배정](../_shared/rules/session.md#질문-유형별-배정)과 [경로 마무리](../_shared/rules/session.md#경로-마무리)를 따릅니다.
 
 ## 경계
 
