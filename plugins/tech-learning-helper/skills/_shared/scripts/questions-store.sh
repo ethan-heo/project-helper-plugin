@@ -4,7 +4,8 @@ set -euo pipefail
 usage() {
   printf '사용법: questions-store.sh toc <패키지>\n' >&2
   printf '       questions-store.sh get <패키지> <id>\n' >&2
-  printf '       questions-store.sh add <패키지> <관점> <기록경로> <질문원문> <단계...>\n' >&2
+  printf '       questions-store.sh add <패키지> <관점> <기록경로> <질문원문> --orientation <JSON> <단계...>\n' >&2
+  printf '       questions-store.sh update-orientation <패키지> <id> <JSON>\n' >&2
   printf '       questions-store.sh start <패키지> <id>\n' >&2
   printf '       questions-store.sh complete <패키지> <id>\n' >&2
   printf '       questions-store.sh migrate <패키지>\n' >&2
@@ -70,19 +71,38 @@ case "$mode" in
     printf '%s\n' "$result"
     ;;
   add)
-    [[ $# -ge 4 ]] || usage
+    [[ $# -ge 6 ]] || usage
     viewpoint="$1" record="$2" question="$3"
     shift 3
+    [[ "$1" == "--orientation" ]] || usage
+    orientation_json="$2"
+    shift 2
     [[ -d "$package" ]] || { printf '오류: 패키지 디렉터리 없음: %s\n' "$package" >&2; exit 1; }
+    jq -e -L "$STORE_SCRIPTS" 'include "learning-store"; valid_orientation' <<<"$orientation_json" >/dev/null 2>&1 \
+      || { printf '오류: 사전 안내 형식이 잘못되었습니다\n' >&2; exit 1; }
     prefix="$(id_prefix)"
     next="$(read_store | jq --arg p "$prefix-" '[.[].id | select(startswith($p)) | ltrimstr($p) | tonumber? ] | (max // 0) + 1')"
     id="$prefix-$next"
     steps_json="$(printf '%s\n' "$@" | jq -R . | jq -s .)"
     entry="$(jq -n \
       --arg id "$id" --arg question "$question" --arg viewpoint "$viewpoint" \
-      --arg record "$record" --argjson path "$steps_json" \
-      '{id: $id, question: $question, viewpoint: $viewpoint, path: $path, status: "진행", record: $record}')"
+      --arg record "$record" --argjson orientation "$orientation_json" --argjson path "$steps_json" \
+      '{id: $id, question: $question, viewpoint: $viewpoint, orientation: $orientation, path: $path, status: "진행", record: $record}')"
     updated="$(read_store | jq --argjson entry "$entry" '. + [$entry]')"
+    printf '%s\n' "$updated" >"$file"
+    printf '%s\n' "$id"
+    ;;
+  update-orientation)
+    [[ $# == 2 ]] || usage
+    id="$1" orientation_json="$2"
+    jq -e -L "$STORE_SCRIPTS" 'include "learning-store"; valid_orientation' <<<"$orientation_json" >/dev/null 2>&1 \
+      || { printf '오류: 사전 안내 형식이 잘못되었습니다\n' >&2; exit 1; }
+    if ! read_store | jq -e --arg id "$id" 'any(.[]; .id == $id)' >/dev/null 2>&1; then
+      printf '오류: id를 찾을 수 없음: %s\n' "$id" >&2
+      exit 1
+    fi
+    updated="$(read_store | jq --arg id "$id" --argjson orientation "$orientation_json" \
+      'map(if .id == $id then .orientation = $orientation else . end)')"
     printf '%s\n' "$updated" >"$file"
     printf '%s\n' "$id"
     ;;
@@ -163,7 +183,7 @@ case "$mode" in
     store_read_lock
     questions_dispatch "$@"
     ;;
-  add | start | complete | migrate)
+  add | update-orientation | start | complete | migrate)
     store_lock
     store_recover
     store_begin
