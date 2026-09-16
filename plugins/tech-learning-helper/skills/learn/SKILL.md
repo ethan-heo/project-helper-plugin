@@ -27,8 +27,9 @@ disable-model-invocation: true
 ## 실행 절차
 
 1. [시작 절차](../_shared/rules/session.md#시작-절차)에 따라 학습을 준비합니다.
-2. 새 학습이면 예제를 실행해 보게 한 뒤 [관찰 유도](../_shared/roles/question-gate.md#공개-단계)로 시작합니다. 이어 하는 학습은 복원한 단계에서 재개합니다.
-3. 이후 질문과 경로 종료는 `session.md`의 [질문 유형별 배정](../_shared/rules/session.md#질문-유형별-배정)과 [경로 마무리](../_shared/rules/session.md#경로-마무리)를 따릅니다.
+2. 새 질문을 시작하면 `currentQuestion.orientation`을 확인합니다. 값이 있으면 첫 관찰 유도 전에 `scope`·`map`·`terms`·`observations`를 사전 안내로 출력하고, 별도 확인 없이 [관찰 유도](../_shared/roles/question-gate.md#공개-단계)로 이어 갑니다. orientation이 없으면 기존 관찰 유도부터 시작합니다.
+3. 새 학습이면 예제를 실행해 보게 한 뒤 사전 안내 또는 [관찰 유도](../_shared/roles/question-gate.md#공개-단계)로 시작합니다. 이어 하는 학습은 복원한 단계에서 재개합니다.
+4. 이후 질문과 경로 종료는 `session.md`의 [질문 유형별 배정](../_shared/rules/session.md#질문-유형별-배정)과 [경로 마무리](../_shared/rules/session.md#경로-마무리)를 따릅니다.
 
 ## 경계
 
