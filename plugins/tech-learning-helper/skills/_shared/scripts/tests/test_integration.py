@@ -15,6 +15,7 @@ class IntegrationTests(StoreCase):
         new_record.write_text("# 2026-09-15\n\n## 함수의 역할\n")
         added = subprocess.run(["bash", str(SCRIPTS / "questions-store.sh"), "add", str(self.package),
                                 "구조", "records/2026-09-15/04-structure.md", "함수의 역할은 무엇인가요?",
+                                "--orientation", self.orientation_json(),
                                 "함수의 위치", "입력과 출력"], capture_output=True, text=True, check=True)
         question = added.stdout.strip()
         payload = self.payload("switch")

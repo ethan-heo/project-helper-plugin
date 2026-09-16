@@ -45,6 +45,11 @@ class StoreCase(unittest.TestCase):
                 "progress": {"stage": "관찰 유도", "awaiting": "다음 답변"},
                 "learning": {"addDiscoveredConcepts": ["증가 연산"], "partialConcepts": []}}
 
+    def orientation_json(self):
+        return json.dumps({"scope": "출력 순서", "map": ["호출", "상태"],
+                           "terms": ["상태: 저장된 값"],
+                           "observations": ["로그 순서"]}, ensure_ascii=False)
+
 
 class ReadTests(StoreCase):
     def test_review_keeps_questions_without_record(self):
@@ -288,6 +293,33 @@ printf '%s' "$STORE_RESULT"
     def questions(self, mode, *args, env=None):
         return subprocess.run(["bash", str(SCRIPTS / "questions-store.sh"), mode, str(self.package), *args],
                               text=True, capture_output=True, env={**os.environ, **(env or {})})
+
+    def test_orientation_add_update_and_invalid_input(self):
+        orientation = self.orientation_json()
+        result = self.questions("add", "구조", "records/2026-09-15/01-question.md", "새 질문",
+                                "--orientation", orientation, "현상", "원인")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        new_id = result.stdout.strip()
+        questions = json.loads((self.package / "questions.json").read_text())
+        self.assertEqual(next(q for q in questions if q["id"] == new_id)["orientation"], json.loads(orientation))
+
+        result = self.questions("update-orientation", "javascript-counter-1", orientation)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        questions = json.loads((self.package / "questions.json").read_text())
+        self.assertEqual(questions[0]["orientation"], json.loads(orientation))
+
+        before = self.snapshot()
+        invalid = json.dumps({"scope": "", "map": [], "terms": ["용어"], "observations": ["관찰"]}, ensure_ascii=False)
+        result = self.questions("update-orientation", "javascript-counter-1", invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(before, self.snapshot())
+
+    def test_orientation_update_rolls_back_transaction(self):
+        before = self.snapshot()
+        result = self.questions("update-orientation", "javascript-counter-1", self.orientation_json(),
+                                env={"LEARNING_STORE_TESTING": "1", "LEARNING_STORE_FAIL_AFTER": "1"})
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(before, self.snapshot())
 
     def legacy(self):
         qs = json.loads((self.package / "questions.json").read_text())
