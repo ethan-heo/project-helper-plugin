@@ -4,8 +4,8 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 버전 | 6.0 |
-| 마지막 갱신 | 2026-09-16 22:30 |
+| 버전 | 6.1 |
+| 마지막 갱신 | 2026-09-16 23:16 |
 
 ## 시스템의 목적
 
@@ -37,6 +37,7 @@
 
 | 버전 | 갱신 시각 | 바뀐 파일 | 변경 요약 |
 | --- | --- | --- | --- |
+| 6.1 | 2026-09-16 23:16 | README.md, learning-flow.md, learning-record.md | 질문 상태를 질문 파일로 옮긴 구조를 반영하고, 이미 해소된 위험 항목을 정리함 |
 | 6.0 | 2026-09-16 22:30 | README.md, decisions.md, learning-flow.md, technology-knowledge.md | 사전 안내의 범위를 예제에서 관찰할 수 있는 것으로 정하고, 용어를 정체·역할·구성 요소·사용 시점 순서로 서술하며, 선행 관계 순으로 배열해 저장 순서대로 보여 줌. 안내에 담긴 용어를 되물으면 요청 없이 다시 설명하고, 작성 기준 표시가 없는 안내는 한 번 다시 만듦 |
 | 5.0 | 2026-09-16 10:27 | decisions.md, learning-flow.md, technology-knowledge.md, question-gate.md, knowledge-navigator.md, example-builder.md | 생소한 질문에 범위·관계·용어·관찰 대상을 먼저 안내하고, 범위 밖 개념은 다음 후보로 보류하며, 안내를 질문별 `orientation`으로 저장 |
 | 4.0 | 2026-09-15 09:10 | README.md, decisions.md, learning-record.md, learning-flow.md | 저장소 루트 파일에서 진행 중인 패키지 포인터와 세션·입력 상태를 빼고, 패키지 이름·마지막 활동 날짜 인덱스로 바꿈. 새 세션은 이어 하기 목록에서 패키지를 고른 뒤에만 그 패키지 파일로 재개 |
