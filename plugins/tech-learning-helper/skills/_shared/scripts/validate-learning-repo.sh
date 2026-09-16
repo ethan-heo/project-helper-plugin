@@ -109,7 +109,7 @@ check_record_speakers() {
   ' "$file")"
   [[ -z "$invalid" ]] || fail "${file#"$repo"/}: 발화 이름을 별도 줄로 작성하지 않음 ($invalid)"
 }
-# 질문 ID 줄은 최근에 도입되어 옛 기록에 없으므로, 형식이 어긋난 관점 줄만 오류로 본다.
+# 질문 ID 줄이 없는 옛 기록이 있으므로, 질문 ID 줄은 경고로 두고 형식이 어긋난 관점 줄만 오류로 본다.
 check_record_header() {
   local file="$1" viewpoint
   has_heading "$file" '## 질문' || return 0

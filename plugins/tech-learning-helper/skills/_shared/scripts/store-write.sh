@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 store_write() {
-  local mode="$1" payload transformed work i count id relative target before_path new_path
+  local mode="$1" payload transformed work i count id relative target new_path
   payload="$(jq -cse 'if length == 1 and (.[0] | type == "object") then .[0] else error("JSON 객체 하나가 필요합니다") end' 2>/dev/null)" \
     || store_fail invalid_payload '표준 입력에 JSON 객체 하나를 전달하세요'
   jq -e -L "$STORE_SCRIPTS" 'include "learning-store"; valid_payload' <<<"$payload" >/dev/null 2>&1 \

@@ -11,6 +11,7 @@ usage() {
 mode="$1"
 target="${2%/}"
 [[ -d "$target" ]] || usage
+scripts_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 # 저장소 state.json의 상태를 ok · missing_state · invalid_state · legacy 중 하나로 판정한다.
 repo_status() {
@@ -24,12 +25,7 @@ repo_status() {
   if [[ ! -f "$state" ]]; then
     echo "missing_state"; return
   fi
-  if ! jq -e '
-    type == "object"
-    and (["packages", "discoveredConcepts"] | all(. as $key | $ROOT | has($key)))
-    and (.packages | type == "array")
-    and (.packages | all(.[]; (.name | type == "string") and (.lastActivity | type == "string")))
-  ' --argjson ROOT "$(cat "$state")" <(cat "$state") >/dev/null 2>&1; then
+  if ! jq -e -L "$scripts_dir" 'include "learning-store"; valid_repo' "$state" >/dev/null 2>&1; then
     echo "invalid_state"; return
   fi
   echo "ok"
@@ -110,11 +106,8 @@ scan_packages() {
   fi
   local last_name
   last_name="$(jq -r '.packages | sort_by(.lastActivity) | last | .name // empty' "$state")"
-  local entries=() name last_activity dir stale goal is_last
+  local entries=() name last_activity goal is_last
   while IFS=$'\t' read -r name last_activity; do
-    dir="$repo/packages/$name"
-    stale="false"
-    [[ -d "$dir" ]] || stale="true"
     goal="$(awk -F'|' -v name="$name" '
       { gsub(/^ +| +$/, "", $2) }
       $2 == "`" name "`" { gsub(/^ +| +$/, "", $3); print $3; exit }
@@ -123,8 +116,8 @@ scan_packages() {
     [[ "$name" == "$last_name" ]] && is_last="true"
     entries+=("$(jq -n \
       --arg name "$name" --arg lastActivity "$last_activity" --arg goal "${goal:-}" \
-      --argjson isLast "$is_last" --argjson stale "$stale" \
-      '{name: $name, lastActivity: $lastActivity, goal: $goal, isLast: $isLast, stale: $stale}')")
+      --argjson isLast "$is_last" \
+      '{name: $name, lastActivity: $lastActivity, goal: $goal, isLast: $isLast}')")
   done < <(jq -r '.packages[] | [.name, .lastActivity] | @tsv' "$state")
 
   if [[ ${#entries[@]} == 0 ]]; then

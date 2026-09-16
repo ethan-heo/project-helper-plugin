@@ -1,8 +1,6 @@
-import json
 import re
 import subprocess
 import unittest
-from pathlib import Path
 
 from test_store import SCRIPTS, StoreCase
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# learning-store와 기존 질문 저장 명령이 공유하는 파일·JSON 처리.
+# learning-store.sh와 questions-store.sh가 공유하는 파일·JSON 처리.
 STORE_SCRIPTS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 
 store_fail() {

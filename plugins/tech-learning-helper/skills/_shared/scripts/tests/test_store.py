@@ -117,7 +117,7 @@ class WriteTests(StoreCase):
         record = (self.package / "records/2026-09-15/01-question.md").read_text()
         self.assertIn("## 실험: 출력 1은 왜 달라지나요?", record)
 
-    def test_concurrent_existing_and_new_commands_are_rejected_then_retry(self):
+    def test_lock_rejects_both_store_commands_then_retry(self):
         script = '''source "$1/store-common.sh"
 source "$1/store-transaction.sh"
 store_init "$2"
@@ -372,14 +372,14 @@ printf '%s' "$STORE_RESULT"
         self.questions("start", "unknown")
         self.assertEqual(before, self.snapshot())
 
-    def test_existing_start_and_complete_share_transaction(self):
+    def test_start_rolls_back_transaction(self):
         before = self.snapshot()
         result = self.questions("start", "javascript-counter-1", env={"LEARNING_STORE_TESTING": "1", "LEARNING_STORE_FAIL_AFTER": "1"})
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(before, self.snapshot())
         result = self.questions("start", "javascript-counter-1")
         self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(self.questions("complete", "javascript-counter-1").returncode, 0)
+        self.assertEqual(json.loads((self.package / "questions.json").read_text())[0]["status"], "진행")
 
 
 if __name__ == "__main__":

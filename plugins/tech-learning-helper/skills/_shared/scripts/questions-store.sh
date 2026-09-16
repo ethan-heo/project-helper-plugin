@@ -7,7 +7,6 @@ usage() {
   printf '       questions-store.sh add <패키지> <관점> <기록경로> <질문원문> --orientation <JSON> <단계...>\n' >&2
   printf '       questions-store.sh update-orientation <패키지> <id> <JSON>\n' >&2
   printf '       questions-store.sh start <패키지> <id>\n' >&2
-  printf '       questions-store.sh complete <패키지> <id>\n' >&2
   printf '       questions-store.sh migrate <패키지>\n' >&2
   exit 1
 }
@@ -106,22 +105,15 @@ case "$mode" in
     printf '%s\n' "$updated" >"$file"
     printf '%s\n' "$id"
     ;;
-  start | complete)
+  start)
     [[ $# == 1 ]] || usage
     id="$1"
-    status="진행"
-    [[ "$mode" == "complete" ]] && status="완료"
     if ! read_store | jq -e --arg id "$id" 'any(.[]; .id == $id)' >/dev/null 2>&1; then
       printf '오류: id를 찾을 수 없음: %s\n' "$id" >&2
       exit 1
     fi
-    updated="$(read_store | jq --arg id "$id" --arg s "$status" 'map(if .id == $id then .status = $s else . end)')"
+    updated="$(read_store | jq --arg id "$id" 'map(if .id == $id then .status = "진행" else . end)')"
     printf '%s\n' "$updated" >"$file"
-    if [[ "$mode" == complete && -f "$package/state.json" ]]; then
-      jq --arg id "$id" 'if .activeQuestionId == $id then del(.stepIndex) else . end' \
-        "$package/state.json" > "$package/state.json.tmp"
-      mv "$package/state.json.tmp" "$package/state.json"
-    fi
     ;;
   migrate)
     [[ $# == 0 ]] || usage
@@ -183,7 +175,7 @@ case "$mode" in
     store_read_lock
     questions_dispatch "$@"
     ;;
-  add | update-orientation | start | complete | migrate)
+  add | update-orientation | start | migrate)
     store_lock
     store_recover
     store_begin
