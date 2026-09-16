@@ -26,6 +26,7 @@ description: 여러 구현 계획이 따를 구조·패턴·계약을 정할 때
 | 1 현재 구조 기록 | [현재 구조 조사](references/survey.md) | 조사 순서와 추정 확인 |
 | 2 문제 재정의 | [문제 재정의](references/framing.md) | 목표·요구사항·가설 구분 |
 | 3~4 결정 | [결정 목록과 질문](references/questioning.md) | 우선순위와 확정 순서 |
+| 2~5 질문 | [질문 예시](../_shared/questioning-examples.md) | 질문과 선택지에 예시 적용 |
 | 4~5 검증 | [결정 검증](references/verification.md) | 사례 조사와 시나리오 대조 |
 | 파일 작성·6 확정 | [문서 작성 규칙](references/document.md) | 양식·영역·버전·상태 적용 |
 | 6 확정 | [검증 스크립트](scripts/validate-architecture.sh) | 디렉터리 형식 검사 |

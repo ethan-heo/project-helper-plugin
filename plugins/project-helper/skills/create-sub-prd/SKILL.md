@@ -36,6 +36,7 @@ description: 확정된 PRD의 범위가 커서 요구사항 서술이 모호할 
 | `references/grouping.md` | 묶음 후보 생성과 배정 규칙 | 묶음 확정 |
 | `references/hierarchy.md` | 계층 경로와 ID 승계, 상위 표기 | 하위 생성과 상위 정리 |
 | `references/detailing.md` | 절의 승계와 질의 구분, 요구사항을 좁히는 질문 | 하위 생성 |
+| `../_shared/questioning-examples.md` | 질문과 선택지에 붙이는 예시 | 묶음 확정과 하위 생성 |
 | `../_shared/prd/prd-template.md` | PRD 문서 양식 | 하위 문서를 만들 때 |
 | `../_shared/prd/writing.md` | 간결성 서술 규칙과 점검 목록 | 절을 쓸 때와 확정 직전 |
 | `../_shared/writing-style.md` | 산출물의 문체와 표기 | 절을 쓸 때 |

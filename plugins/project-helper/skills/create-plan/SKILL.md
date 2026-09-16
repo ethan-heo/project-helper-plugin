@@ -28,6 +28,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | `references/` | 근거·예외·세부 판정 | 본문이 지정한 절차 |
 | `../_shared/` | 여러 스킬이 공유하는 판정 규칙 | 본문이 지정한 절차 |
 | `../_shared/writing-style.md` | 산출물의 문체와 표기 | 계획서를 쓸 때 |
+| `../_shared/questioning-examples.md` | 질문과 선택지에 붙이는 예시 | 사용자에게 질문할 때 |
 | `assets/` | 계획서·색인 템플릿 | 파일을 만들 때 |
 | `scripts/` | 계획서 형식 검증 | 확정 직전 |
 
@@ -144,7 +145,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | 실행 단계 | 참조 파일 | 읽는 목적 |
 | --- | --- |
 | 준비 | [`docs-root.md`](../_shared/docs-root.md), [`scope.md`](references/planning/scope.md), [`existing-docs.md`](references/planning/existing-docs.md), [`format.md`](references/documents/format.md) | 문서 루트 판정, 범위와 기존 문서, 계획서 형식 확인 |
-| 질문·대안 | [`questioning.md`](references/collaboration/questioning.md), [`roles.md`](references/collaboration/roles.md) | 사용자와 판단을 좁힘 |
+| 질문·대안 | [`questioning.md`](references/collaboration/questioning.md), [`roles.md`](references/collaboration/roles.md), [`questioning-examples.md`](../_shared/questioning-examples.md) | 사용자와 판단을 좁힘 |
 | 설계 | [`design.md`](references/sections/design.md), [`design.md`](references/design.md) | 설계 유형과 근거 작성 |
 | 경계·이전 | [`boundaries.md`](references/planning/boundaries.md), [`hierarchy.md`](references/documents/hierarchy.md), [`migration.md`](references/documents/migration.md) | 문서 구조 결정·이전 |
 | 섹션 작성 | [`summary.md`](references/sections/summary.md), [`design.md`](references/sections/design.md), [`implementation.md`](references/sections/implementation.md), [`testing.md`](references/sections/testing.md), [`structure.md`](references/writing/structure.md), [`markdown.md`](references/writing/markdown.md), [`examples.md`](references/writing/examples.md), [`writing-style.md`](../_shared/writing-style.md) | 섹션과 Markdown 작성, 문체와 표기 |
