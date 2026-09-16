@@ -46,6 +46,11 @@ class StoreCase(unittest.TestCase):
                 "learning": {"addDiscoveredConcepts": ["증가 연산"], "partialConcepts": []}}
 
     def orientation_json(self):
+        return json.dumps({"scope": "출력 순서와 상태가 바뀌는 차례", "standard": 1,
+                           "terms": ["상태는 화면에 보이는 값을 담아 둔 변수다. 증가 함수가 이 값을 바꾸면 다음 렌더링에서 새 값이 보인다."],
+                           "observations": ["로그 순서"]}, ensure_ascii=False)
+
+    def legacy_orientation_json(self):
         return json.dumps({"scope": "출력 순서", "map": ["호출", "상태"],
                            "terms": ["상태: 저장된 값"],
                            "observations": ["로그 순서"]}, ensure_ascii=False)
@@ -311,6 +316,25 @@ printf '%s' "$STORE_RESULT"
         before = self.snapshot()
         invalid = json.dumps({"scope": "", "map": [], "terms": ["용어"], "observations": ["관찰"]}, ensure_ascii=False)
         result = self.questions("update-orientation", "javascript-counter-1", invalid)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(before, self.snapshot())
+
+    def test_orientation_accepts_standard_and_legacy_keys(self):
+        result = self.questions("update-orientation", "javascript-counter-1", self.orientation_json())
+        self.assertEqual(result.returncode, 0, result.stderr)
+        questions = json.loads((self.package / "questions.json").read_text())
+        self.assertEqual(questions[0]["orientation"]["standard"], 1)
+
+        result = self.questions("update-orientation", "javascript-counter-1", self.legacy_orientation_json())
+        self.assertEqual(result.returncode, 0, result.stderr)
+        questions = json.loads((self.package / "questions.json").read_text())
+        self.assertNotIn("standard", questions[0]["orientation"])
+        self.assertIn("map", questions[0]["orientation"])
+
+        before = self.snapshot()
+        unknown = json.dumps({"scope": "범위", "standard": 1, "terms": ["용어"],
+                              "observations": ["관찰"], "note": "설명"}, ensure_ascii=False)
+        result = self.questions("update-orientation", "javascript-counter-1", unknown)
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(before, self.snapshot())
 
