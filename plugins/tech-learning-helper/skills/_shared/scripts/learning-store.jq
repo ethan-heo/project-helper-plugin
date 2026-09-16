@@ -1,5 +1,13 @@
 def strings: type == "array" and all(.[]; type == "string");
+def nonempty_strings: type == "array" and length > 0 and all(.[]; type == "string" and length > 0);
 def positive_step: type == "number" and . >= 1 and floor == .;
+def valid_orientation:
+  type == "object"
+  and (keys - ["scope", "map", "terms", "observations"] | length == 0)
+  and (.scope | type == "string" and length > 0)
+  and (.map | nonempty_strings)
+  and (.terms | nonempty_strings)
+  and (.observations | nonempty_strings);
 def candidates:
   type == "array" and all(.[];
     type == "string" or (type == "object"
@@ -32,6 +40,7 @@ def valid_questions($prefix):
       and (ltrimstr($prefix) | test("^[1-9][0-9]*$")))
     and (.question | type == "string")
     and (.viewpoint | IN("구조", "실행", ""))
+    and ((has("orientation") | not) or (.orientation | valid_orientation))
     and (.path | strings)
     and (.status | IN("진행", "완료"))
     and (.record | type == "string"))
