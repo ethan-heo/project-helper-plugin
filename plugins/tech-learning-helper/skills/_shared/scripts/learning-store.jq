@@ -1,11 +1,13 @@
 def strings: type == "array" and all(.[]; type == "string");
 def nonempty_strings: type == "array" and length > 0 and all(.[]; type == "string" and length > 0);
 def positive_step: type == "number" and . >= 1 and floor == .;
+# map은 관계 지도를 따로 담던 옛 키이므로 읽기 호환으로만 허용하고, standard가 없으면 옛 기준의 안내로 본다.
 def valid_orientation:
   type == "object"
-  and (keys - ["scope", "map", "terms", "observations"] | length == 0)
+  and (keys - ["scope", "map", "standard", "terms", "observations"] | length == 0)
   and (.scope | type == "string" and length > 0)
-  and (.map | nonempty_strings)
+  and ((has("map") | not) or (.map | nonempty_strings))
+  and ((has("standard") | not) or (.standard | positive_step))
   and (.terms | nonempty_strings)
   and (.observations | nonempty_strings);
 def candidates:
