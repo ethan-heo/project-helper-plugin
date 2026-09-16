@@ -109,6 +109,27 @@ check_record_speakers() {
   ' "$file")"
   [[ -z "$invalid" ]] || fail "${file#"$repo"/}: 발화 이름을 별도 줄로 작성하지 않음 ($invalid)"
 }
+# 질문 ID 줄은 최근에 도입되어 옛 기록에 없으므로, 형식이 어긋난 관점 줄만 오류로 본다.
+check_record_header() {
+  local file="$1" viewpoint
+  has_heading "$file" '## 질문' || return 0
+  viewpoint="$(awk '
+    /^[[:space:]]*```/ { fence = !fence; next }
+    fence { next }
+    /^-?[[:space:]]*관점:/ { print; exit }
+  ' "$file")"
+  if [[ -z "$viewpoint" ]]; then
+    fail "${file#"$repo"/}: 관점 줄 없음 (- 관점: 구조|실행)"
+  elif [[ "$viewpoint" != "- 관점: 구조" && "$viewpoint" != "- 관점: 실행" ]]; then
+    fail "${file#"$repo"/}: 관점 줄 형식 오류 ($viewpoint)"
+  fi
+  awk '
+    /^[[:space:]]*```/ { fence = !fence; next }
+    fence { next }
+    /^- 질문 ID: ./ { found = 1 }
+    END { exit !found }
+  ' "$file" || warn "${file#"$repo"/}: 질문 ID 줄 없음 (- 질문 ID: <질문 ID>)"
+}
 [[ -e "$repo/.git" ]] || fail "$repo: git 저장소가 아님"
 repo_name="$(basename "$(cd "$repo" && pwd -P)")"
 check_repo_state
@@ -142,6 +163,7 @@ for package in ${packages[@]+"${packages[@]}"}; do
       date="${BASH_REMATCH[1]}"
       [[ "$(head -n 1 "$record")" == "# $date" ]] || fail "${record#"$repo"/}: 첫 줄 날짜 불일치 (# $date)"
       check_record_speakers "$record"
+      check_record_header "$record"
     done < <(find "$package/records" -mindepth 1 -maxdepth 1 -type f | sort)
 
     while IFS= read -r date_dir; do
@@ -158,6 +180,7 @@ for package in ${packages[@]+"${packages[@]}"}; do
         fi
         [[ "$(head -n 1 "$record")" == "# $date" ]] || fail "${record#"$repo"/}: 첫 줄 날짜 불일치 (# $date)"
         check_record_speakers "$record"
+        check_record_header "$record"
       done < <(find "$date_dir" -mindepth 1 -maxdepth 1 -type f | sort)
     done < <(find "$package/records" -mindepth 1 -maxdepth 1 -type d | sort)
   fi
