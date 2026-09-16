@@ -10,8 +10,6 @@ disable-model-invocation: true
 
 `review`는 학습 패키지 하나에서 배운 내용을 채팅으로 보여 줍니다.
 
-호출 명령은 `/tech-learning-helper:review`입니다. Claude Code의 내장 `/review`는 코드 리뷰 명령이므로 플러그인 이름을 붙입니다.
-
 ## 실행 원칙
 
 **정리할 내용과 표시 방법은 [학습 정리 규칙](../_shared/rules/review.md)을 따릅니다.**

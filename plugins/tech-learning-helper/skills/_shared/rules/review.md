@@ -36,7 +36,7 @@ bash <플러그인 경로>/skills/_shared/scripts/learning-store.sh review-data 
 
 질문은 반환 순서를 유지하고, 날짜와 링크는 `date`·`recordPath`를 사용합니다. 완료한 질문의 도달한 개념은 `lastStep` 문장에서 읽습니다. 값이 없으면 `경로 없음`으로 표시합니다. 진행 중인 질문은 `resumeStep`에서 남은 위치를 표시하고, 위치가 불명확하면 그 사실을 적습니다. 정리만 하려고 재개 위치를 확인하거나 기록 전문을 읽지 않습니다.
 
-질문별 `toc`·`get`을 추가 호출하지 않습니다. 후보의 표시 문장은 `label`이며, 재개할 질문과 단계는 `questionId`·`resumeStep`입니다. 항목이 없는 값은 `없음`이라고 보여 줍니다.
+질문별 `toc`·`get`을 추가 호출하지 않습니다. 후보의 표시 문장은 `label`이며, 재개할 질문과 단계는 `questionId`·`resumeStep`입니다.
 
 ### 3. 표시
 
@@ -83,6 +83,4 @@ bash <플러그인 경로>/skills/_shared/scripts/learning-store.sh review-data 
 
 ## 예외 처리
 
-| 예외 조건 | 할 일 |
-| --- | --- |
-| 정리할 패키지에 기록 파일이 없음 | `## 다룬 질문`에 `없음`을 적고 나머지 절을 정리 |
+해당 없음. 항목이 없는 절의 표시는 양식이 정합니다.

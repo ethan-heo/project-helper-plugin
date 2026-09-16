@@ -54,9 +54,9 @@ bash <플러그인 경로>/skills/_shared/scripts/questions-store.sh toc <패키
 
 후보에는 `kind: resume`, 원래 질문의 `label`·`questionId`, 다음에 재개할 `resumeStep`을 담아 저장 요청의 `learning.nextCandidates`로 전달합니다. 현재 위치는 `progress.stepIndex`로 기록하며, 형식은 [학습 상태 명령](../rules/store.md#재개-위치와-후보)을 따릅니다. 새 경로가 끝나도 원래 경로로 자동으로 돌아가지 않고, 학습자가 후보에서 고를 때 이어 갑니다.
 
-| 후보 | 이어지는 질문이나 남은 경로 단계 |
-| --- | --- |
-| 왜 캐시가 비워졌지? | `react-cache-3`의 3~4단계 |
+```json
+{"kind": "resume", "label": "왜 캐시가 비워졌지?", "questionId": "react-cache-3", "resumeStep": 3}
+```
 
 ### 5. 다음 탐색 후보 제시
 
@@ -109,7 +109,7 @@ bash <플러그인 경로>/skills/_shared/scripts/questions-store.sh toc <패키
 
 ## 예외 처리
 
-경로가 끝나지 않았을 때와 끝났을 때의 처리는 4단계와 5단계가 다룹니다. 후보를 보여 줄 때의 예외는 아래와 같습니다.
+후보를 보여 줄 때의 예외는 아래와 같습니다.
 
 | 예외 조건 | 할 일 |
 | --- | --- |

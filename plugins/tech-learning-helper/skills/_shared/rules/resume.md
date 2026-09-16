@@ -113,7 +113,7 @@ bash <플러그인 경로>/skills/_shared/scripts/learning-store.sh context <패
 | `currentQuestion.status: 진행` | 반환된 현재 단계·공개 수준에서 재개 |
 | `needsPositionConfirmation: true` | 해당 질문의 재개 위치 확인 |
 | 현재 질문 없음 또는 완료 | 다음 후보 제시 또는 새 경로 준비 |
-| 상태 파일 없음·손상 | 상태 확인 후 복구 |
+| 상태 파일 없음·손상 | 덮어쓰지 않고 학습자 확인 뒤 새로 작성 |
 
 대화 맥락이 부족할 때만 `currentQuestion.recordPath`에서 필요한 부분을 읽습니다. 기록 전문을 기본으로 읽거나 질문별 `get`을 추가 호출하지 않습니다. 저장 충돌·복구 오류는 [실패 처리](store.md#실패-처리)를 따릅니다.
 
@@ -197,12 +197,8 @@ signaling · 받은 탭은 addIceCandidate()로 넣은 후보를 연결에 어�
 
 `awaiting`에는 학습자가 반드시 해야 할 입력 하나를 명사구로 적습니다. 예시는 `다음 탐색 후보 번호`, `학습 답변`, `재개 위치 확인`입니다. 실험 결과처럼 해도 되고 안 해도 되는 입력은 `awaiting`에 적지 않고, `lastTurn.type`이 `실험`인지로 판단합니다. 두 입력을 "또는"으로 이어 적으면 재개 메시지도 두 행동을 동시에 요구하게 됩니다.
 
-`activeQuestionId`가 가리키는 질문의 원문·관점·설명 경로·기록 파일은 패키지의 `questions.json`에 있고, 등록·개별 조회에는 [`questions-store.sh`](../scripts/questions-store.sh)를, 재개·정리·응답 저장에는 [학습 상태 명령](store.md)을 사용합니다. 아직 질문을 시작하지 않은 패키지에서는 `activeQuestionId`를 두지 않습니다.
+`activeQuestionId`가 가리키는 질문의 원문·관점·설명 경로·기록 파일은 패키지의 `questions.json`에 있고, 등록·개별 조회에는 [`questions-store.sh`](../scripts/questions-store.sh)를, 재개·정리·응답 저장에는 [학습 상태 명령](store.md)을 사용합니다.
 
 ## 예외 처리
 
-| 예외 조건 | 할 일 |
-| --- | --- |
-| 설명 경로 도중 세션이 끝남 | 다음 학습 시작 때 [`resume-commit.md`](resume-commit.md)로 커밋되지 않은 변경을 먼저 커밋 |
-| 저장소 `state.json`이 손상됨 | `packages/` 디렉터리를 다시 스캔해 인덱스를 새로 씀. 재개 지점을 담지 않으므로 확인 없이 복구합니다 |
-| 패키지 `state.json`이 손상됨 | 조용히 덮어쓰지 않고, 3절의 마지막 행대로 확인받은 뒤 새로 씀 |
+해당 없음. 저장소 `state.json`의 손상은 1절의 `invalid_state` 행이, 패키지 `state.json`의 손상은 3절의 표가 다룹니다.

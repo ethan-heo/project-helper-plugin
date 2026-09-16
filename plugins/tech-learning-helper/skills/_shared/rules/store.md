@@ -53,15 +53,15 @@ bash <플러그인 경로>/skills/_shared/scripts/learning-store.sh save-turn <�
 | `progress` | 현재 단계·공개 수준·기대 입력 |
 | `learning` | 판단한 학습 상태 변경분 |
 
-`progress.awaiting`에는 학습자가 반드시 해야 할 입력 하나를 명사구로 적습니다. 실험 결과처럼 선택 입력은 넣지 않고 `lastTurn.type`으로 판단합니다. 값의 예시는 [패키지 state.json 양식](resume.md#패키지-statejson)을 따릅니다.
+`progress.awaiting`의 값은 [패키지 state.json 양식](resume.md#패키지-statejson)을 따릅니다.
 
-`records`에는 해당 응답에서 기록할 발화만 넣습니다. 현재 질문의 마지막 발화는 assistant의 설명이어야 합니다. 학습자 발화는 원문 그대로, 설명의 `type`은 공개 수준·`현상`·`실험` 중 하나입니다. 학습자 인용문과 발화 제목은 스크립트가 만듭니다. 예제 파일의 링크는 기록 파일을 기준으로 작성합니다.
+`records`에는 해당 응답에서 기록할 발화만 넣습니다. 현재 질문의 마지막 발화는 assistant의 설명이어야 합니다. 발화의 원문 보존과 `type` 값은 [학습 기록 규칙](record.md#1-질의응답-기록)을 따릅니다.
 
 질문을 바꿀 때는 이전 질문의 현상 설명과 새 질문의 질의응답을 각각 별도 `records` 항목으로 전달합니다. 이전 질문의 남은 위치는 `learning.nextCandidates`에 포함합니다. 학습자의 새 질문을 이전 질문 기록에 중복해서 넣지 않습니다.
 
 `learning.addDiscoveredConcepts`는 기존 이름에 합쳐지고, `partialConcepts`와 `nextCandidates`는 전달된 배열로 교체됩니다. 생략한 값은 유지하며 빈 배열은 비우라는 뜻입니다. `lastTurn`은 마지막 발화에서 계산합니다.
 
-`finish-question`에는 마지막 발화와 다음 후보를 함께 전달합니다. 같은 응답에 `save-turn`을 먼저 부르지 않습니다. 마지막 기록·질문 완료·패키지 상태·저장소 인덱스가 함께 저장됩니다. 실험은 `save-turn`으로 기록하며, 완료한 질문도 `type: 실험`, `stepIndex: null`로 저장할 수 있습니다. 실험 절 제목은 스크립트가 추가합니다.
+`finish-question`에는 마지막 발화와 다음 후보를 함께 전달합니다. 같은 응답에 `save-turn`을 먼저 부르지 않습니다. 마지막 기록·질문 완료·패키지 상태·저장소 인덱스가 함께 저장됩니다. 실험은 `save-turn`으로 기록하며, 완료한 질문도 `type: 실험`, `stepIndex: null`로 저장할 수 있습니다.
 
 ## 재개 위치와 후보
 
