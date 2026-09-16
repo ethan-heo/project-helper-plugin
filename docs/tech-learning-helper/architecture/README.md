@@ -4,8 +4,8 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 버전 | 4.0 |
-| 마지막 갱신 | 2026-09-15 09:10 |
+| 버전 | 5.0 |
+| 마지막 갱신 | 2026-09-16 10:27 |
 
 ## 시스템의 목적
 
@@ -36,6 +36,7 @@
 
 | 버전 | 갱신 시각 | 바뀐 파일 | 변경 요약 |
 | --- | --- | --- | --- |
+| 5.0 | 2026-09-16 10:27 | decisions.md, learning-flow.md, technology-knowledge.md, question-gate.md, knowledge-navigator.md, example-builder.md | 생소한 질문에 범위·관계·용어·관찰 대상을 먼저 안내하고, 범위 밖 개념은 다음 후보로 보류하며, 안내를 질문별 `orientation`으로 저장 |
 | 4.0 | 2026-09-15 09:10 | README.md, decisions.md, learning-record.md, learning-flow.md | 저장소 루트 파일에서 진행 중인 패키지 포인터와 세션·입력 상태를 빼고, 패키지 이름·마지막 활동 날짜 인덱스로 바꿈. 새 세션은 이어 하기 목록에서 패키지를 고른 뒤에만 그 패키지 파일로 재개 |
 | 3.0 | 2026-09-15 08:19 | README.md, decisions.md, technology-knowledge.md, learning-record.md, learning-flow.md | 개념 목록(`knowledge.md`)과 정리 산출물(`summary.md`)을 없애고, 상태 파일을 패키지 단위 파일과 저장소 루트 요약 파일로 재구성 |
 | 2.4 | 2026-09-14 18:10 | decisions.md, learning-record.md | 기록을 날짜 디렉터리와 질문별 파일로 분리 |
