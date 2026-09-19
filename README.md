@@ -1,11 +1,10 @@
 # helpers
 
-Claude Code와 Codex에서 함께 쓰는 플러그인 마켓플레이스입니다. 두 플러그인을 담고 있습니다.
+Claude Code와 Codex에서 함께 쓰는 플러그인 마켓플레이스입니다. `project-helper` 플러그인을 담고 있습니다.
 
 | 플러그인 | 하는 일 |
 | --- | --- |
 | `project-helper` | 제품의 목적과 요구사항, 공용 구조를 문서로 정하고, 구현 계획을 세워 실행하며, 커밋 이력을 학습 문서로 정리 |
-| `tech-learning-helper` | 동작하는 예제에서 출발해 '왜?'와 '어떻게?' 질문으로 기술의 원리를 익히도록 안내 |
 
 ## 설치
 
@@ -16,7 +15,6 @@ Claude Code와 Codex에서 함께 쓰는 플러그인 마켓플레이스입니�
 ```
 /plugin marketplace add ethan-heo/project-helper-plugin
 /plugin install project-helper@helpers
-/plugin install tech-learning-helper@helpers
 ```
 
 **Codex**
@@ -24,7 +22,6 @@ Claude Code와 Codex에서 함께 쓰는 플러그인 마켓플레이스입니�
 ```
 codex plugin marketplace add ethan-heo/project-helper-plugin
 codex plugin add project-helper@helpers
-codex plugin add tech-learning-helper@helpers
 ```
 
 설치 결과는 `claude plugin list`와 `codex plugin list`로 각각 확인합니다.
@@ -38,7 +35,6 @@ codex plugin add tech-learning-helper@helpers
 ```
 claude plugin marketplace update helpers
 claude plugin install project-helper@helpers
-claude plugin install tech-learning-helper@helpers
 ```
 
 **Codex**
@@ -46,7 +42,6 @@ claude plugin install tech-learning-helper@helpers
 ```
 codex plugin marketplace upgrade
 codex plugin add project-helper@helpers
-codex plugin add tech-learning-helper@helpers
 ```
 
 설치와 갱신 모두 실행 중인 세션에는 적용되지 않습니다. 새로 시작하는 대화부터 스킬을 쓸 수 있습니다.
@@ -87,35 +82,3 @@ codex plugin add tech-learning-helper@helpers
 ## 사용법 튜토리얼
 
 스킬을 처음 쓴다면 [`docs/project-helper/스킬_사용법_튜토리얼.md`](docs/project-helper/스킬_사용법_튜토리얼.md)를 읽습니다. Todo 리스트를 소재로 여섯 스킬을 부르는 순서와 각 스킬이 남기는 산출물을 예시 문서 전문과 함께 보여 줍니다.
-
-## tech-learning-helper의 스킬
-
-`learn` 하나로 학습을 시작하고 끝까지 진행합니다. 배우고 싶은 기술이나 이해되지 않는 코드·링크·파일 경로를 넘기면, 동작하는 예제를 먼저 준비하고 관찰할 곳을 가리킵니다. 정답을 먼저 알려 주지 않으며, 학습자가 묻는 '왜?'와 '어떻게?'를 따라 설명을 한 단계씩 엽니다.
-
-```
-/learn React의 상태 관리를 공부하고 싶어
-/learn TanStack Query에서 캐시가 언제 비워지는지 알고 싶어
-/learn src/hooks/useTodos.ts 12~30줄이 어떻게 동작하는지 모르겠어
-```
-
-학습 도중 탐색 방향을 바로 바꾸고 싶으면 단축키 스킬을 부릅니다. 학습을 시작하지 않은 상태에서 불러도, 이어 할 학습을 고른 뒤 그 스킬의 방식으로 시작합니다.
-
-| 스킬 | 쓰임 |
-| --- | --- |
-| `structure` | 구조 관점 설명으로 곧바로 전환 |
-| `trace` | 실행 관점 설명으로 곧바로 전환 |
-| `experiment` | 이해한 내용을 예제로 직접 확인 |
-| `review` | 학습 패키지의 정리를 채팅으로 보여 줌 |
-
-```
-/structure 이 컴포넌트는 왜 따로 분리했어?
-/trace 버튼을 누른 다음 어떤 순서로 실행돼?
-/experiment
-/tech-learning-helper:review
-```
-
-### 알아 둘 것
-
-- 처음 호출하면 학습 폴더의 위치를 묻고 `~/.config/tech-learning-helper/config.json`에 저장합니다. Claude Code와 Codex가 같은 학습 폴더를 씁니다.
-- 예제와 질의응답 기록은 학습 폴더 아래 기술마다 하나씩 만드는 git 저장소에 남습니다. 작업 중인 프로젝트에는 파일을 만들지 않습니다.
-- 다섯 스킬 모두 학습자가 직접 호출할 때만 동작합니다. `review`는 Claude Code에 내장된 `/review`(코드 리뷰)와 이름이 겹치므로 `/tech-learning-helper:review`로 부릅니다. 웹·JavaScript 생태계의 예제는 TypeScript와 pnpm으로 실행하므로 pnpm이 필요합니다.
