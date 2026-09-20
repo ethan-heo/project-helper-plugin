@@ -4,8 +4,8 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 버전 | 1.0 |
-| 마지막 갱신 | 2026-09-19 23:41 |
+| 버전 | 1.1 |
+| 마지막 갱신 | 2026-09-20 09:56 |
 
 ## 시스템의 목적
 
@@ -35,4 +35,5 @@
 
 | 버전 | 갱신 시각 | 바뀐 파일 | 변경 요약 |
 | --- | --- | --- | --- |
+| 1.1 | 2026-09-20 09:56 | README.md, decisions.md, learning-flow.md, learning-workspace.md | 작업 계획 문서 추가 |
 | 1.0 | 2026-09-19 23:41 | README.md, decisions.md, learning-flow.md, learning-workspace.md, learning-principles.md | 첫 확정 |
