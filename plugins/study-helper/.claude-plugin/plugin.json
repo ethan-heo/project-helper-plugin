@@ -1,0 +1,15 @@
+{
+  "name": "study-helper",
+  "version": "0.1.0",
+  "description": "기술을 혼자 공부하는 개발자가 설명을 듣는 대신 과제를 직접 구현하며 배우도록, 학습 환경과 예제 과제를 만드는 스킬",
+  "author": {
+    "name": "ethan"
+  },
+  "keywords": [
+    "learning",
+    "practice",
+    "exercise",
+    "memory",
+    "retrieval"
+  ]
+}

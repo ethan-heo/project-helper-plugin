@@ -1,0 +1,31 @@
+{
+  "name": "study-helper",
+  "version": "0.1.0",
+  "description": "기술을 혼자 공부하는 개발자가 설명을 듣는 대신 과제를 직접 구현하며 배우도록, 학습 환경과 예제 과제를 만드는 스킬",
+  "author": {
+    "name": "ethan"
+  },
+  "keywords": [
+    "learning",
+    "practice",
+    "exercise",
+    "memory",
+    "retrieval"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Study Helper",
+    "shortDescription": "직접 구현하며 배우도록 과제와 학습 환경을 만드는 스킬",
+    "longDescription": "배우고 싶은 기술을 받아 무엇을 만들 수 있게 되고 싶은지 좁히고, 그 범위에서 예제 과제 하나를 냅니다. 과제 폴더와 의존성까지 준비하며, 과제를 푸는 코드는 알려 주지 않습니다.",
+    "developerName": "ethan",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "WebRTC Signaling을 공부하게 과제를 내줘",
+      "React 상태 관리로 만들 예제를 하나 줘"
+    ]
+  }
+}

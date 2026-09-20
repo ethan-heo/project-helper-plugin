@@ -8,6 +8,11 @@
       "name": "project-helper",
       "source": "./plugins/project-helper",
       "description": "제품의 목적과 요구사항을 PRD로 확정하고, 범위가 크면 하위 PRD로 나누며, 공용 구조를 아키텍처 문서로 정하고, 구현 계획 수립과 계획 실행, 커밋 학습을 돕는 여섯 스킬"
+    },
+    {
+      "name": "study-helper",
+      "source": "./plugins/study-helper",
+      "description": "기술을 혼자 공부하는 개발자가 설명을 듣는 대신 과제를 직접 구현하며 배우도록, 학습 환경과 예제 과제를 만드는 스킬"
     }
   ]
 }
