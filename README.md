@@ -86,27 +86,33 @@ codex plugin add study-helper@helpers
 
 ## study-helper의 스킬
 
-설명을 듣는 대신 직접 구현하며 배우는 스킬입니다. 지금은 `study` 하나이며, 힌트와 피드백은 다음에 추가합니다.
+설명을 듣는 대신 직접 구현하며 배우는 스킬입니다. 지금은 `study`와 `tutor` 둘이며, 힌트와 피드백은 다음에 추가합니다.
 
 | 스킬 | 언제 쓰는가 | 하는 일 | 남는 산출물 |
 | --- | --- | --- | --- |
 | `study` | 관심 가는 기술을 공부하려 할 때 | 배울 범위를 좁혀 과제 하나를 내고 환경을 준비 | 과제 폴더와 `README.md`, `TASK.md`, `PLAN.md`, 첫 커밋 |
+| `tutor` | 다음에 무엇을 할지 모를 때 | 멈춘 지점을 묻고 다음 할 일 하나를 결정 | `PLAN.md`의 `(tutor)` 줄 |
 
 ```
 /study-helper:study WebRTC Signaling
 /study-helper:study React 상태 관리
+/study-helper:tutor
 ```
 
-부르면 그 기술로 무엇을 만들 수 있게 되고 싶은지 묻고, 답한 범위에서 과제를 냅니다. 같은 디렉터리에서 같은 기술로 다시 부르면 앞선 과제와 겹치지 않는 과제가 나옵니다.
+`study`를 부르면 그 기술로 무엇을 만들 수 있게 되고 싶은지 묻고, 답한 범위에서 과제를 냅니다. 같은 디렉터리에서 같은 기술로 다시 부르면 앞선 과제와 겹치지 않는 과제가 나옵니다.
+
+`tutor`는 과제 폴더 안에서 부릅니다. `PLAN.md`와 `TASK.md`와 코드를 읽고 어디에서 멈췄는지 한 번 물은 뒤, 다음 할 일 하나를 `PLAN.md`에 적습니다.
 
 ### 알아 둘 것
 
 - 과제를 푸는 코드는 알려 주지 않습니다. 의존성은 하는 일과 쓰는 시점까지만 설명합니다.
 - 과제 폴더는 `study`를 부른 디렉터리 아래에 `<기술>-<만들 대상>` 이름으로 생깁니다.
 - 과제 폴더의 `README.md`는 과제 소개와 각 파일의 역할을 담습니다. 폴더를 다시 열었을 때 여기부터 읽으면 됩니다.
-- `PLAN.md`는 사용자가 채우는 문서입니다. 설계와 구현 단계, 막힌 점, 설계 변경을 적습니다.
+- `PLAN.md`는 사용자와 `tutor`가 함께 쓰는 문서입니다. 설계와 구현 단계, 막힌 점, 설계 변경을 적습니다. `(tutor)` 말머리가 붙은 줄이 `tutor`가 적은 것입니다.
+- `tutor`는 사용자가 이미 쓴 줄을 고칠 때 고칠 곳과 이유를 먼저 보여 주고 동의를 받습니다.
+- 다음에 무엇을 할지 모르면 `tutor`, 정한 일을 어떻게 풀지 막히면 `hint`입니다. `hint`는 다음에 추가합니다.
 - 과제 폴더는 Git 저장소로 준비되고, 코드를 쓰기 전 상태가 첫 커밋으로 남습니다. `git diff`로 자기가 쓴 코드만 확인하고, 막히면 첫 커밋으로 되돌아가 다시 시도할 수 있습니다.
-- 학습 기조는 [`plugins/study-helper/skills/_shared/learning-principles.md`](plugins/study-helper/skills/_shared/learning-principles.md)에 있습니다. 원칙을 고치면 `study`의 적용 규칙도 함께 고칩니다.
+- 학습 기조는 [`plugins/study-helper/skills/_shared/learning-principles.md`](plugins/study-helper/skills/_shared/learning-principles.md)에 있습니다. 원칙을 고치면 `study`와 `tutor`의 적용 규칙도 함께 고칩니다.
 
 ## 사용법 튜토리얼
 
