@@ -4,8 +4,8 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 버전 | 3.0 |
-| 마지막 갱신 | 2026-09-20 16:40 |
+| 버전 | 3.1 |
+| 마지막 갱신 | 2026-09-20 17:20 |
 
 ## 시스템의 목적
 
@@ -37,6 +37,7 @@
 
 | 버전 | 갱신 시각 | 바뀐 파일 | 변경 요약 |
 | --- | --- | --- | --- |
+| 3.1 | 2026-09-20 17:20 | learning-workspace.md | 기록 파일 생성 주체를 `init`으로 지정 |
 | 3.0 | 2026-09-20 16:40 | README.md, decisions.md, learning-flow.md, learning-workspace.md, learning-principles.md 삭제 | 스킬을 `init`·`tutor`·`manager` 셋으로 개편하고 학습 기록과 답변 단계를 추가 |
 | 2.0 | 2026-09-20 12:33 | README.md, decisions.md, learning-flow.md, learning-workspace.md | tutor 스킬 추가와 작업 계획 쓰기 주체 변경 |
 | 1.1 | 2026-09-20 09:56 | README.md, decisions.md, learning-flow.md, learning-workspace.md | 작업 계획 문서 추가 |
