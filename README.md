@@ -1,10 +1,11 @@
 # helpers
 
-Claude Code와 Codex에서 함께 쓰는 플러그인 마켓플레이스입니다. `project-helper` 플러그인을 담고 있습니다.
+Claude Code와 Codex에서 함께 쓰는 플러그인 마켓플레이스입니다. 두 플러그인을 담고 있습니다.
 
 | 플러그인 | 하는 일 |
 | --- | --- |
 | `project-helper` | 제품의 목적과 요구사항, 공용 구조를 문서로 정하고, 구현 계획을 세워 실행하며, 커밋 이력을 학습 문서로 정리 |
+| `study-helper` | 배우고 싶은 기술로 직접 구현할 과제를 내고, 과제 폴더와 의존성을 준비 |
 
 ## 설치
 
@@ -15,6 +16,7 @@ Claude Code와 Codex에서 함께 쓰는 플러그인 마켓플레이스입니�
 ```
 /plugin marketplace add ethan-heo/project-helper-plugin
 /plugin install project-helper@helpers
+/plugin install study-helper@helpers
 ```
 
 **Codex**
@@ -22,6 +24,7 @@ Claude Code와 Codex에서 함께 쓰는 플러그인 마켓플레이스입니�
 ```
 codex plugin marketplace add ethan-heo/project-helper-plugin
 codex plugin add project-helper@helpers
+codex plugin add study-helper@helpers
 ```
 
 설치 결과는 `claude plugin list`와 `codex plugin list`로 각각 확인합니다.
@@ -35,6 +38,7 @@ codex plugin add project-helper@helpers
 ```
 claude plugin marketplace update helpers
 claude plugin install project-helper@helpers
+claude plugin install study-helper@helpers
 ```
 
 **Codex**
@@ -42,6 +46,7 @@ claude plugin install project-helper@helpers
 ```
 codex plugin marketplace upgrade
 codex plugin add project-helper@helpers
+codex plugin add study-helper@helpers
 ```
 
 설치와 갱신 모두 실행 중인 세션에는 적용되지 않습니다. 새로 시작하는 대화부터 스킬을 쓸 수 있습니다.
@@ -78,6 +83,27 @@ codex plugin add project-helper@helpers
 - `create-prd`, `create-architecture`, `explain-commit`은 앞선 스킬의 산출물 없이 단독으로 쓸 수 있습니다.
 - `create-plan`은 단독으로 호출할 수 있습니다. 아키텍처 문서가 없거나 새 구조 결정이 필요하면 `create-architecture`를 먼저 실행한 뒤 계획 작성으로 돌아갑니다.
 - 계획서에는 기준 아키텍처 버전을 남깁니다. `impl-plan`은 현재 문서와 주 버전이 다르면 구현을 중단하고 계획 재검토를 안내합니다.
+
+## study-helper의 스킬
+
+설명을 듣는 대신 직접 구현하며 배우는 스킬입니다. 지금은 `study` 하나이며, 힌트와 피드백은 다음에 추가합니다.
+
+| 스킬 | 언제 쓰는가 | 하는 일 | 남는 산출물 |
+| --- | --- | --- | --- |
+| `study` | 관심 가는 기술을 공부하려 할 때 | 배울 범위를 좁혀 과제 하나를 내고 환경을 준비 | 과제 폴더와 `TASK.md` |
+
+```
+/study-helper:study WebRTC Signaling
+/study-helper:study React 상태 관리
+```
+
+부르면 그 기술로 무엇을 만들 수 있게 되고 싶은지 묻고, 답한 범위에서 과제를 냅니다. 같은 디렉터리에서 같은 기술로 다시 부르면 앞선 과제와 겹치지 않는 과제가 나옵니다.
+
+### 알아 둘 것
+
+- 과제를 푸는 코드는 알려 주지 않습니다. 의존성은 하는 일과 쓰는 시점까지만 설명합니다.
+- 과제 폴더는 `study`를 부른 디렉터리 아래에 `<기술>-<만들 대상>` 이름으로 생깁니다.
+- 학습 기조는 [`plugins/study-helper/skills/_shared/learning-principles.md`](plugins/study-helper/skills/_shared/learning-principles.md)에 있습니다. 원칙을 고치면 `study`의 적용 규칙도 함께 고칩니다.
 
 ## 사용법 튜토리얼
 
