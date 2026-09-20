@@ -90,7 +90,7 @@ codex plugin add study-helper@helpers
 
 | 스킬 | 언제 쓰는가 | 하는 일 | 남는 산출물 |
 | --- | --- | --- | --- |
-| `study` | 관심 가는 기술을 공부하려 할 때 | 배울 범위를 좁혀 과제 하나를 내고 환경을 준비 | 과제 폴더와 `TASK.md`, `PLAN.md` |
+| `study` | 관심 가는 기술을 공부하려 할 때 | 배울 범위를 좁혀 과제 하나를 내고 환경을 준비 | 과제 폴더와 `TASK.md`, `PLAN.md`, 첫 커밋 |
 
 ```
 /study-helper:study WebRTC Signaling
@@ -104,6 +104,7 @@ codex plugin add study-helper@helpers
 - 과제를 푸는 코드는 알려 주지 않습니다. 의존성은 하는 일과 쓰는 시점까지만 설명합니다.
 - 과제 폴더는 `study`를 부른 디렉터리 아래에 `<기술>-<만들 대상>` 이름으로 생깁니다.
 - `PLAN.md`는 사용자가 채우는 문서입니다. 설계와 구현 단계, 막힌 점, 설계 변경을 적습니다.
+- 과제 폴더는 Git 저장소로 준비되고, 코드를 쓰기 전 상태가 첫 커밋으로 남습니다. `git diff`로 자기가 쓴 코드만 확인하고, 막히면 첫 커밋으로 되돌아가 다시 시도할 수 있습니다.
 - 학습 기조는 [`plugins/study-helper/skills/_shared/learning-principles.md`](plugins/study-helper/skills/_shared/learning-principles.md)에 있습니다. 원칙을 고치면 `study`의 적용 규칙도 함께 고칩니다.
 
 ## 사용법 튜토리얼
