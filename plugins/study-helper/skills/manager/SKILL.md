@@ -50,6 +50,7 @@ description: 마친 예제의 배운 내용을 기록에 남기고, 정해진 �
 | --- | --- | --- |
 | `SKILL.md` | 실행 절차와 판정 기준 | `manager` 전체 |
 | `../../references/learning-model.md` | 학습 목표와 세 단계 진단 기준 | 대상을 고르고 답변을 진단할 때 |
+| `../../references/record-contract.md` | ID·상태·복습 이력·기존 기록 변환 | 기록 목록을 읽거나 쓰기 전에 |
 | `../../references/writing-style.md` | 복습 질문과 진단 결과의 문체 | 사용자에게 질문하거나 결과를 알릴 때 |
 | `.study/records/`의 기록 파일 | 학습 목표, 답변 단계, 마친 날짜, 복습 이력 | 분기를 가릴 때와 진단할 때 |
 
