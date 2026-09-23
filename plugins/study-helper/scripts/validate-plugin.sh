@@ -15,6 +15,13 @@ require_file() {
   [[ -f "$plugin_root/$path" ]] || fail "필수 파일이 없습니다: $path"
 }
 
+require_text() {
+  local path="$1"
+  local text="$2"
+  [[ -f "$plugin_root/$path" ]] || return
+  grep -Fq -- "$text" "$plugin_root/$path" || fail "필수 규칙이 없습니다: $path -> $text"
+}
+
 validate_json() {
   local path="$1"
   if command -v jq >/dev/null 2>&1; then
@@ -36,6 +43,9 @@ for path in \
   references/record-contract.md \
   references/writing-style.md \
   skills/init/SKILL.md \
+  skills/init/assets/readme-template.md \
+  skills/init/assets/task-template.md \
+  skills/init/assets/plan-template.md \
   skills/init/references/environment.md \
   skills/init/references/input-safety.md \
   skills/tutor/SKILL.md \
@@ -45,6 +55,19 @@ for path in \
   skills/manager/references/review.md; do
   require_file "$path"
 done
+
+require_text references/learning-model.md '## 예제 구성'
+require_text references/learning-model.md '## 시작 자료'
+require_text skills/init/assets/task-template.md '## 시작 자료'
+require_text skills/init/assets/task-template.md '## 과제 요구사항'
+require_text skills/init/assets/task-template.md '### 검증 파일'
+require_text skills/init/assets/plan-template.md '## 권장 설계'
+require_text skills/init/assets/plan-template.md '## 작업 체크리스트'
+require_text skills/init/SKILL.md '사용자의 최종 시작 자료 확정'
+require_text skills/init/SKILL.md 'STUDY_NOT_IMPLEMENTED'
+require_text skills/init/references/environment.md '테스트가 0개이면 종료 코드가 0이어도 실패입니다.'
+require_text skills/tutor/references/completion.md '제공 테스트가 기준선과 다르면 테스트가 통과해도 완료로 기록하지 않습니다.'
+require_text skills/tutor/references/completion.md '전체 테스트가 성공해도 개념 설명이 없으면 완료로 기록하지 않습니다.'
 
 for manifest in "$plugin_root/.codex-plugin/plugin.json" "$plugin_root/.claude-plugin/plugin.json"; do
   [[ -f "$manifest" ]] || continue
