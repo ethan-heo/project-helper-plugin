@@ -12,7 +12,7 @@
     {
       "name": "study-helper",
       "source": "./plugins/study-helper",
-      "description": "기술을 혼자 공부하는 개발자가 설명을 듣는 대신 과제를 직접 구현하며 배우도록, 학습 환경과 예제 과제를 만드는 스킬"
+      "description": "학습 활동과 수준에 맞는 예제를 준비하고, 진행 중 질문과 완료를 확인하며, 완료한 예제를 복습하는 세 스킬"
     }
   ]
 }

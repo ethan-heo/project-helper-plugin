@@ -1,7 +1,7 @@
 {
   "name": "study-helper",
-  "version": "0.1.0",
-  "description": "기술을 혼자 공부하는 개발자가 설명을 듣는 대신 과제를 직접 구현하며 배우도록, 학습 환경과 예제 과제를 만드는 스킬",
+  "version": "0.2.0",
+  "description": "학습 활동과 수준에 맞는 예제를 준비하고, 진행 중 질문과 완료를 확인하며, 완료한 예제를 복습하는 세 스킬",
   "author": {
     "name": "ethan"
   },
@@ -15,8 +15,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Study Helper",
-    "shortDescription": "직접 구현하며 배우도록 과제와 학습 환경을 만드는 스킬",
-    "longDescription": "배우고 싶은 기술을 받아 무엇을 만들 수 있게 되고 싶은지 좁히고, 그 범위에서 예제 과제 하나를 냅니다. 과제 폴더와 의존성까지 준비하며, 과제를 푸는 코드는 알려 주지 않습니다.",
+    "shortDescription": "예제 준비부터 질문과 완료 확인, 복습까지 돕는 세 스킬",
+    "longDescription": "init이 학습 활동과 수준에 맞는 예제와 환경을 준비합니다. tutor는 질문별 도움 단계에 맞게 답하고 결과를 확인한 뒤 완료를 기록합니다. manager는 완료한 예제를 복습하고 다음 학습을 제안합니다.",
     "developerName": "ethan",
     "category": "Developer Tools",
     "capabilities": [
@@ -24,8 +24,9 @@
       "Write"
     ],
     "defaultPrompt": [
-      "WebRTC Signaling을 공부하게 과제를 내줘",
-      "React 상태 관리로 만들 예제를 하나 줘"
+      "WebRTC Signaling을 배울 예제와 환경을 준비해 줘",
+      "이 예제에서 시도한 내용과 막힌 지점을 확인해 줘",
+      "완료한 예제를 복습하고 다음 학습을 제안해 줘"
     ]
   }
 }

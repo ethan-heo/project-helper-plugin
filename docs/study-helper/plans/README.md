@@ -4,10 +4,11 @@
 
 ## 현재 계획
 
-- [study-helper 전체 개선](2026-09-23-study-helper-전체-개선/README.md) — 실행 중
+- 해당 없음
 
 ## 완료된 계획
 
+- [study-helper 전체 개선](2026-09-23-study-helper-전체-개선/README.md) — 완료
 - [init 스킬](2026-09-20-init-스킬/README.md) — 완료
 - [manager 스킬](2026-09-20-manager-스킬/README.md) — 완료
 - [tutor 스킬 개편](2026-09-20-tutor-스킬-개편/README.md) — 완료
