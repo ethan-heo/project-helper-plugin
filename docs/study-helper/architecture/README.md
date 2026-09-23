@@ -4,8 +4,8 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 버전 | 5.3 |
-| 마지막 갱신 | 2026-09-23 15:13 |
+| 버전 | 5.4 |
+| 마지막 갱신 | 2026-09-23 15:23 |
 
 ## 시스템의 목적
 
@@ -42,6 +42,7 @@
 
 | 버전 | 갱신 시각 | 바뀐 파일 | 변경 요약 |
 | --- | --- | --- | --- |
+| 5.4 | 2026-09-23 15:23 | README.md, decisions.md, learning-flow.md, learning-workspace.md | 입력·설치·실행·Git의 안전 경계 추가 |
 | 5.3 | 2026-09-23 15:13 | README.md, decisions.md, learning-flow.md | 기록 근거의 세 단계 진단과 보충 복습 계약 추가 |
 | 5.2 | 2026-09-23 15:05 | README.md, decisions.md, learning-flow.md | 질문 정보에 따른 도움 단계와 해결 판정 계약 추가 |
 | 5.1 | 2026-09-23 14:58 | README.md, decisions.md, learning-flow.md | 활동 선택 뒤 수준을 추천·확정하는 초기 질문 계약 추가 |
