@@ -1,7 +1,7 @@
 {
   "name": "study-helper",
   "version": "0.2.0",
-  "description": "학습 활동과 수준에 맞는 예제를 준비하고, 진행 중 질문과 완료를 확인하며, 완료한 예제를 복습하는 세 스킬",
+  "description": "학습 활동과 목표에 맞는 과제·시작 자료·계획 초안을 준비하고, 진행 중 질문과 완료 확인, 복습을 돕는 세 스킬",
   "author": {
     "name": "ethan"
   },
@@ -15,8 +15,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Study Helper",
-    "shortDescription": "예제 준비부터 질문과 완료 확인, 복습까지 돕는 세 스킬",
-    "longDescription": "init이 학습 활동과 수준에 맞는 예제와 환경을 준비합니다. tutor는 질문별 도움 단계에 맞게 답하고 결과를 확인한 뒤 완료를 기록합니다. manager는 완료한 예제를 복습하고 다음 학습을 제안합니다.",
+    "shortDescription": "실행 가능한 과제 준비부터 질문·완료 확인과 복습까지 돕는 세 스킬",
+    "longDescription": "init이 활동과 목표에 맞는 과제 요구사항, 시작 자료와 계획 초안을 준비합니다. tutor는 질문별 도움 단계에 맞게 답하고 테스트와 개념 설명을 확인한 뒤 완료를 기록합니다. manager는 완료한 예제를 복습하고 다음 학습을 제안합니다.",
     "developerName": "ethan",
     "category": "Developer Tools",
     "capabilities": [
