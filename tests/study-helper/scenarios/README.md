@@ -8,9 +8,9 @@
 
 | 번호 | 시나리오 | 구현 항목 |
 | --- | --- | --- |
-| 01 | [단일 런타임](01-single-runtime.md) | INIT-FLOW-001 |
+| 01 | [JavaScript 클로저 만들기](01-single-runtime.md) | INIT-FLOW-001 |
 | 02 | [복수 런타임 선택](02-multiple-runtimes.md) | INIT-FLOW-001 |
-| 03 | [설치 스크립트 승인](03-install-script-approved.md) | INIT-SAFETY-001 |
+| 03 | [React 재렌더링 원인 찾기](03-install-script-approved.md) | INIT-FLOW-001, INIT-SAFETY-001 |
 | 04 | [설치 거절 뒤 재개](04-install-denied-resume.md) | INIT-SAFETY-001 |
 | 05 | [옛 기록 변환](05-legacy-record-migration.md) | COMMON-RECORD-001 |
 | 06 | [시도 정보가 있는 질문](06-attempt-starts-stage-three.md) | TUTOR-ANSWER-001 |
