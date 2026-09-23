@@ -4,8 +4,8 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 버전 | 5.4 |
-| 마지막 갱신 | 2026-09-23 15:23 |
+| 버전 | 5.5 |
+| 마지막 갱신 | 2026-09-23 15:34 |
 
 ## 시스템의 목적
 
@@ -37,11 +37,13 @@
 | --- | --- | --- |
 | 학습 진행 | [learning-flow.md](learning-flow.md) | 스킬별 동작과 정보의 전달 |
 | 학습 작업 공간 | [learning-workspace.md](learning-workspace.md) | 예제 폴더와 기록의 위치·단위·설치 |
+| 문서와 검증 | [documentation-validation.md](documentation-validation.md) | 기준 문서·배포·회귀 검사 |
 
 ## 변경 이력
 
 | 버전 | 갱신 시각 | 바뀐 파일 | 변경 요약 |
 | --- | --- | --- | --- |
+| 5.5 | 2026-09-23 15:34 | README.md, decisions.md, documentation-validation.md, learning-flow.md | 공통 참조·배포 확인·시나리오 검사의 관리 계약 추가 |
 | 5.4 | 2026-09-23 15:23 | README.md, decisions.md, learning-flow.md, learning-workspace.md | 입력·설치·실행·Git의 안전 경계 추가 |
 | 5.3 | 2026-09-23 15:13 | README.md, decisions.md, learning-flow.md | 기록 근거의 세 단계 진단과 보충 복습 계약 추가 |
 | 5.2 | 2026-09-23 15:05 | README.md, decisions.md, learning-flow.md | 질문 정보에 따른 도움 단계와 해결 판정 계약 추가 |
