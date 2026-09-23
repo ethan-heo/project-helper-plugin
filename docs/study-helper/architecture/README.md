@@ -4,8 +4,8 @@
 
 | 항목 | 값 |
 | --- | --- |
-| 버전 | 5.1 |
-| 마지막 갱신 | 2026-09-23 14:58 |
+| 버전 | 5.2 |
+| 마지막 갱신 | 2026-09-23 15:05 |
 
 ## 시스템의 목적
 
@@ -40,6 +40,7 @@
 
 | 버전 | 갱신 시각 | 바뀐 파일 | 변경 요약 |
 | --- | --- | --- | --- |
+| 5.2 | 2026-09-23 15:05 | README.md, decisions.md, learning-flow.md | 질문 정보에 따른 도움 단계와 해결 판정 계약 추가 |
 | 5.1 | 2026-09-23 14:58 | README.md, decisions.md, learning-flow.md | 활동 선택 뒤 수준을 추천·확정하는 초기 질문 계약 추가 |
 | 5.0 | 2026-09-23 14:46 | README.md, decisions.md, learning-flow.md, learning-workspace.md | 예제 상태 전이와 안정적인 기록 식별·누적 계약 추가 |
 | 4.1 | 2026-09-22 22:58 | README.md, decisions.md, learning-flow.md, learning-workspace.md | 활동 속성의 `출발점`을 `시작 상태`로 이름 변경 |
