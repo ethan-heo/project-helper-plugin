@@ -2,29 +2,41 @@
 
 ## 저장소 성격
 
-`project-helper` 플러그인 저장소다. 계획서를 함께 쓰고(`create-plan`), 그 계획서대로 구현하는(`impl-plan`) 두 스킬을 담는다.
+Claude Code와 Codex에서 함께 쓰는 플러그인 마켓플레이스입니다. `plugins/` 아래에 플러그인 둘을 담습니다.
+
+| 플러그인 | 담은 스킬 |
+| --- | --- |
+| `project-helper` | `create-prd`, `create-sub-prd`, `create-architecture`, `create-plan`, `impl-plan`, `explain-commit` |
+| `study-helper` | `init`, `tutor`, `manager` |
 
 ## 커밋 규칙
 
-Conventional Commits를 따른다.
+Conventional Commits를 따릅니다.
 
 ```
 <type>(<scope>): <설명>
 ```
 
 - `type`: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`
-- `scope`: 스킬 이름(`create-plan`, `impl-plan`). 저장소 전반이면 생략한다.
-- 설명은 한국어 명사형으로 끝낸다. 예: `feat(create-plan): 섹션 기준 참조 문서 추가`
+- `scope`: 스킬 이름(`create-plan`, `impl-plan`, `tutor` 등). 플러그인 전체에 걸치면 플러그인 이름을, 저장소 전반이면 생략합니다.
+- 설명은 한국어 명사형으로 끝냅니다. 예: `feat(create-plan): 섹션 기준 참조 문서 추가`
 
-한 커밋은 되돌릴 수 있는 최소 단위다. 계획서의 구현 항목 하나가 커밋 하나에 대응한다.
+한 커밋은 되돌릴 수 있는 최소 단위입니다. 계획서의 구현 항목 하나가 커밋 하나에 대응합니다.
 
 ## 브랜치 병합 규칙
 
-`main`에 병합할 때는 별도 요청이 없으면 fast-forward를 우선한다. `main`에 별도 커밋이 있어 fast-forward가 불가능하면 일반 병합을 사용하고, 작업 브랜치의 병합 경계를 남겨야 할 때만 `--no-ff`를 사용한다.
+`main`에 병합할 때는 별도 요청이 없으면 fast-forward를 우선합니다. `main`에 별도 커밋이 있어 fast-forward가 불가능하면 일반 병합을 사용하고, 작업 브랜치의 병합 경계를 남겨야 할 때만 `--no-ff`를 사용합니다.
+
+## 플러그인 재설치 규칙
+
+로컬 플러그인을 재설치할 때 캐시버스터를 사용하지 않습니다. 플러그인 버전은 실제 릴리스 버전만 기록하고, 캐시버스터 갱신 없이 재설치 명령을 실행합니다.
 
 ## 참조 문서 관리
 
-- 문서 구조·배치·참조·갱신을 관리할 때는 [`docs/문서_작성_기준.md`](docs/문서_작성_기준.md)를 참조한다.
-- 문서를 한국어로 쓸 때의 문체·용어·표기는 [`docs/한국어_작성_규칙.md`](docs/한국어_작성_규칙.md)를 참조한다.
-- 문서와 프롬프트를 생성하거나 개선할 때는 [`docs/프롬프트_작성_가이드.md`](docs/프롬프트_작성_가이드.md)를 참조한다.
-- 스킬이 만드는 산출물의 문체·표기·용어를 정할 때는 [`plugins/project-helper/skills/_shared/writing-style.md`](plugins/project-helper/skills/_shared/writing-style.md)를 참조한다. 새 스킬도 이 문서를 참조하도록 만든다.
+| 읽는 시점 | 문서 | 담는 내용 |
+| --- | --- | --- |
+| 문서를 배치·작성·수정·참조할 때 | [`docs/문서_작성_기준.md`](docs/문서_작성_기준.md) | 문서 배치, 구조, 참조, 지침 통합 |
+| 저장소 문서와 커밋 메시지를 쓸 때 | [`docs/한국어_작성_규칙.md`](docs/한국어_작성_규칙.md) | 문장, 문단, 문체, 용어, 표기 |
+| 프롬프트를 개선할 때 | [`docs/프롬프트_작성_가이드.md`](docs/프롬프트_작성_가이드.md) | 프롬프트 분석과 재구성 절차 |
+
+스킬이 만드는 산출물의 문체·표기·용어는 그 플러그인의 `writing-style.md`가 정합니다. 위치는 플러그인마다 다르며, `docs/문서_작성_기준.md`의 「배포 범위」에 적혀 있습니다. 새 스킬도 그 문서를 참조하도록 만듭니다.
