@@ -35,7 +35,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | 2 | [`existing-docs.md`](references/planning/existing-docs.md)를 읽고 프로젝트의 기존 문서를 찾아 읽습니다. 아키텍처 문서의 선행 조건을 아래 분기로 확인합니다 |
 | 3 | 관련 파일, 기존 처리 방식, 제약을 찾아 둡니다. 여기서 해법을 만들지는 않습니다 |
 | 4 | [`docs-root.md`](../_shared/docs-root.md)를 읽고 문서 루트를 판정한 뒤, 계획서 경로 `<루트>/plans/`가 `.gitignore`에 등록되어 있는지 확인합니다. 없으면 추가합니다 |
-| 5 | `assets/plan-template.md`를 복사해 초안 `YYYY-MM-DD-<주제>.md` 하나를 만듭니다 |
+| 5 | [`plan-template.md`](assets/plan-template.md)를 복사해 초안 `YYYY-MM-DD-<주제>.md` 하나를 만듭니다 |
 
 **초안을 만들기 전에 아키텍처 문서의 결정으로 요청을 해결할 수 있는지 확인합니다.**
 
@@ -137,4 +137,4 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 | 경계·이전 | [`boundaries.md`](references/planning/boundaries.md), [`hierarchy.md`](references/documents/hierarchy.md), [`migration.md`](references/documents/migration.md) | 문서 구조 결정·이전 |
 | 섹션 작성 | [`summary.md`](references/sections/summary.md), [`design.md`](references/sections/design.md), [`implementation.md`](references/sections/implementation.md), [`testing.md`](references/sections/testing.md), [`structure.md`](references/writing/structure.md), [`markdown.md`](references/writing/markdown.md), [`examples.md`](references/writing/examples.md), [`writing-style.md`](../_shared/writing-style.md) | 섹션과 Markdown 작성, 문체와 표기 |
 | 승인·확정 | [`approval.md`](references/collaboration/approval.md), [`format.md`](references/documents/format.md) | 승인과 형식 검증 |
-| 계획서 생성 | `assets/plan-template.md`, `assets/index-template.md` | 템플릿 적용 |
+| 계획서 생성 | [`plan-template.md`](assets/plan-template.md), [`index-template.md`](assets/index-template.md) | 템플릿 적용 |

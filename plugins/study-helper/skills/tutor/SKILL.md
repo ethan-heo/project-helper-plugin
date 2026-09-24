@@ -19,11 +19,11 @@ description: 예제를 구현하다 막혀 물으면 정답 대신 한 단계씩
 
 | 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
-| 예제 정보와 질문 목표를 읽을 때 | `../../references/learning-model.md` | 활동·수준·목표·진단 용어 |
-| 기록을 찾거나 쓰기 전에 | `../../references/record-contract.md` | ID·상태·질문 이력·기존 기록 변환 |
-| 사용자에게 답할 때 | `../../references/writing-style.md` | 힌트와 확인 질문의 문체 |
-| 질문에 답하기 전에 | `references/answering.md` | 주제 판정·시작 단계·단계 변경 |
-| 첫 질문과 해결·완료 요청에서 | `references/completion.md` | 상태 전이·해결 근거·완료 판정 |
+| 예제 정보와 질문 목표를 읽을 때 | [`learning-model.md`](../../references/learning-model.md) | 활동·수준·목표·진단 용어 |
+| 기록을 찾거나 쓰기 전에 | [`record-contract.md`](../../references/record-contract.md) | ID·상태·질문 이력·기존 기록 변환 |
+| 사용자에게 답할 때 | [`writing-style.md`](../../references/writing-style.md) | 힌트와 확인 질문의 문체 |
+| 질문에 답하기 전에 | [`answering.md`](references/answering.md) | 주제 판정·시작 단계·단계 변경 |
+| 첫 질문과 해결·완료 요청에서 | [`completion.md`](references/completion.md) | 상태 전이·해결 근거·완료 판정 |
 
 ## 읽는 것과 쓰는 것
 

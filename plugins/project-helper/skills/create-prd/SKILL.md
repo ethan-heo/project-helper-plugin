@@ -25,13 +25,13 @@ description: 제품이나 프로젝트를 새로 시작할 때, 목적·목표·
 | --- | --- | --- |
 | 호출 직후 | [`session.md`](../_shared/session.md) | 후속 입력 해석 |
 | 확정 후 | [`architecture.md`](../_shared/architecture.md) | 후속 스킬 판단 |
-| 준비 단계의 보관 경로 결정 | `../_shared/docs-root.md` | 문서 루트 판정 규칙 |
-| 카테고리 순회 | `references/questioning.md` | 카테고리별 질문 설계와 충분성 판정 |
-| 카테고리 순회 | `../_shared/questioning-examples.md` | 질문과 선택지에 붙이는 예시 |
-| 절을 쓸 때와 확정 직전 | `../_shared/prd/writing.md` | 간결성 서술 규칙과 점검 목록 |
-| 절을 쓸 때 | `../_shared/writing-style.md` | 산출물의 문체와 표기 |
-| 초안을 만들 때 | `../_shared/prd/prd-template.md` | PRD 문서 양식 |
-| 확정 직전 | `../_shared/prd/validate-prd.sh` | 필수 절과 항목 형식 검증 |
+| 준비 단계의 보관 경로 결정 | [`docs-root.md`](../_shared/docs-root.md) | 문서 루트 판정 규칙 |
+| 카테고리 순회 | [`questioning.md`](references/questioning.md) | 카테고리별 질문 설계와 충분성 판정 |
+| 카테고리 순회 | [`questioning-examples.md`](../_shared/questioning-examples.md) | 질문과 선택지에 붙이는 예시 |
+| 절을 쓸 때와 확정 직전 | [`writing.md`](../_shared/prd/writing.md) | 간결성 서술 규칙과 점검 목록 |
+| 절을 쓸 때 | [`writing-style.md`](../_shared/writing-style.md) | 산출물의 문체와 표기 |
+| 초안을 만들 때 | [`prd-template.md`](../_shared/prd/prd-template.md) | PRD 문서 양식 |
+| 확정 직전 | [`validate-prd.sh`](../_shared/prd/validate-prd.sh) | 필수 절과 항목 형식 검증 |
 
 ## 작성 절차
 
@@ -44,7 +44,7 @@ description: 제품이나 프로젝트를 새로 시작할 때, 목적·목표·
 | 1 | 요청의 대상이 제품·프로젝트 단위인지 확인합니다. 기능 하나의 구현 방식이면 `/create-plan`을 안내하고 종료합니다 |
 | 2 | [`docs-root.md`](../_shared/docs-root.md)를 읽고 문서 루트를 판정한 뒤 `<루트>/prds/`를 보관 경로로 삼습니다. 디렉터리가 없으면 만듭니다 |
 | 3 | 해당 경로가 `.gitignore`에 등록되어 있는지 확인하고, 없으면 사용자에게 보관 방식을 확인합니다 |
-| 4 | `../_shared/prd/prd-template.md`를 복사해 `YYYY-MM-DD-<주제>.md` 초안을 만들고, `마지막 갱신`을 오늘 날짜로 적습니다 |
+| 4 | [`prd-template.md`](../_shared/prd/prd-template.md)를 복사해 `YYYY-MM-DD-<주제>.md` 초안을 만들고, `마지막 갱신`을 오늘 날짜로 적습니다 |
 
 PRD는 작업 대상 코드가 정해지기 전에 씁니다. 그래서 문서 루트 후보가 여럿일 때 가장 가까운 조상을 고르는 기준을 쓸 수 없고, 이름이 겹치는 후보를 고르는 기준부터 적용합니다.
 

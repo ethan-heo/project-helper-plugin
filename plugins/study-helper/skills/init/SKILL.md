@@ -20,7 +20,7 @@ description: 배우고 싶은 기술이나 관련 자료를 받아, 학습 활�
 | 대상 | 권한 |
 | --- | --- |
 | 사용자가 건넨 경로·링크·코드 조각·글 | 읽기만 합니다 |
-| `../../references/learning-model.md` | 읽기만 합니다 |
+| [`learning-model.md`](../../references/learning-model.md) | 읽기만 합니다 |
 | 현재 디렉터리의 예제 폴더들의 `TASK.md` | 읽기만 합니다 |
 | 새 예제 폴더의 `README.md`·`TASK.md`·`PLAN.md`·시작 자료·`.study-id` | 만들고 씁니다 |
 | `.study/records/<UUID>.md` | 만들고 준비 정보와 학습 목표를 씁니다 |
@@ -35,15 +35,15 @@ description: 배우고 싶은 기술이나 관련 자료를 받아, 학습 활�
 
 | 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
-| 질문을 만들고 예제 범위를 정할 때 | `../../references/learning-model.md` | 활동·수준·학습 목표·진단 기준 |
-| 기록을 찾거나 만들기 전에 | `../../references/record-contract.md` | ID·기록 형식·상태·기존 기록 변환 |
-| 사용자에게 질문하거나 문서를 쓸 때 | `../../references/writing-style.md` | 질문·선택지·학습 문서의 문체 |
-| 입력 자료를 열기 전에 | `references/input-safety.md` | 로컬·외부 자료의 읽기 경계 |
-| 활동과 수준을 확정한 뒤 | `references/environment.md` | 언어·런타임 후보와 질문 여부 |
-| 예제를 기록할 때 | `assets/readme-template.md` | 예제 폴더 `README.md` 양식 |
-| 예제를 기록할 때 | `assets/task-template.md` | `TASK.md` 양식 |
-| 예제를 기록할 때 | `assets/plan-template.md` | `PLAN.md` 양식 |
-| 예제를 기록할 때 | `assets/record-template.md` | 기록 파일 양식 |
+| 질문을 만들고 예제 범위를 정할 때 | [`learning-model.md`](../../references/learning-model.md) | 활동·수준·학습 목표·진단 기준 |
+| 기록을 찾거나 만들기 전에 | [`record-contract.md`](../../references/record-contract.md) | ID·기록 형식·상태·기존 기록 변환 |
+| 사용자에게 질문하거나 문서를 쓸 때 | [`writing-style.md`](../../references/writing-style.md) | 질문·선택지·학습 문서의 문체 |
+| 입력 자료를 열기 전에 | [`input-safety.md`](references/input-safety.md) | 로컬·외부 자료의 읽기 경계 |
+| 활동과 수준을 확정한 뒤 | [`environment.md`](references/environment.md) | 언어·런타임 후보와 질문 여부 |
+| 예제를 기록할 때 | [`readme-template.md`](assets/readme-template.md) | 예제 폴더 `README.md` 양식 |
+| 예제를 기록할 때 | [`task-template.md`](assets/task-template.md) | `TASK.md` 양식 |
+| 예제를 기록할 때 | [`plan-template.md`](assets/plan-template.md) | `PLAN.md` 양식 |
+| 예제를 기록할 때 | [`record-template.md`](assets/record-template.md) | 기록 파일 양식 |
 
 ## 실행 절차
 

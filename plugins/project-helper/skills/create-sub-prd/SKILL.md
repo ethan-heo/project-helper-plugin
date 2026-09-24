@@ -31,16 +31,16 @@ description: 확정된 PRD의 범위가 커서 요구사항 서술이 모호할 
 | --- | --- | --- |
 | 호출 직후 | [`session.md`](../_shared/session.md) | 후속 입력 해석 |
 | 확정 후 | [`architecture.md`](../_shared/architecture.md) | 후속 스킬 판단 |
-| 대상 선정 | `../_shared/docs-root.md` | 문서 루트 판정 규칙 |
-| 묶음 확정 | `references/grouping.md` | 묶음 후보 생성과 배정 규칙 |
-| 하위 생성과 상위 정리 | `references/hierarchy.md` | 계층 경로와 ID 승계, 상위 표기 |
-| 하위 생성 | `references/detailing.md` | 절의 승계와 질의 구분, 요구사항을 좁히는 질문 |
-| 묶음 확정과 하위 생성 | `../_shared/questioning-examples.md` | 질문과 선택지에 붙이는 예시 |
-| 하위 문서를 만들 때 | `../_shared/prd/prd-template.md` | PRD 문서 양식 |
-| 절을 쓸 때와 확정 직전 | `../_shared/prd/writing.md` | 간결성 서술 규칙과 점검 목록 |
-| 절을 쓸 때 | `../_shared/writing-style.md` | 산출물의 문체와 표기 |
-| 하위 문서마다 | `../_shared/prd/validate-prd.sh` | 문서 한 편의 필수 절과 항목 형식 검증 |
-| 확정 직전 | `scripts/validate-sub-prd.sh` | 배정과 계층의 검증 |
+| 대상 선정 | [`docs-root.md`](../_shared/docs-root.md) | 문서 루트 판정 규칙 |
+| 묶음 확정 | [`grouping.md`](references/grouping.md) | 묶음 후보 생성과 배정 규칙 |
+| 하위 생성과 상위 정리 | [`hierarchy.md`](references/hierarchy.md) | 계층 경로와 ID 승계, 상위 표기 |
+| 하위 생성 | [`detailing.md`](references/detailing.md) | 절의 승계와 질의 구분, 요구사항을 좁히는 질문 |
+| 묶음 확정과 하위 생성 | [`questioning-examples.md`](../_shared/questioning-examples.md) | 질문과 선택지에 붙이는 예시 |
+| 하위 문서를 만들 때 | [`prd-template.md`](../_shared/prd/prd-template.md) | PRD 문서 양식 |
+| 절을 쓸 때와 확정 직전 | [`writing.md`](../_shared/prd/writing.md) | 간결성 서술 규칙과 점검 목록 |
+| 절을 쓸 때 | [`writing-style.md`](../_shared/writing-style.md) | 산출물의 문체와 표기 |
+| 하위 문서마다 | [`validate-prd.sh`](../_shared/prd/validate-prd.sh) | 문서 한 편의 필수 절과 항목 형식 검증 |
+| 확정 직전 | [`validate-sub-prd.sh`](scripts/validate-sub-prd.sh) | 배정과 계층의 검증 |
 
 ## 분해 절차
 
@@ -61,7 +61,7 @@ description: 확정된 PRD의 범위가 커서 요구사항 서술이 모호할 
 | 확인 대상 | 통과 조건 |
 | --- | --- |
 | 미해결 질문 | `미해결 질문` 절에 남은 항목이 없습니다 |
-| 필수 절 | 여덟 절이 모두 있고 `../_shared/prd/validate-prd.sh`를 통과합니다 |
+| 필수 절 | 여덟 절이 모두 있고 [`validate-prd.sh`](../_shared/prd/validate-prd.sh)를 통과합니다 |
 | 요구사항 표 | 모든 항목이 ID와 필수·선택 구분, 충족 판정을 가집니다 |
 
 하나라도 통과하지 못하면 분해하지 않고 `/create-prd`로 상위 PRD를 먼저 확정하도록 안내합니다.
@@ -78,7 +78,7 @@ description: 확정된 PRD의 범위가 커서 요구사항 서술이 모호할 
 
 | 순서 | 할 일 |
 | --- | --- |
-| 1 | 상위 문서를 자기 이름의 디렉터리 안 `README.md`로 옮기고, 그 옆에 `../_shared/prd/prd-template.md`를 복사해 하위 PRD를 만듭니다 |
+| 1 | 상위 문서를 자기 이름의 디렉터리 안 `README.md`로 옮기고, 그 옆에 [`prd-template.md`](../_shared/prd/prd-template.md)를 복사해 하위 PRD를 만듭니다 |
 | 2 | `마지막 갱신` 아래에 상위 문서 경로와 담당 요구사항 ID를 한 줄로 적습니다 |
 | 3 | 상위에서 확정된 절을 승계합니다. 어느 절을 승계하고 옮기기 전에 무엇을 점검하는지는 `detailing.md`가 정합니다 |
 | 4 | 담당 요구사항을 질의응답으로 여러 항목으로 가르고, 각 항목에 관찰 가능한 충족 판정을 붙입니다 |

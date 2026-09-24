@@ -26,13 +26,13 @@ AI는 조사와 서술을 맡고, 무엇을 배울지 고르는 일은 사용자
 | 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
 | 호출 직후 | [`session.md`](../_shared/session.md) | 후속 입력 해석 |
-| 대상 수집과 목록 확인 | `references/collecting.md` | 커밋 지정 형식과 중복·오류 판정 |
-| 문서 생성 | `references/document.md` | 문서의 절 구성과 설명 깊이 |
-| 목록 확인·조사·문서 생성 | `references/writing.md` | 서술 근거와 보관 경로·파일명 |
-| 문서 생성 | `../_shared/writing-style.md` | 산출물의 문체와 표기 |
-| 보관 경로 결정 | `../_shared/docs-root.md` | 문서 루트 판정 규칙 |
-| 문서를 만들 때 | `assets/commit-doc-template.md` | 학습 문서 양식 |
-| 결과 보고 직전 | `scripts/validate-commit-doc.sh` | 필수 절과 파일명 검증 |
+| 대상 수집과 목록 확인 | [`collecting.md`](references/collecting.md) | 커밋 지정 형식과 중복·오류 판정 |
+| 문서 생성 | [`document.md`](references/document.md) | 문서의 절 구성과 설명 깊이 |
+| 목록 확인·조사·문서 생성 | [`writing.md`](references/writing.md) | 서술 근거와 보관 경로·파일명 |
+| 문서 생성 | [`writing-style.md`](../_shared/writing-style.md) | 산출물의 문체와 표기 |
+| 보관 경로 결정 | [`docs-root.md`](../_shared/docs-root.md) | 문서 루트 판정 규칙 |
+| 문서를 만들 때 | [`commit-doc-template.md`](assets/commit-doc-template.md) | 학습 문서 양식 |
+| 결과 보고 직전 | [`validate-commit-doc.sh`](scripts/validate-commit-doc.sh) | 필수 절과 파일명 검증 |
 
 ## 실행 절차
 
@@ -54,7 +54,7 @@ AI는 조사와 서술을 맡고, 무엇을 배울지 고르는 일은 사용자
 
 **[`document.md`](references/document.md)의 절 구성으로 쓰고, [`writing.md`](references/writing.md)의 서술 규칙과 [`writing-style.md`](../_shared/writing-style.md)의 문체·표기 규칙을 적용합니다.**
 
-`assets/commit-doc-template.md`를 복사해 일곱 절을 채웁니다. 문서를 만든 뒤 `scripts/validate-commit-doc.sh`로 형식을 검사합니다.
+[`commit-doc-template.md`](assets/commit-doc-template.md)를 복사해 일곱 절을 채웁니다. 문서를 만든 뒤 `scripts/validate-commit-doc.sh`로 형식을 검사합니다.
 
 ### 5. 결과를 보고합니다
 
