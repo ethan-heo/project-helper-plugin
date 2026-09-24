@@ -19,20 +19,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 
 ## 참조 문서 규칙
 
-이 문서가 `create-plan`의 실행 지시사항을 정하는 기준 문서입니다. 작업을 시작할 때 이 문서를 먼저 읽고, 아래 표의 절차에 진입할 때 지정된 참조 문서만 읽습니다.
-
-| 문서 유형 | 역할 | 적용 범위 |
-| --- | --- | --- |
-| [`session.md`](../_shared/session.md) | 후속 입력 해석 | 호출 직후 |
-| `SKILL.md` | 실행 절차와 분기 | `create-plan` 전체 |
-| `references/` | 근거·예외·세부 판정 | 본문이 지정한 절차 |
-| `../_shared/` | 여러 스킬이 공유하는 판정 규칙 | 본문이 지정한 절차 |
-| `../_shared/writing-style.md` | 산출물의 문체와 표기 | 계획서를 쓸 때 |
-| `../_shared/questioning-examples.md` | 질문과 선택지에 붙이는 예시 | 사용자에게 질문할 때 |
-| `assets/` | 계획서·색인 템플릿 | 파일을 만들 때 |
-| `scripts/` | 계획서 형식 검증 | 확정 직전 |
-
-참조 문서는 본문에 없는 실행 범위를 추가하지 않습니다.
+이 문서가 `create-plan`의 실행 지시사항을 정하는 기준 문서입니다. 작업을 시작할 때 이 문서를 먼저 읽고, 참조 문서는 [참조 파일](#참조-파일) 표가 지정한 실행 단계에 진입할 때만 읽습니다. 참조 문서는 본문에 없는 실행 범위를 추가하지 않습니다.
 
 시작하기 전에 [`roles.md`](references/collaboration/roles.md)와 [`questioning.md`](references/collaboration/questioning.md)를 읽습니다. AI는 관련 파일과 제약을 조사해 제시하고, 해법과 선택은 사용자에게 맡깁니다.
 
@@ -56,10 +43,10 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 
 | 선행 상태 | 할 일 |
 | --- | --- |
-| 아키텍처 문서가 없습니다 | `create-architecture` 실행 후 계획 재개 |
-| 요청이 문서의 결정 안에서 해결된다 | 관련 문서 확인과 기준 버전 기록 |
-| 문서에 없는 구조 결정이 필요합니다 | 아키텍처 문서 갱신 후 계획 재개 |
-| 계획 설계가 문서의 결정과 어긋납니다 | 설계 수정·문서 갱신 중 사용자 선택 |
+| 아키텍처 문서 없음 | `create-architecture` 실행 후 계획 재개 |
+| 요청이 문서의 결정 안에서 해결됨 | 관련 문서 확인과 기준 버전 기록 |
+| 문서에 없는 구조 결정이 필요함 | 아키텍처 문서 갱신 후 계획 재개 |
+| 계획 설계가 문서의 결정과 어긋남 | 설계 수정·문서 갱신 중 사용자 선택 |
 
 아키텍처 작업을 먼저 해야 하면 [선행 실행과 계획 재개](references/planning/existing-docs.md#선행-실행과-계획-재개)를 따릅니다.
 
@@ -69,7 +56,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 
 대화 중에는 초안 한 편에 기록하고, 구현 순서가 정해지면 4-1번에서 디렉터리 구조로 옮깁니다.
 
-### 1~6. 섹션을 순서대로 채웁니다
+### 1~6. 섹션 작성
 
 **위에서부터 순서대로 채우고, 섹션마다 통과 조건을 만족했는지 사용자에게 확인받은 뒤 다음으로 넘어갑니다.**
 
@@ -106,7 +93,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 
 실제 변경 범위가 확정된 뒤 작성해야 요약과 구현 순서가 어긋나지 않습니다.
 
-### 4-1. 문서 경계를 정합니다
+### 4-1. 문서 경계 결정
 
 **[경계 판정](references/planning/boundaries.md)에 따라 경계를 제안하고 사용자 동의를 받습니다.**
 
@@ -143,7 +130,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 ## 참조 파일
 
 | 실행 단계 | 참조 파일 | 읽는 목적 |
-| --- | --- |
+| --- | --- | --- |
 | 준비 | [`docs-root.md`](../_shared/docs-root.md), [`scope.md`](references/planning/scope.md), [`existing-docs.md`](references/planning/existing-docs.md), [`format.md`](references/documents/format.md) | 문서 루트 판정, 범위와 기존 문서, 계획서 형식 확인 |
 | 질문·대안 | [`questioning.md`](references/collaboration/questioning.md), [`roles.md`](references/collaboration/roles.md), [`questioning-examples.md`](../_shared/questioning-examples.md) | 사용자와 판단을 좁힘 |
 | 설계 | [`design.md`](references/sections/design.md), [`design.md`](references/design.md) | 설계 유형과 근거 작성 |
