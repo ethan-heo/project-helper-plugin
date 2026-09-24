@@ -13,7 +13,7 @@ AI는 조사와 서술을 맡고, 무엇을 배울지 고르는 일은 사용자
 
 ## 실행 원칙
 
-**커밋에서 확인한 사실만 쓰고, 확인되지 않은 자리는 추측으로 메우지 않습니다.**
+**커밋에서 확인한 사실만 쓰고, 확인하지 못한 내용은 추측으로 채우지 않습니다.**
 
 **호출 후 입력은 [스킬 실행 맥락](../_shared/session.md#입력-해석)에 따라 해석합니다.**
 
@@ -39,27 +39,27 @@ AI는 조사와 서술을 맡고, 무엇을 배울지 고르는 일은 사용자
 
 ## 실행 절차
 
-### 1. 대상을 수집한다
+### 1. 대상을 수집합니다
 
 **[`collecting.md`](references/collecting.md)를 읽고, 인자로 받은 커밋 지정을 커밋 목록으로 펼칩니다.**
 
 입력 형식과 사전 검사는 [대상 수집](references/collecting.md#입력-형식)의 절차를 따릅니다.
 
-### 2. 목록을 확인받는다
+### 2. 목록을 확인받습니다
 
 **[보관 경로](references/writing.md#보관-경로)를 정한 뒤 [목록 확정 절차](references/collecting.md#목록을-확정하는-순서)에 따라 확인받습니다.**
 
-### 3. 커밋마다 조사한다
+### 3. 커밋마다 조사합니다
 
 **[서술 근거](references/writing.md#서술-근거)에 따라 자료를 모으고, 근거가 없는 내용은 [확인 필요 표시](references/writing.md#확인-필요-표시)로 남깁니다.**
 
-### 4. 문서를 만든다
+### 4. 문서를 만듭니다
 
 **[`document.md`](references/document.md)의 절 구성으로 쓰고, [`writing.md`](references/writing.md)의 서술 규칙과 [`writing-style.md`](../_shared/writing-style.md)의 문체·표기 규칙을 적용합니다.**
 
 `assets/commit-doc-template.md`를 복사해 일곱 절을 채웁니다. 문서를 만든 뒤 `scripts/validate-commit-doc.sh`로 형식을 검사합니다.
 
-### 5. 결과를 보고한다
+### 5. 결과를 보고합니다
 
 **만든 문서, 건너뛴 커밋, 실패한 커밋을 나누어 알립니다.**
 
