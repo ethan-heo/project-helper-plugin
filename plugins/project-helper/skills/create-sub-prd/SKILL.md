@@ -27,21 +27,20 @@ description: 확정된 PRD의 범위가 커서 요구사항 서술이 모호할 
 
 이 문서가 `create-sub-prd`의 실행 지시사항을 정하는 기준 문서입니다. 작업을 시작할 때 이 문서를 먼저 읽고, 아래 표의 절차에 진입할 때 지정된 참조 문서만 읽습니다.
 
-| 문서 유형 | 역할 | 적용 범위 |
+| 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
-| [`session.md`](../_shared/session.md) | 후속 입력 해석 | 호출 직후 |
-| `SKILL.md` | 실행 절차와 분기 | `create-sub-prd` 전체 |
-| [`architecture.md`](../_shared/architecture.md) | 후속 스킬 판단 | 확정 후 |
-| `../_shared/docs-root.md` | 문서 루트 판정 규칙 | 대상 선정 |
-| `references/grouping.md` | 묶음 후보 생성과 배정 규칙 | 묶음 확정 |
-| `references/hierarchy.md` | 계층 경로와 ID 승계, 상위 표기 | 하위 생성과 상위 정리 |
-| `references/detailing.md` | 절의 승계와 질의 구분, 요구사항을 좁히는 질문 | 하위 생성 |
-| `../_shared/questioning-examples.md` | 질문과 선택지에 붙이는 예시 | 묶음 확정과 하위 생성 |
-| `../_shared/prd/prd-template.md` | PRD 문서 양식 | 하위 문서를 만들 때 |
-| `../_shared/prd/writing.md` | 간결성 서술 규칙과 점검 목록 | 절을 쓸 때와 확정 직전 |
-| `../_shared/writing-style.md` | 산출물의 문체와 표기 | 절을 쓸 때 |
-| `../_shared/prd/validate-prd.sh` | 문서 한 편의 필수 절과 항목 형식 검증 | 하위 문서마다 |
-| `scripts/validate-sub-prd.sh` | 배정과 계층의 검증 | 확정 직전 |
+| 호출 직후 | [`session.md`](../_shared/session.md) | 후속 입력 해석 |
+| 확정 후 | [`architecture.md`](../_shared/architecture.md) | 후속 스킬 판단 |
+| 대상 선정 | `../_shared/docs-root.md` | 문서 루트 판정 규칙 |
+| 묶음 확정 | `references/grouping.md` | 묶음 후보 생성과 배정 규칙 |
+| 하위 생성과 상위 정리 | `references/hierarchy.md` | 계층 경로와 ID 승계, 상위 표기 |
+| 하위 생성 | `references/detailing.md` | 절의 승계와 질의 구분, 요구사항을 좁히는 질문 |
+| 묶음 확정과 하위 생성 | `../_shared/questioning-examples.md` | 질문과 선택지에 붙이는 예시 |
+| 하위 문서를 만들 때 | `../_shared/prd/prd-template.md` | PRD 문서 양식 |
+| 절을 쓸 때와 확정 직전 | `../_shared/prd/writing.md` | 간결성 서술 규칙과 점검 목록 |
+| 절을 쓸 때 | `../_shared/writing-style.md` | 산출물의 문체와 표기 |
+| 하위 문서마다 | `../_shared/prd/validate-prd.sh` | 문서 한 편의 필수 절과 항목 형식 검증 |
+| 확정 직전 | `scripts/validate-sub-prd.sh` | 배정과 계층의 검증 |
 
 참조 문서는 본문에 없는 실행 범위를 추가하지 않습니다.
 

@@ -129,7 +129,7 @@ description: 코드 변경이 필요한 요구사항이나 기술적 문제를 �
 
 ## 참조 파일
 
-| 실행 단계 | 참조 파일 | 읽는 목적 |
+| 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
 | 준비 | [`docs-root.md`](../_shared/docs-root.md), [`scope.md`](references/planning/scope.md), [`existing-docs.md`](references/planning/existing-docs.md), [`format.md`](references/documents/format.md) | 문서 루트 판정, 범위와 기존 문서, 계획서 형식 확인 |
 | 질문·대안 | [`questioning.md`](references/collaboration/questioning.md), [`roles.md`](references/collaboration/roles.md), [`questioning-examples.md`](../_shared/questioning-examples.md) | 사용자와 판단을 좁힘 |

@@ -171,7 +171,7 @@ description: 이미 작성된 구현 계획서가 있고 상태가 '계획 완�
 
 참조 문서는 실행 단계별로 필요한 파일만 읽습니다.
 
-| 실행 단계 | 참조 파일 | 읽는 목적 |
+| 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
 | 재개·준비 | [`docs-root.md`](../_shared/docs-root.md), [`preparation.md`](references/preparation.md) | 계획서 저장 경로 판정, 작업 상태와 전제 확인 |
 | 항목 실행 | [`execution.md`](references/execution.md) | 구현·검증·기록 |

@@ -21,18 +21,17 @@ description: 제품이나 프로젝트를 새로 시작할 때, 목적·목표·
 
 이 문서가 `create-prd`의 실행 지시사항을 정하는 기준 문서입니다. 작업을 시작할 때 이 문서를 먼저 읽고, 아래 표의 절차에 진입할 때 지정된 참조 문서만 읽습니다.
 
-| 문서 유형 | 역할 | 적용 범위 |
+| 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
-| [`session.md`](../_shared/session.md) | 후속 입력 해석 | 호출 직후 |
-| `SKILL.md` | 실행 절차와 분기 | `create-prd` 전체 |
-| [`architecture.md`](../_shared/architecture.md) | 후속 스킬 판단 | 확정 후 |
-| `../_shared/docs-root.md` | 문서 루트 판정 규칙 | 준비 단계의 보관 경로 결정 |
-| `references/questioning.md` | 카테고리별 질문 설계와 충분성 판정 | 카테고리 순회 |
-| `../_shared/questioning-examples.md` | 질문과 선택지에 붙이는 예시 | 카테고리 순회 |
-| `../_shared/prd/writing.md` | 간결성 서술 규칙과 점검 목록 | 절을 쓸 때와 확정 직전 |
-| `../_shared/writing-style.md` | 산출물의 문체와 표기 | 절을 쓸 때 |
-| `../_shared/prd/prd-template.md` | PRD 문서 양식 | 초안을 만들 때 |
-| `../_shared/prd/validate-prd.sh` | 필수 절과 항목 형식 검증 | 확정 직전 |
+| 호출 직후 | [`session.md`](../_shared/session.md) | 후속 입력 해석 |
+| 확정 후 | [`architecture.md`](../_shared/architecture.md) | 후속 스킬 판단 |
+| 준비 단계의 보관 경로 결정 | `../_shared/docs-root.md` | 문서 루트 판정 규칙 |
+| 카테고리 순회 | `references/questioning.md` | 카테고리별 질문 설계와 충분성 판정 |
+| 카테고리 순회 | `../_shared/questioning-examples.md` | 질문과 선택지에 붙이는 예시 |
+| 절을 쓸 때와 확정 직전 | `../_shared/prd/writing.md` | 간결성 서술 규칙과 점검 목록 |
+| 절을 쓸 때 | `../_shared/writing-style.md` | 산출물의 문체와 표기 |
+| 초안을 만들 때 | `../_shared/prd/prd-template.md` | PRD 문서 양식 |
+| 확정 직전 | `../_shared/prd/validate-prd.sh` | 필수 절과 항목 형식 검증 |
 
 참조 문서는 본문에 없는 실행 범위를 추가하지 않습니다.
 

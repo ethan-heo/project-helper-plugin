@@ -23,17 +23,16 @@ AI는 조사와 서술을 맡고, 무엇을 배울지 고르는 일은 사용자
 
 이 문서가 `explain-commit`의 실행 지시사항을 정하는 기준 문서입니다. 작업을 시작할 때 이 문서를 먼저 읽고, 아래 표의 절차에 진입할 때 지정된 참조 문서만 읽습니다.
 
-| 문서 유형 | 역할 | 적용 범위 |
+| 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
-| [`session.md`](../_shared/session.md) | 후속 입력 해석 | 호출 직후 |
-| `SKILL.md` | 실행 절차와 분기 | `explain-commit` 전체 |
-| `references/collecting.md` | 커밋 지정 형식과 중복·오류 판정 | 대상 수집과 목록 확인 |
-| `references/document.md` | 문서의 절 구성과 설명 깊이 | 문서 생성 |
-| `references/writing.md` | 서술 근거와 보관 경로·파일명 | 목록 확인·조사·문서 생성 |
-| `../_shared/writing-style.md` | 산출물의 문체와 표기 | 문서 생성 |
-| `../_shared/docs-root.md` | 문서 루트 판정 규칙 | 보관 경로 결정 |
-| `assets/commit-doc-template.md` | 학습 문서 양식 | 문서를 만들 때 |
-| `scripts/validate-commit-doc.sh` | 필수 절과 파일명 검증 | 결과 보고 직전 |
+| 호출 직후 | [`session.md`](../_shared/session.md) | 후속 입력 해석 |
+| 대상 수집과 목록 확인 | `references/collecting.md` | 커밋 지정 형식과 중복·오류 판정 |
+| 문서 생성 | `references/document.md` | 문서의 절 구성과 설명 깊이 |
+| 목록 확인·조사·문서 생성 | `references/writing.md` | 서술 근거와 보관 경로·파일명 |
+| 문서 생성 | `../_shared/writing-style.md` | 산출물의 문체와 표기 |
+| 보관 경로 결정 | `../_shared/docs-root.md` | 문서 루트 판정 규칙 |
+| 문서를 만들 때 | `assets/commit-doc-template.md` | 학습 문서 양식 |
+| 결과 보고 직전 | `scripts/validate-commit-doc.sh` | 필수 절과 파일명 검증 |
 
 참조 문서는 본문에 없는 실행 범위를 추가하지 않습니다.
 
