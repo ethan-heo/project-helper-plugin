@@ -23,13 +23,12 @@ description: 완료된 예제에서 배운 내용을 기록하고, 정해진 시
 
 ## 참조 문서 규칙
 
-| 문서 | 역할 | 읽는 시점 |
+| 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
-| `SKILL.md` | 대상 선택과 복습 실행 순서 | `manager` 전체 |
-| `../../references/learning-model.md` | 목표와 세 단계 진단 기준 | 질문 작성과 진단 때 |
-| `../../references/record-contract.md` | 상태·복습 필드·기존 기록 변환 | 기록을 읽거나 쓰기 전에 |
-| `../../references/writing-style.md` | 질문·진단·제안 문체 | 사용자에게 응답할 때 |
-| `references/review.md` | 복습 일정·병합·진단·제안 | 대상과 일정 판정 때 |
+| 질문 작성과 진단 때 | `../../references/learning-model.md` | 목표와 세 단계 진단 기준 |
+| 기록을 읽거나 쓰기 전에 | `../../references/record-contract.md` | 상태·복습 필드·기존 기록 변환 |
+| 사용자에게 응답할 때 | `../../references/writing-style.md` | 질문·진단·제안 문체 |
+| 대상과 일정 판정 때 | `references/review.md` | 복습 일정·병합·진단·제안 |
 
 ## 읽는 것과 쓰는 것
 

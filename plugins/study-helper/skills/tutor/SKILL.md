@@ -17,14 +17,13 @@ description: 예제를 구현하다 막혀 물으면 정답 대신 한 단계씩
 
 ## 참조 문서 규칙
 
-| 문서 | 역할 | 읽는 시점 |
+| 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
-| `SKILL.md` | 질문 처리 순서와 분기 | `tutor` 전체 |
-| `../../references/learning-model.md` | 활동·수준·목표·진단 용어 | 예제 정보와 질문 목표를 읽을 때 |
-| `../../references/record-contract.md` | ID·상태·질문 이력·기존 기록 변환 | 기록을 찾거나 쓰기 전에 |
-| `../../references/writing-style.md` | 힌트와 확인 질문의 문체 | 사용자에게 답할 때 |
-| `references/answering.md` | 주제 판정·시작 단계·단계 변경 | 질문에 답하기 전에 |
-| `references/completion.md` | 상태 전이·해결 근거·완료 판정 | 첫 질문과 해결·완료 요청에서 |
+| 예제 정보와 질문 목표를 읽을 때 | `../../references/learning-model.md` | 활동·수준·목표·진단 용어 |
+| 기록을 찾거나 쓰기 전에 | `../../references/record-contract.md` | ID·상태·질문 이력·기존 기록 변환 |
+| 사용자에게 답할 때 | `../../references/writing-style.md` | 힌트와 확인 질문의 문체 |
+| 질문에 답하기 전에 | `references/answering.md` | 주제 판정·시작 단계·단계 변경 |
+| 첫 질문과 해결·완료 요청에서 | `references/completion.md` | 상태 전이·해결 근거·완료 판정 |
 
 ## 읽는 것과 쓰는 것
 

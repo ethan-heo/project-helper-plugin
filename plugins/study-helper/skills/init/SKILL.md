@@ -33,18 +33,17 @@ description: 배우고 싶은 기술이나 관련 자료를 받아, 학습 활�
 
 이 문서가 `init`의 실행 지시사항을 정하는 기준 문서입니다.
 
-| 문서 | 역할 | 읽는 시점 |
+| 읽는 시점 | 참조 파일 | 담는 내용 |
 | --- | --- | --- |
-| `SKILL.md` | 실행 절차와 판정 기준 | `init` 전체 |
-| `../../references/learning-model.md` | 활동·수준·학습 목표·진단 기준 | 질문을 만들고 예제 범위를 정할 때 |
-| `../../references/record-contract.md` | ID·기록 형식·상태·기존 기록 변환 | 기록을 찾거나 만들기 전에 |
-| `../../references/writing-style.md` | 질문·선택지·학습 문서의 문체 | 사용자에게 질문하거나 문서를 쓸 때 |
-| `references/input-safety.md` | 로컬·외부 자료의 읽기 경계 | 입력 자료를 열기 전에 |
-| `references/environment.md` | 언어·런타임 후보와 질문 여부 | 활동과 수준을 확정한 뒤 |
-| `assets/readme-template.md` | 예제 폴더 `README.md` 양식 | 예제를 기록할 때 |
-| `assets/task-template.md` | `TASK.md` 양식 | 예제를 기록할 때 |
-| `assets/plan-template.md` | `PLAN.md` 양식 | 예제를 기록할 때 |
-| `assets/record-template.md` | 기록 파일 양식 | 예제를 기록할 때 |
+| 질문을 만들고 예제 범위를 정할 때 | `../../references/learning-model.md` | 활동·수준·학습 목표·진단 기준 |
+| 기록을 찾거나 만들기 전에 | `../../references/record-contract.md` | ID·기록 형식·상태·기존 기록 변환 |
+| 사용자에게 질문하거나 문서를 쓸 때 | `../../references/writing-style.md` | 질문·선택지·학습 문서의 문체 |
+| 입력 자료를 열기 전에 | `references/input-safety.md` | 로컬·외부 자료의 읽기 경계 |
+| 활동과 수준을 확정한 뒤 | `references/environment.md` | 언어·런타임 후보와 질문 여부 |
+| 예제를 기록할 때 | `assets/readme-template.md` | 예제 폴더 `README.md` 양식 |
+| 예제를 기록할 때 | `assets/task-template.md` | `TASK.md` 양식 |
+| 예제를 기록할 때 | `assets/plan-template.md` | `PLAN.md` 양식 |
+| 예제를 기록할 때 | `assets/record-template.md` | 기록 파일 양식 |
 
 ## 실행 절차
 
@@ -60,7 +59,7 @@ description: 배우고 싶은 기술이나 관련 자료를 받아, 학습 활�
 
 | 형식 | 판정 기준 | 읽는 방법 |
 | --- | --- | --- |
-| 로컬 경로 | 사용자가 명시했고 존재하는 파일이나 폴더 | 안전 경계 안의 파일만 읽습니다 |
+| 로컬 경로 | 사용자가 명시했고 실제로 존재하는 파일이나 폴더입니다 | 안전 경계 안의 파일만 읽습니다 |
 | 외부 링크 | `http`나 `https`로 시작합니다 | 문서를 받아 본문을 읽습니다 |
 | 코드 조각 | 여러 줄이고 들여쓰기나 문법 기호를 담습니다 | 그대로 판정 재료로 씁니다 |
 | 붙여넣은 글 | 위 셋에 해당하지 않는 여러 줄 텍스트입니다 | 그대로 판정 재료로 씁니다 |
